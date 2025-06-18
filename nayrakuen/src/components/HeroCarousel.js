@@ -1,42 +1,41 @@
+import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import bgImage from '../assets/bg.png';
 
 function HeroCarousel() {
+  const imageStyle = {
+    maxHeight: "550px",
+    objectFit: "cover",
+    width: "100%"
+  };
+
   return (
-    <Carousel>
+    <Carousel controls={false}>
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://via.placeholder.com/1200x400?text=Slide+1"
+          src={bgImage}
           alt="Slide 1"
+          style={imageStyle}
         />
-        <Carousel.Caption>
-          <h3>Selamat Datang di Nayrakuen</h3>
-          <p>Surga untuk para fans Nayla Suji JKT48.</p>
-        </Carousel.Caption>
       </Carousel.Item>
 
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://via.placeholder.com/1200x400?text=Slide+2"
+          src={bgImage}
           alt="Slide 2"
+          style={imageStyle}
         />
-        <Carousel.Caption>
-          <h3>Event dan Galeri</h3>
-          <p>Jangan lewatkan update terbaru!</p>
-        </Carousel.Caption>
       </Carousel.Item>
 
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://via.placeholder.com/1200x400?text=Slide+3"
+          src={bgImage}
           alt="Slide 3"
+          style={imageStyle}
         />
-        <Carousel.Caption>
-          <h3>Dukung Nayla Selalu</h3>
-          <p>Kita adalah keluarga Nayrakuen!</p>
-        </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
   );
