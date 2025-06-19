@@ -3,15 +3,12 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import NavbarComponent from './components/NavbarComponents';
-import HeroClouds from './components/HeroClouds';
-import EventCard from './components/EventCard';
-import NaylaProfile from './components/NaylaProfile';
-import TheaterSchedule from './components/TheaterSchedule';
-import Footer from './components/Footer';
-import NayArt from './components/NayArt';
 import LoadingScreen from './components/LoadingScreen';
+import Home from './components/Home';
+import Schedule from './components/Schedule';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,15 +22,13 @@ function App() {
       {isLoading ? (
         <LoadingScreen onFinish={() => setIsLoading(false)} />
       ) : (
-        <div className="App">
+        <Router>
           <NavbarComponent />
-          <HeroClouds />
-          <NaylaProfile />
-          <EventCard />
-          <TheaterSchedule />
-          <NayArt />
-          <Footer />
-        </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/schedule" element={<Schedule />} />
+          </Routes>
+        </Router>
       )}
     </>
   );

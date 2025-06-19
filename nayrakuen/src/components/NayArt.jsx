@@ -1,39 +1,52 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
 import "./NayArt.css";
-import sample1 from "../assets/NaylArt/Art1.jpeg";
-import sample2 from "../assets/NaylArt/Art2.jpeg";
-import sample3 from "../assets/NaylArt/Art3.jpeg";
-import sample4 from "../assets/NaylArt/Art4.jpeg";
-import sample5 from "../assets/NaylArt/Art5.jpeg";
-import sample6 from "../assets/NaylArt/Art6.jpeg";
-import sample7 from "../assets/NaylArt/Art7.jpeg";
-import sample8 from "../assets/NaylArt/Art8.jpeg";
-import sample9 from "../assets/NaylArt/Art9.jpeg";
-import sample10 from "../assets/NaylArt/Art11.jpeg";
 
-const images = [
-  sample1,
-  sample2,
-  sample3,
-  sample4,
-  sample5,
-  sample6,
-  sample7,
-  sample8,
-  sample9,
-  sample10,
-];
+const API_KEY = "AIzaSyAqDY86j9WjLohe6X0YyYe1zPJjCrmBfpg";
+const FOLDER_ID = "1OviHG3paiJSGQEochiVp53UOB1pYLbUg";
 
 function NayArt() {
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
-  }, []);
 
-    useEffect(() => {
-    AOS.init({ duration: 800, once: true });
+    const fetchImages = async () => {
+      try {
+        const res = await fetch(
+          `https://www.googleapis.com/drive/v3/files?q='${FOLDER_ID}'+in+parents&key=${API_KEY}&fields=files(id,name,mimeType)&includeItemsFromAllDrives=true&supportsAllDrives=true`
+        );
+
+        const data = await res.json();
+        console.log("📦 RESPON API:", data);
+
+        if (!data.files || !Array.isArray(data.files)) {
+          console.warn("⚠️ Struktur data tidak sesuai.");
+          setImages([]);
+          return;
+        }
+
+        const imageFiles = data.files.filter((file) =>
+          file.mimeType && file.mimeType.startsWith("image/")
+        );
+
+        const imageUrls = imageFiles.map((file) => ({
+          id: file.id,
+          name: file.name,
+          url: `https://drive.google.com/uc?export=view&id=${file.id}`,
+        }));
+
+        setImages(imageUrls);
+      } catch (error) {
+        console.error("❌ Gagal mengambil gambar dari Google Drive:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchImages();
   }, []);
 
   return (
@@ -46,17 +59,29 @@ function NayArt() {
           </p>
         </div>
 
-        <div className="masonry">
-          {images.map((img, index) => (
-            <img
-              key={index}
-              src={img}
-              alt={`Art ${index + 1}`}
-              className="masonry-img"
-              data-aos="fade-up"
-            />
-          ))}
-        </div>
+        {loading ? (
+          <p className="text-center">Sedang memuat gambar...</p>
+        ) : images.length === 0 ? (
+          <p className="text-center text-muted">
+            Tidak ada gambar untuk ditampilkan.
+          </p>
+        ) : (
+          <div className="masonry">
+            {images.map((img, index) => (
+              <img
+                key={img.id}
+                src={img.url}
+                alt={img.name || `Art ${index + 1}`}
+                className="masonry-img"
+                data-aos="fade-up"
+                onError={(e) => {
+                  console.warn(`❌ Gambar gagal dimuat: ${img.url}`);
+                  e.target.style.display = "none";
+                }}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
