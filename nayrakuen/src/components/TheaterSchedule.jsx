@@ -5,59 +5,79 @@ function NaylaSchedule() {
   const [shows, setShows] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/theater")
-      .then((response) => {
-        const filtered = response.data.filter((item) =>
-          item.members?.some((member) =>
-            member.toLowerCase().includes("nayla")
-          )
-        );
-        setShows(filtered);
-      })
-      .catch((error) => {
-        console.error("Gagal ambil data teater:", error);
-      });
+    const fetchNaylaSchedule = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/nayla/schedule");
+        setShows(response.data);
+      } catch (error) {
+        console.error("Gagal mengambil jadwal Nayla:", error);
+      }
+    };
+
+    fetchNaylaSchedule();
   }, []);
 
   return (
-    <div className="py-5">
-      <div className="container">
-        <h3 className="mb-3 text-center">Teater Schedule</h3>
+    <div className="container py-5">
+      <h2 className="text-center mb-4">Teater Schedule</h2>
 
+      {shows.length === 0 ? (
+        <p className="text-center text-muted">Tidak ada jadwal tampil minggu ini.</p>
+      ) : (
         <div className="table-responsive">
-          <table className="table table-bordered table-sm align-middle">
-            <thead>
+          <table className="table table-striped table-bordered text-center align-middle">
+            <thead className="table-dark">
               <tr>
-                <th style={{ width: "30%" }}>Tanggal</th>
-                <th>Judul Show</th>
-                <th style={{ width: "20%" }}>Jam</th>
+                <th>No</th>
+                <th>Poster</th>
+                <th>Judul</th>
+                <th>Tanggal</th>
+                <th>Jam</th>
+                <th>Tiket</th>
               </tr>
             </thead>
             <tbody>
-              {shows.length > 0 ? (
-                shows.map((item, index) => (
-                  <tr key={index}>
-                    <td>{new Date(item.date).toLocaleDateString("id-ID")}</td>
-                    <td>{item.title}</td>
-                    <td>
-                      {new Date(item.date).toLocaleTimeString("id-ID", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="3" className="text-center">
-                    Tidak ada show minggu ini
+              {shows.map((item, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>
+                    {item.poster ? (
+                      <img
+                        src={item.poster}
+                        alt={item.title}
+                        style={{ width: "80px", height: "auto", borderRadius: "4px" }}
+                      />
+                    ) : (
+                      "-"
+                    )}
+                  </td>
+                  <td>{item.title}</td>
+                  <td>{new Date(item.date).toLocaleDateString("id-ID", {
+                    weekday: "long", year: "numeric", month: "long", day: "numeric"
+                  })}</td>
+                  <td>{new Date(item.date).toLocaleTimeString("id-ID", {
+                    hour: "2-digit", minute: "2-digit"
+                  })}</td>
+                  <td>
+                    {item.ticket_url ? (
+                      <a
+                        href={item.ticket_url}
+                        className="btn btn-sm btn-outline-primary"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Beli Tiket
+                      </a>
+                    ) : (
+                      "-"
+                    )}
                   </td>
                 </tr>
-              )}
+              ))}
             </tbody>
           </table>
         </div>
-      </div>
+      )}
     </div>
   );
 }

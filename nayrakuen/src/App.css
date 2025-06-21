@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .navbar-maroon {
   background-color: maroon !important;
 }

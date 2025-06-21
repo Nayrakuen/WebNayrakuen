@@ -36,6 +36,14 @@
   transform: scale(1.03);
 }
 
+.see-more-text {
+  text-align: right;
+  margin-top: 20px;
+  font-weight: 600;
+  color: grey;
+  font-size: 16px;
+}
+
 @media (max-width: 1200px) {
   .masonry {
     column-count: 3;

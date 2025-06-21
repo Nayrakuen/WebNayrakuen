@@ -1,5 +1,5 @@
 .profile-section {
-  background-color: none;
+  background-color: #fff;
 }
 
 .content-left {
@@ -33,13 +33,15 @@
 }
 
 .profile-img {
-  max-width: 80%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   object-fit: cover;
-  margin: 0 auto;
-  display: block;
+  transition: transform 0.3s ease;
+}
+
+.profile-img:hover {
+  transform: scale(1.02);
 }
 
 .social-icons {
@@ -82,6 +84,8 @@
   }
 
   .profile-img {
-    max-width: 60%;
+    max-width: 70%;
+    margin: 0 auto;
+    display: block;
   }
 }

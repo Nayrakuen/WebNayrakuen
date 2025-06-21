@@ -1,6 +1,6 @@
 import React from "react";
 import "./NaylaProfile.css";
-import naylaImage from "../assets/nayla-suji.jpg";
+// import naylaImage from "../assets/nayla-suji.jpeg";
 import instagramIcon from "../assets/icons/Instagram.png";
 import twitterIcon from "../assets/icons/Twitter.png";
 import tiktokIcon from "../assets/icons/Tiktok.png";
@@ -34,23 +34,23 @@ function NaylaProfile() {
             </p>
 
             <div className="social-icons mt-3 d-flex gap-3 flex-wrap">
-              <a href="https://www.idn.app/naylasuji" target="_blank" rel="noreferrer">
+              <a href="https://www.idn.app/jkt48_nayla" target="_blank" rel="noreferrer">
                 <img src={idnIcon} alt="IDN Live Nayla Suji" />
               </a>
-              <a href="https://x.com/naylasuji_JKT48" target="_blank" rel="noreferrer">
+              <a href="https://x.com/SNayla_JKT48" target="_blank" rel="noreferrer">
                 <img src={twitterIcon} alt="Twitter Nayla Suji" />
               </a>
-              <a href="https://www.instagram.com/naylasuji_JKT48" target="_blank" rel="noreferrer">
+              <a href="https://www.instagram.com/jkt48.nayla.s" target="_blank" rel="noreferrer">
                 <img src={instagramIcon} alt="Instagram Nayla Suji" />
               </a>
-              <a href="https://www.tiktok.com/@naylasuji_JKT48" target="_blank" rel="noreferrer">
+              <a href="https://www.tiktok.com/@jkt48.nayla" target="_blank" rel="noreferrer">
                 <img src={tiktokIcon} alt="TikTok Nayla Suji" />
               </a>
             </div>
           </div>
 
           {/* Gambar */}
-          <div
+          {/* <div
             className="col-md-5 text-center mb-4 mb-md-0"
             data-aos="fade-left"
             data-aos-duration="1000"
@@ -60,7 +60,7 @@ function NaylaProfile() {
               alt="Nayla Suji JKT48"
               className="img-fluid profile-img"
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

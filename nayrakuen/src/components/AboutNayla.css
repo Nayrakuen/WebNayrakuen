@@ -1,0 +1,126 @@
+.about-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 1rem 2rem;
+  background-color: #f9f9f9;
+}
+
+.about-container {
+  max-width: 1140px;
+  width: 100%;
+  padding: 3rem 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.about-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  font-weight: normal; /* <- tidak tebal */
+  color: #000;
+}
+
+.profile-description {
+  text-align: left;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.video-wrapper {
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-video {
+  width: 80%;
+  max-width: 720px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.setlist-section {
+  margin-top: 3rem;
+}
+
+.subtitle-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.setlist-bar {
+  width: 5px;
+  height: 30px;
+  background-color: maroon;
+}
+
+.setlist-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: black;
+  margin: 0;
+}
+
+.setlist-item {
+  margin-bottom: 1rem;
+}
+
+.setlist-name {
+  display: inline-block;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+.unit-song {
+  margin: 0;
+  padding-left: 12px;
+  font-size: 14px;
+  color: #222;
+}
+
+.blue {
+  background-color: #007bff;
+  color: white;
+}
+
+.orange {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+.yellow {
+  background-color: #f9e506;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    padding: 2rem 1rem;
+  }
+
+  .about-title {
+    font-size: 1.5rem;
+  }
+
+  .setlist-title {
+    font-size: 1rem;
+  }
+
+  .profile-description {
+    text-align: left;
+  }
+
+  .subtitle-wrapper {
+    justify-content: center;
+  }
+}
