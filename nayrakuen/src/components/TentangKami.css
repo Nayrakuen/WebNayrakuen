@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap');
+
+.tentang-wrapper {
+  padding: 6rem 1rem 4rem;
+  background: linear-gradient(to bottom, #f9f9f9, #fff);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.tentang-heading {
+  margin-bottom: 2rem;
+}
+
+.tentang-title {
+  font-family: 'Marcellus SC', serif;
+  font-size: 2.3rem;
+  font-weight: normal;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.tentang-title .latin {
+  display: inline;
+}
+
+.tentang-title .japanese {
+  font-size: 2.2rem;
+  font-family: "Noto Serif JP", serif;
+  font-weight: 590;
+  display: inline;
+}
+
+.tentang-logo-paragraph {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: 2rem auto;
+  text-align: left;
+}
+
+.logo-square {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.tentang-text {
+  flex: 1;
+  min-width: 260px;
+}
+
+.tentang-text p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.tentang-photo-frame {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 1rem;
+  margin: 3rem auto 2rem;
+  max-width: 720px;
+}
+
+.tentang-photo-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: none;
+}
+
+.image-caption {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+}

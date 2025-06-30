@@ -7,14 +7,14 @@ import NayArt from './NayArt';
 import FanMessages from './FanMessages';
 import Footer from './Footer';
 
-const Home = () => {
+const Home = ({ t, language }) => {
   return (
     <>
       <HeroClouds />
       <NaylaProfile />
-      <EventCard />
+      <EventCard t={t} language={language} />
       <TheaterSchedule />
-      <NayArt />
+      <NayArt t={t} />
       <FanMessages />
       <Footer />
     </>

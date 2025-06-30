@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
 import "./NayArt.css";
+
 import sample1 from "../assets/NaylArt/Art1.jpeg";
 import sample2 from "../assets/NaylArt/Art2.jpeg";
 import sample3 from "../assets/NaylArt/Art3.jpeg";
@@ -27,7 +27,9 @@ const images = [
   sample10,
 ];
 
-function NayArt() {
+function NayArt({ t }) {
+  const [selectedImage, setSelectedImage] = useState(null);
+
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
   }, []);
@@ -37,9 +39,7 @@ function NayArt() {
       <div className="nayart-container">
         <div className="section-header mb-4 text-center">
           <h2 className="nayart-title">#NaylArt Gallery</h2>
-          <p className="nayart-subtitle">
-            Kumpulan karya kreatif dari para penggemar Nayla Suji.
-          </p>
+          <p className="nayart-subtitle">{t("nayart", "subtitle")}</p>
         </div>
 
         <div className="masonry">
@@ -50,12 +50,21 @@ function NayArt() {
               alt={`Art ${index + 1}`}
               className="masonry-img"
               data-aos="fade-up"
+              onClick={() => setSelectedImage(img)}
             />
           ))}
         </div>
 
-        <div className="see-more-text">Lihat lainnya</div>
+        <div className="see-more-text">{t("nayart", "seeMore")}</div>
       </div>
+
+      {selectedImage && (
+        <div className="modal-overlay" onClick={() => setSelectedImage(null)}>
+          <div className="modal-content">
+            <img src={selectedImage} alt="Preview" />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

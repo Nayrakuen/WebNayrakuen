@@ -1,10 +1,11 @@
 .nayart-section {
-  background-color: none;
+  background-color: transparent;
 }
 
 .nayart-container {
   max-width: 1200px;
   margin: auto;
+  padding: 0 1rem;
 }
 
 .nayart-title {
@@ -21,6 +22,8 @@
 .masonry {
   column-count: 4;
   column-gap: 1rem;
+  position: relative;
+  overflow: visible;
 }
 
 .masonry-img {
@@ -29,11 +32,14 @@
   border-radius: 6px;
   display: block;
   break-inside: avoid;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
 }
 
 .masonry-img:hover {
-  transform: scale(1.03);
+  transform: scale(1.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  z-index: 2;
 }
 
 .see-more-text {
@@ -42,6 +48,50 @@
   font-weight: 600;
   color: grey;
   font-size: 16px;
+  padding-right: 1rem;
+  cursor: pointer;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  cursor: zoom-out;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -59,5 +109,9 @@
 @media (max-width: 576px) {
   .masonry {
     column-count: 1;
+  }
+
+  .see-more-text {
+    padding-right: 0.75rem;
   }
 }

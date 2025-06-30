@@ -1,15 +1,7 @@
 import React from "react";
 import "./FanMessages.css";
-import bgImage from "../assets/bg.png"; // ganti sesuai path gambarmu
-
-const fanMessages = [
-  { from: "Sopo", message: "Kamu luar biasa Nayla, jangan pernah ragu!" },
-  { from: "Alya", message: "Semangat terus Nayla, kami bangga padamu!" },
-  { from: "Raka", message: "Tetap rendah hati dan terus bersinar!" },
-  { from: "Lina", message: "Kami selalu mendukung dari belakang panggung!" },
-  { from: "Dito", message: "Nayla, kamu inspirasi kami!" },
-  { from: "Fajar", message: "Tetap semangat, kamu hebat Nayla!" },
-];
+import bgImage from "../assets/bg.png";
+import fanMessages from "../fanMessages.json";
 
 const FanMessages = () => {
   return (

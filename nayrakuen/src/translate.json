@@ -1,0 +1,56 @@
+{
+  "id": {
+    "navbar": {
+      "event": "Event",
+      "galeri": "Gallery",
+      "schedule": "Schedule",
+      "aboutNayla": "About Nayla",
+      "tentangKami": "Tentang Kami"
+    },
+    "events": [
+      {
+        "image": "Poster.jpeg",
+        "title": "Happiness On Sweet Island"
+      },
+      {
+        "image": "Poster1.jpeg",
+        "title": "Nayla Journey"
+      },
+      {
+        "image": "Poster2.jpeg",
+        "title": "Happiness Slice On Pizzaland"
+      }
+    ],
+    "nayart": {
+      "subtitle": "Kumpulan karya kreatif dari para penggemar Nayla Suji.",
+      "seeMore": "Lihat lainnya"
+    }
+  },
+  "jp": {
+    "navbar": {
+      "event": "イベント",
+      "galeri": "ギャラリー",
+      "schedule": "スケジュール",
+      "aboutNayla": "ナイラのプロフィール",
+      "tentangKami": "私たちについて"
+    },
+    "events": [
+      {
+        "image": "Poster.jpeg",
+        "title": "スイートアイランドの幸せ"
+      },
+      {
+        "image": "Poster1.jpeg",
+        "title": "ナイラの旅"
+      },
+      {
+        "image": "Poster2.jpeg",
+        "title": "ピザランドの幸せな一切れ"
+      }
+    ],
+    "nayart": {
+      "subtitle": "ナイラ・スジファンによるクリエイティブ作品集。",
+      "seeMore": "もっと見る"
+    }
+  }
+}

@@ -49,7 +49,7 @@ function AboutNayla() {
           <div className="setlist-item" data-aos="fade-up" data-aos-delay="600">
             <span className="setlist-name orange">Aitakatta</span>
             <p className="unit-song">
-              Unit Song : <strong>Nageki No Figure</strong>
+              Unit Song : <strong>Nageki No Figure, Glass no I Love You, Senaka Kara Dakishimete</strong>
             </p>
           </div>
           <hr />
