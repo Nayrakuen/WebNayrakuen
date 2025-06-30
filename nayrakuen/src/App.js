@@ -24,7 +24,28 @@ function AppWrapper() {
     AOS.init({ duration: 800, once: false, mirror: true });
   }, []);
 
+  useEffect(() => {
+    document.title = getPageTitle();
+  }, [location.pathname]);
+
   const t = (section, key) => translate[language][section][key];
+
+  const getPageTitle = () => {
+    switch (location.pathname) {
+      case '/':
+        return 'Nayrakuen';
+      case '/schedule':
+        return 'Nayrakuen - Schedule';
+      case '/about-nayla':
+        return 'Nayrakuen - About Nayla';
+      case '/gallery':
+        return 'Nayrakuen - Gallery';
+      case '/tentang-kami':
+        return 'Nayrakuen - Tentang Kami';
+      default:
+        return 'Nayrakuen';
+    }
+  };
 
   if (isLoading && location.pathname === '/') {
     return <LoadingScreen onFinish={() => setIsLoading(false)} />;

@@ -11,7 +11,6 @@ function NaylaProfile() {
     <section className="profile-section py-5">
       <div className="container">
         <div className="row align-items-center flex-column-reverse flex-md-row">
-          {/* Konten Teks */}
           <div
             className="col-md-7 content-left"
             data-aos="fade-right"

@@ -33,7 +33,7 @@ function TentangKami() {
       <div className="container text-center">
         <div className="tentang-heading" data-aos="fade-up">
           <h2 className="tentang-title">
-            <span className="latin">Na Rakuen</span> | <span className="japanese">奈楽園</span>
+            <span className="latin">Nayrakuen</span> | <span className="japanese">奈楽園</span>
           </h2>
         </div>
 
