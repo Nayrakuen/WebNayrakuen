@@ -27,18 +27,23 @@
 }
 
 .subtitle-wrapper {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.subtitle-line {
+  width: 6px;
+  height: 28px;
+  background-color: maroon;
 }
 
 .schedule-subtitle {
   font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 1rem;
   color: black;
-  border-left: 6px solid maroon;
-  padding-left: 8px;
+  margin: 0;
 }
 
 .subtitle-icon {
@@ -159,6 +164,10 @@
 
   .schedule-subtitle {
     font-size: 1rem;
+  }
+
+  .subtitle-line {
+    height: 22px;
   }
 
   .schedule-table {

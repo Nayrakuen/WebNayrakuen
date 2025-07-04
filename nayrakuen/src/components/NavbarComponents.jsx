@@ -10,6 +10,7 @@ import './NavbarComponents.css';
 function ContainerInsideExample({ language, setLanguage, t }) {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 992);
   const [expanded, setExpanded] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -24,11 +25,13 @@ function ContainerInsideExample({ language, setLanguage, t }) {
   useEffect(() => {
     window.scrollTo(0, 0);
     setExpanded(false);
+    setDropdownOpen(false);
   }, [location]);
 
   return (
     <Navbar expand="lg" fixed="top" className="navbar-maroon" expanded={expanded}>
       <Container fluid className="px-4">
+        
         <Navbar.Brand as={Link} to="/" className="text-white fw-bold">
           {t('navbar', 'brand')} Nayrakuen | ナイラの楽園
         </Navbar.Brand>
@@ -44,7 +47,14 @@ function ContainerInsideExample({ language, setLanguage, t }) {
             
             {isDesktop ? (
               <Nav>
-                <NavDropdown id="nav-dropdown" className="menu-white">
+                <NavDropdown
+                  id="nav-dropdown"
+                  className="menu-white"
+                  show={dropdownOpen}
+                  onMouseEnter={() => setDropdownOpen(true)}
+                  onMouseLeave={() => setDropdownOpen(false)}
+                  title=""
+                >
                   <NavDropdown.Item as={Link} to="/event">{t('navbar', 'event')}</NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/gallery">{t('navbar', 'galeri')}</NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/schedule">{t('navbar', 'schedule')}</NavDropdown.Item>
@@ -55,11 +65,21 @@ function ContainerInsideExample({ language, setLanguage, t }) {
               </Nav>
             ) : (
               <Nav className="flex-column">
-                <Nav.Link as={Link} to="/event" onClick={() => setExpanded(false)}>{t('navbar', 'event')}</Nav.Link>
-                <Nav.Link as={Link} to="/gallery" onClick={() => setExpanded(false)}>{t('navbar', 'galeri')}</Nav.Link>
-                <Nav.Link as={Link} to="/schedule" onClick={() => setExpanded(false)}>{t('navbar', 'schedule')}</Nav.Link>
-                <Nav.Link as={Link} to="/about-nayla" onClick={() => setExpanded(false)}>{t('navbar', 'aboutNayla')}</Nav.Link>
-                <Nav.Link as={Link} to="/tentang-kami" onClick={() => setExpanded(false)}>{t('navbar', 'tentangKami')}</Nav.Link>
+                <Nav.Link as={Link} to="/event" onClick={() => setExpanded(false)}>
+                  {t('navbar', 'event')}
+                </Nav.Link>
+                <Nav.Link as={Link} to="/gallery" onClick={() => setExpanded(false)}>
+                  {t('navbar', 'galeri')}
+                </Nav.Link>
+                <Nav.Link as={Link} to="/schedule" onClick={() => setExpanded(false)}>
+                  {t('navbar', 'schedule')}
+                </Nav.Link>
+                <Nav.Link as={Link} to="/about-nayla" onClick={() => setExpanded(false)}>
+                  {t('navbar', 'aboutNayla')}
+                </Nav.Link>
+                <Nav.Link as={Link} to="/tentang-kami" onClick={() => setExpanded(false)}>
+                  {t('navbar', 'tentangKami')}
+                </Nav.Link>
               </Nav>
             )}
 

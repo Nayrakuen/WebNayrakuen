@@ -4,7 +4,7 @@ const jkt48Api = require("@jkt48/core");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const apiKey = process.env.JKT48_API_KEY || "J-D55B";
+const apiKey = process.env.JKT48_API_KEY || "NK-SUJ1";
 
 app.use(cors());
 app.use(express.json());

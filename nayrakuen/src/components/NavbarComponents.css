@@ -15,6 +15,20 @@
 
 .navbar-maroon .dropdown-menu {
   background-color: whitesmoke;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: block;
+  visibility: hidden;
+  pointer-events: none;
+  min-width: 10rem;
+}
+
+.navbar-maroon .dropdown-menu.show {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .navbar-maroon .dropdown-item {
@@ -26,15 +40,30 @@
   background-color: white;
 }
 
-.dropdown-toggle::after {
+.navbar-maroon .dropdown-toggle {
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-maroon .dropdown-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-maroon .dropdown-toggle::after {
   display: inline-block;
-  margin-left: 0.3em;
+  margin-left: 0;
   vertical-align: middle;
   content: "";
-  border-top: 0.3em solid;
-  border-right: 0.3em solid transparent;
+  border-top: 5px solid white;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
   border-bottom: 0;
-  border-left: 0.3em solid transparent;
 }
 
 .custom-toggler {
@@ -46,10 +75,6 @@
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-.custom-caret {
-  display: none;
-}
-
 @media (max-width: 991px) {
   .navbar-maroon .nav-link {
     padding: 0.5rem 0;
@@ -57,6 +82,13 @@
 
   .navbar-maroon .d-flex.align-items-center {
     margin-top: 0.5rem;
+  }
+
+  .navbar-maroon .dropdown-toggle {
+    min-width: auto;
+    min-height: auto;
+    padding: 1rem;
+    background: none;
   }
 
   .navbar-maroon .dropdown-toggle::after {

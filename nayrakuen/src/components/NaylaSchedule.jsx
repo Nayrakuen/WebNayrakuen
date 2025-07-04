@@ -19,14 +19,14 @@ function NaylaSchedule() {
 
         const showroomRes = await axios.get("http://localhost:3001/api/nayla/showroom");
         setShowroom(showroomRes.data);
-      } catch (err) {
+      } catch {
         setShowroom(null);
       }
 
       try {
         const idnRes = await axios.get("http://localhost:3001/api/nayla/idnlive");
         setIdnLive(idnRes.data);
-      } catch (err) {
+      } catch {
         setIdnLive(null);
       }
     };
@@ -37,11 +37,15 @@ function NaylaSchedule() {
   return (
     <div className="schedule-wrapper">
       <div className="schedule-container">
+        
         <h2 className="schedule-title" data-aos="fade-down">Schedule</h2>
 
-        {/* === Teater === */}
         <section className="schedule-section" data-aos="fade-up">
-          <h3 className="schedule-subtitle">Teater</h3>
+          <div className="subtitle-wrapper">
+            <div className="subtitle-line"></div>
+            <h3 className="schedule-subtitle">Teater</h3>
+          </div>
+
           <table className="schedule-table">
             <thead>
               <tr>
@@ -67,12 +71,7 @@ function NaylaSchedule() {
                     <td>{item.performers || "Nayla dan member lainnya"}</td>
                     <td>
                       {item.ticket_url ? (
-                        <a
-                          href={item.ticket_url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="ticket-link"
-                        >
+                        <a href={item.ticket_url} target="_blank" rel="noreferrer" className="ticket-link">
                           Beli Tiket
                         </a>
                       ) : (
@@ -83,23 +82,20 @@ function NaylaSchedule() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4" className="text-center">
-                    Tidak ada jadwal tampil.
-                  </td>
+                  <td colSpan="4" className="text-center">Tidak ada jadwal tampil.</td>
                 </tr>
               )}
             </tbody>
           </table>
         </section>
 
-        {/* === Video Call === */}
         <section className="schedule-section" data-aos="fade-up">
-          <h3 className="schedule-subtitle">
-            <span className="subtitle-wrapper">
-              Video Call
-              <img src="/Cam.svg" alt="Icon Cam" className="subtitle-icon" />
-            </span>
-          </h3>
+          <div className="subtitle-wrapper">
+            <div className="subtitle-line"></div>
+            <h3 className="schedule-subtitle">Video Call</h3>
+            <img src="/Cam.svg" alt="Icon Cam" className="subtitle-icon" />
+          </div>
+
           <table className="schedule-table videocall-table">
             <thead>
               <tr>
@@ -136,9 +132,12 @@ function NaylaSchedule() {
           </table>
         </section>
 
-        {/* === Live === */}
         <section className="schedule-section" data-aos="fade-up">
-          <h3 className="schedule-subtitle">Live</h3>
+          <div className="subtitle-wrapper">
+            <div className="subtitle-line"></div>
+            <h3 className="schedule-subtitle">Live</h3>
+          </div>
+
           <div className="live-box">
             {idnLive && (
               <a href={idnLive.url} target="_blank" rel="noreferrer">
@@ -155,6 +154,7 @@ function NaylaSchedule() {
             )}
           </div>
         </section>
+
       </div>
     </div>
   );
