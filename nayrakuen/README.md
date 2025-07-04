@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# 🌸 Nayrakuen - Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Nayrakuen** adalah website fanbase resmi untuk mendukung dan mengabadikan aktivitas Nayla Suji (JKT48). Website ini menyediakan informasi lengkap mengenai jadwal kegiatan, dokumentasi digital, serta wadah kreativitas dari para fans.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Fitur Utama Website
 
-### `npm start`
+### 🏠 **Main Menu (Beranda)**
+Terdiri dari 5 konten utama:
+- **Mini Profile Nayla Suji**  
+  Menampilkan profil singkat Nayla Suji untuk mengenal lebih dekat.
+  
+- **Record Event (STS & Journey)**  
+  Dokumentasi kegiatan spesial Nayla seperti STS (Special Theater Show) dan berbagai event perjalanan.
+  
+- **Jadwal Show Teater**  
+  Informasi lengkap jadwal teater Nayla Suji, termasuk tanggal, setlist, performer, dan tiket.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Digital Art dari Fans (NayArt)**  
+  Galeri karya seni digital kiriman dari para fans Nayla, mulai dari ilustrasi, grafis, hingga desain kreatif.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Pesan dari Fans**  
+  Ruang bagi fans untuk mengirimkan pesan semangat, dukungan, atau harapan untuk Nayla Suji.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📑 **Navigasi Navbar**
 
-### `npm run build`
+Website ini juga dilengkapi menu navigasi di bagian atas, berisi:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Schedule**  
+  Informasi jadwal kegiatan Nayla Suji, meliputi:
+  - Live Streaming (IDN Live, Showroom)
+  - Video Call Schedule
+  - Show Teater
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Profile Nayla**  
+  Detail profil Nayla Suji, termasuk prestasi, foto, dan biodata singkat.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Gallery (Digital Photobook)**  
+  Galeri foto eksklusif Nayla, menampilkan kumpulan photobook digital yang dapat dinikmati fans.
 
-### `npm run eject`
+- **Tentang Fanbase**  
+  Informasi mengenai Nayrakuen, tujuan komunitas, serta cara bergabung atau berkontribusi.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🛠️ **Teknologi yang Digunakan**
+- **Frontend**: React.js  
+- **Backend**: Node.js + Express  
+- **Database**: (masih belum, antara cloudinary dan GCS)  
+- **Styling**: CSS, AOS Animation, Responsive Design  
