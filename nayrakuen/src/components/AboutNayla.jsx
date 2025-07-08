@@ -16,6 +16,7 @@ function AboutNayla() {
           eget risus neque. Nulla commodo ornare est, in mollis nisl viverra
           ac.
         </p>
+
         <p className="profile-description" data-aos="fade-up" data-aos-delay="200">
           Morbi vitae magna turpis. Proin fringilla tellus leo, eget molestie
           arcu vehicula non. Sed eu mollis velit. In sed est ut metus viverra
@@ -26,10 +27,16 @@ function AboutNayla() {
         </p>
 
         <div className="video-wrapper" data-aos="zoom-in" data-aos-delay="300">
-          <video className="profile-video" controls autoPlay muted loop>
-            <source src="/Nayla-Suji.mp4" type="video/mp4" />
-            Browser tidak mendukung video tag.
-          </video>
+          <div className="youtube-embed-container">
+            <iframe
+              className="youtube-video"
+              src="https://www.youtube.com/embed/dVPVlqVPgZ0?autoplay=1&mute=1&controls=0&rel=0"
+              title="Nayla Suji Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
         </div>
 
         <div className="setlist-section" data-aos="fade-up" data-aos-delay="400">
