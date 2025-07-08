@@ -1,4 +1,4 @@
-# 🌸 Nayrakuen - Website
+# Nayrakuen - Website
 
 **Nayrakuen** adalah website fanbase resmi untuk mendukung dan mengabadikan aktivitas Nayla Suji (JKT48). Website ini menyediakan informasi lengkap mengenai jadwal kegiatan, dokumentasi digital, serta wadah kreativitas dari para fans.
 
