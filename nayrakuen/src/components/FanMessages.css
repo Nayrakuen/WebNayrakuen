@@ -18,7 +18,208 @@
 .fan-row {
   overflow: hidden;
   white-space: nowrap;
+  margin-bottom: 1.5rem;.fan-section {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 3rem 1rem;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.fan-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.fan-row {
+  overflow: hidden;
+  white-space: nowrap;
   margin-bottom: 1.5rem;
+}
+
+.fan-row-content {
+  display: inline-flex;
+  animation: scroll-left 40s linear infinite;
+}
+
+.scroll-right .fan-row-content {
+  animation: scroll-right 40s linear infinite;
+}
+
+.fan-row-content:hover {
+  animation-play-state: paused;
+}
+
+.fan-card {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.5rem;
+  margin: 0 0.75rem;
+  min-width: 250px;
+  max-width: 300px;
+  flex-shrink: 0;
+  text-align: left;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.fan-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.fan-from {
+  font-weight: bold;
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+  color: black;
+  opacity: 0.85;
+}
+
+.fan-message {
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: black;
+  overflow-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@media (max-width: 768px) {
+  .fan-card {
+    min-width: 180px;
+    padding: 0.8rem;
+  }
+
+  .fan-title {
+    font-size: 1.5rem;
+  }
+}
+
+.fan-float-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 20px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+}
+
+.fan-float-button:hover {
+  background-color: #e60000;
+}
+
+.fan-form-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.fan-form {
+  background: white;
+  color: black;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  text-align: left;
+}
+
+.fan-form h4 {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1.25rem;
+  color: #b30000;
+}
+
+.fan-form input,
+.fan-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: none;
+}
+
+.fan-form textarea {
+  min-height: 100px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.form-buttons button {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-buttons button[type="submit"] {
+  background-color: #b30000;
+  color: white;
+}
+
+.form-buttons button[type="submit"]:hover {
+  background-color: #990000;
+}
+
+.form-buttons button[type="button"] {
+  background-color: #ccc;
+  color: #333;
+}
+
+.form-buttons button[type="button"]:hover {
+  background-color: #aaa;
+}
+
 }
 
 .fan-row-content {
@@ -75,6 +276,116 @@
   white-space: normal;
   overflow: hidden;
 }
+
+/* Tombol kanan bawah */
+.fan-float-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+}
+
+.fan-float-button:hover {
+  background-color: #3367d6;
+}
+
+/* Overlay hitam transparan */
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal form */
+.form-modal {
+  background: white;
+  color: #333;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.form-modal h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #202124;
+}
+
+.form-modal label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.form-modal input,
+.form-modal textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: none;
+  background: #f8f9fa;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.modal-buttons button[type="submit"] {
+  background-color: #34a853;
+  color: white;
+}
+
+.modal-buttons button[type="submit"]:hover {
+  background-color: #2c8c46;
+}
+
+.modal-buttons button[type="button"] {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.modal-buttons button[type="button"]:hover {
+  background-color: #ccc;
+}
+
 
 @keyframes scroll-left {
   0% { transform: translateX(0); }
