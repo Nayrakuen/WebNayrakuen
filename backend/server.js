@@ -1,13 +1,27 @@
 const express = require("express");
 const cors = require("cors");
+const dotenv = require("dotenv");
 const jkt48Api = require("@jkt48/core");
 
+dotenv.config();
+
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5000;
 const apiKey = process.env.JKT48_API_KEY || "NK-SUJ1";
 
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:5173", "http://localhost:3000", "http://localhost:3001"],
+  credentials: true
+}));
 app.use(express.json());
+
+const fansMessageRoutes = require("./routes/fansMessageRoutes");
+const vcScheduleRoutes = require("./routes/vcScheduleRoutes");
+const authRoutes = require("./routes/authRoutes");
+
+app.use("/api/fans-message", fansMessageRoutes);
+app.use("/api/vc-schedule", vcScheduleRoutes);
+app.use("/api/auth", authRoutes);
 
 app.get("/api/member/nayla", async (req, res) => {
   try {
@@ -28,9 +42,7 @@ app.get("/api/member/nayla", async (req, res) => {
 app.get("/api/nayla/schedule", async (req, res) => {
   try {
     const result = await jkt48Api.theater(apiKey);
-    const theater = Array.isArray(result)
-      ? result
-      : result?.data || [];
+    const theater = Array.isArray(result) ? result : result?.data || [];
 
     const naylaSchedule = theater.filter(item =>
       item.members?.some(member =>

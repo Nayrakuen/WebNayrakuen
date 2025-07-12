@@ -1,0 +1,51 @@
+.dashboard-content {
+  margin-left: 255px;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.dashboard-content h1 {
+  color: #800000;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Merriweather Sans', sans-serif;
+}
+
+.dashboard-content p {
+  font-size: 1.1rem;
+  font-family: "Public Sans", sans-serif;
+  color: #555;
+}
+
+.dashboard-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.dashboard-card {
+  background-color: white;
+  border-left: 6px solid #800000;
+  padding: 1.5rem;
+  border-radius: 8px;
+  flex: 1 1 250px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-family: "Public Sans", sans-serif;
+  color: #333;
+}
+
+.dashboard-card p {
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #800000;
+}
