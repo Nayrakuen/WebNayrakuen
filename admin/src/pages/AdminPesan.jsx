@@ -79,6 +79,29 @@ const AdminPesan = () => {
     }
   };
 
+  const handleExportExcel = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/export/nayfriends', {
+        method: 'GET',
+      });
+
+      if (!response.ok) throw new Error('Gagal mengambil file');
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'nayfriends_messages.xlsx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('❌ Gagal export Excel:', error);
+      alert('Export gagal, coba lagi!');
+    }
+  };
+
   return (
     <div className="manage-schedule-container">
       <Sidebar />
@@ -125,6 +148,14 @@ const AdminPesan = () => {
         <hr style={{ margin: '2rem 0' }} />
 
         <h2>Pesan <strong>#NayFriends</strong></h2>
+
+        <button
+          onClick={handleExportExcel}
+          className="export-btn"
+          style={{ marginBottom: '1rem', backgroundColor: '#28a745', color: 'white', padding: '0.5rem 1rem', border: 'none', borderRadius: '4px' }}
+        >
+        Export ke Excel
+        </button>
 
         {messages.length === 0 ? (
           <p>Belum ada pesan dari fans.</p>
