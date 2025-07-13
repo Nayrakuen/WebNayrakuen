@@ -31,17 +31,15 @@ const FanMessages = () => {
     if (!formData.from.trim() || !formData.message.trim()) return;
 
     try {
-      await axios.post("http://localhost:5000/api/admin-pesan/review-vc", {
-        nama: formData.from,
-        review: formData.message,
-        bulan: "Juli"
+      await axios.post("http://localhost:5000/api/admin-pesan/fans-message", {
+        name: formData.from,
+        message: formData.message,
       });
 
       setFormData({ from: "", message: "" });
       setShowForm(false);
-      fetchReviews();
     } catch (err) {
-      console.error("❌ Gagal kirim review:", err);
+      console.error("❌ Gagal kirim pesan fans:", err);
     }
   };
 
@@ -50,13 +48,13 @@ const FanMessages = () => {
       <h3 className="fan-title">Perasaan <strong>#NayFriends</strong> setelah bertemu Nayla</h3>
 
       <button className="fan-float-button" onClick={() => setShowForm(true)}>
-        Kirim Review Video Call
+        Kirim Pesan hangat untuk Nayla
       </button>
 
       {showForm && (
         <div className="form-overlay">
           <div className="form-modal">
-            <h2>Review VC</h2>
+            <h2>Pesan untuk Nayla</h2>
             <form onSubmit={handleSubmit}>
               <label htmlFor="from">Nama Kamu</label>
               <input

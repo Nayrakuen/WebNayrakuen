@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Sidebar from '../components/Sidebar';
 import './FanMessages.css';
+import ImportReviewExcel from '../components/ImportReviewExcel';
 
 const AdminPesan = () => {
   const [reviews, setReviews] = useState([]);
@@ -84,6 +85,8 @@ const AdminPesan = () => {
       <div className="manage-schedule-content">
         <h2>Review <strong>Video Call</strong></h2>
 
+        <ImportReviewExcel onSuccess={fetchReviews} />
+
         <form className="schedule-form" onSubmit={handleReviewSubmit}>
           <label>Bulan</label>
           <input type="text" value={bulan} onChange={(e) => setBulan(e.target.value)} placeholder="Contoh: Juli 2025" required />
@@ -91,7 +94,7 @@ const AdminPesan = () => {
           <input type="text" value={nama} onChange={(e) => setNama(e.target.value)} required />
           <label>Review</label>
           <textarea value={review} onChange={(e) => setReview(e.target.value)} rows={4} required></textarea>
-          <button type="submit">Tambah Review</button>
+          <button type="submit" >Tambah Review</button>
         </form>
 
         <table className="review-table">
@@ -112,9 +115,7 @@ const AdminPesan = () => {
                 <td>{r.nama}</td>
                 <td className="message-cell">{r.review}</td>
                 <td>
-                  <button onClick={() => handleDeleteReview(r.id)} className="delete-btn">
-                    Hapus
-                  </button>
+                  <button onClick={() => handleDeleteReview(r.id)} className="delete-btn">Hapus</button>
                 </td>
               </tr>
             ))}
