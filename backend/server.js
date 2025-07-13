@@ -15,12 +15,12 @@ app.use(cors({
 }));
 app.use(express.json());
 
-const fansMessageRoutes = require("./routes/fansMessageRoutes");
+const adminPesanRoutes = require("./routes/adminPesan");
 const vcScheduleRoutes = require("./routes/vcScheduleRoutes");
 const authRoutes = require("./routes/authRoutes");
 
-app.use("/api/fans-message", fansMessageRoutes);
 app.use("/api/vc-schedule", vcScheduleRoutes);
+app.use("/api/admin-pesan", adminPesanRoutes);
 app.use("/api/auth", authRoutes);
 
 app.get("/api/member/nayla", async (req, res) => {

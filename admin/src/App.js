@@ -4,7 +4,7 @@ import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
 import ManageGallery from './pages/ManageGallery';
 import ManageSchedule from './pages/ManageSchedule';
-import FanMessages from './pages/FanMessages';
+import AdminPesan from './pages/AdminPesan';
 import PrivateRoute from './components/PrivateRoute';
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
         path="/messages"
         element={
           <PrivateRoute>
-            <FanMessages />
+            <AdminPesan />
           </PrivateRoute>
         }
       />

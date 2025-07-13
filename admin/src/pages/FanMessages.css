@@ -6,7 +6,8 @@
   font-family: 'Merriweather Sans', sans-serif;
 }
 
-.schedule-table {
+.schedule-table,
+.review-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
@@ -17,32 +18,82 @@
 }
 
 .schedule-table th,
-.schedule-table td {
+.schedule-table td,
+.review-table th,
+.review-table td {
   border: 1px solid #ddd;
   padding: 0.6rem 0.75rem;
-  text-align: left;
-  vertical-align: middle;
-  white-space: nowrap;
+  vertical-align: top;
 }
 
-.schedule-table th {
+.schedule-table th,
+.review-table th {
   background-color: #f3f3f3;
   font-weight: 600;
   text-align: center;
 }
 
-.schedule-table tr:nth-child(even) {
+.schedule-table tr:nth-child(even),
+.review-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.schedule-table tr:hover {
+.schedule-table tr:hover,
+.review-table tr:hover {
   background-color: #eaeaea;
 }
 
-.schedule-table td:nth-child(1),
-.schedule-table td:nth-child(4) {
+.review-table td:nth-child(1),
+.review-table td:nth-child(2),
+.review-table td:nth-child(3),
+.review-table td:nth-child(5) {
   text-align: center;
-  width: 60px;
+  width: 80px;
+  white-space: nowrap;
+}
+
+.review-table td.message-cell {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+.schedule-table.pesan-fans th:nth-child(1),
+.schedule-table.pesan-fans th:nth-child(2),
+.schedule-table.pesan-fans th:nth-child(4),
+.schedule-table.pesan-fans td:nth-child(1),
+.schedule-table.pesan-fans td:nth-child(2),
+.schedule-table.pesan-fans td:nth-child(4) {
+  width: 80px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.schedule-table.pesan-fans td.message-cell {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+.schedule-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin-bottom: 2rem;
+}
+
+.schedule-form label {
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.schedule-form input,
+.schedule-form textarea {
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
 .delete-btn {
@@ -59,29 +110,27 @@
   background-color: #c9302c;
 }
 
-.schedule-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 400px;
-  margin-bottom: 2rem;
-}
-
-.schedule-form label {
-  font-weight: bold;
-  margin-top: 0.5rem;
-}
-
-.schedule-form input {
-  padding: 0.5rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.5rem;
+.approve-btn {
+  background-color: #0275d8;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.85rem;
+  border: none;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  cursor: pointer;
+  margin-right: 0.4rem;
 }
 
-/* ✅ Tambahan untuk wrap pesan panjang */
-.schedule-table td.message-cell {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  max-width: 400px;
+.approve-btn:hover {
+  background-color: #025aa5;
+}
+
+.status.approved {
+  color: green;
+  font-weight: bold;
+}
+
+.status.pending {
+  color: #d9534f;
+  font-weight: bold;
 }

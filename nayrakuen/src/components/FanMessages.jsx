@@ -4,20 +4,20 @@ import "./FanMessages.css";
 import bgImage from "../assets/bg.png";
 
 const FanMessages = () => {
-  const [messages, setMessages] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [formData, setFormData] = useState({ from: "", message: "" });
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    fetchMessages();
+    fetchReviews();
   }, []);
 
-  const fetchMessages = async () => {
+  const fetchReviews = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/fans-message");
-      setMessages(res.data.reverse());
+      const res = await axios.get("http://localhost:5000/api/admin-pesan/review-vc");
+      setReviews(res.data.reverse());
     } catch (err) {
-      console.error("❌ Gagal ambil pesan:", err);
+      console.error("❌ Gagal ambil review VC:", err);
     }
   };
 
@@ -31,16 +31,17 @@ const FanMessages = () => {
     if (!formData.from.trim() || !formData.message.trim()) return;
 
     try {
-      await axios.post("http://localhost:5000/api/fans-message", {
-        name: formData.from,
-        message: formData.message
+      await axios.post("http://localhost:5000/api/admin-pesan/review-vc", {
+        nama: formData.from,
+        review: formData.message,
+        bulan: "Juli"
       });
 
       setFormData({ from: "", message: "" });
       setShowForm(false);
-      fetchMessages();
+      fetchReviews();
     } catch (err) {
-      console.error("❌ Gagal kirim pesan:", err);
+      console.error("❌ Gagal kirim review:", err);
     }
   };
 
@@ -49,13 +50,13 @@ const FanMessages = () => {
       <h3 className="fan-title">Perasaan <strong>#NayFriends</strong> setelah bertemu Nayla</h3>
 
       <button className="fan-float-button" onClick={() => setShowForm(true)}>
-        Kirim Pesan untuk Nayla
+        Kirim Review Video Call
       </button>
 
       {showForm && (
         <div className="form-overlay">
           <div className="form-modal">
-            <h2>Kirim Pesan untuk Nayla</h2>
+            <h2>Review VC</h2>
             <form onSubmit={handleSubmit}>
               <label htmlFor="from">Nama Kamu</label>
               <input
@@ -67,7 +68,7 @@ const FanMessages = () => {
                 required
               />
 
-              <label htmlFor="message">Pesan</label>
+              <label htmlFor="message">Review</label>
               <textarea
                 id="message"
                 name="message"
@@ -85,17 +86,17 @@ const FanMessages = () => {
         </div>
       )}
 
-      {[0, 1, 2].map((rowIndex) => (
+      {[0, 1].map((rowIndex) => (
         <div
           key={rowIndex}
           className={`fan-row ${rowIndex % 2 === 0 ? "scroll-left" : "scroll-right"}`}
         >
           <div className="fan-row-content">
-            {[...messages, ...messages].map((msg, i) => (
+            {reviews.map((msg, i) => (
               <div key={`${rowIndex}-${i}`} className="fan-card">
-                <p className="fan-from">From: {msg.name}</p>
+                <p className="fan-from">From: {msg.nama}</p>
                 <p className="fan-message">
-                  <strong>“</strong>{msg.message}<strong>”</strong>
+                  <strong>“</strong>{msg.review}<strong>”</strong>
                 </p>
               </div>
             ))}
