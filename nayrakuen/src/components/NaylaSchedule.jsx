@@ -151,10 +151,30 @@ function NaylaSchedule() {
 
           <div className="live-box">
             {idnLive && (
-              <a href={idnLive?.url || "#"} target="_blank" rel="noreferrer">
-                <img src="/nayla-live.jpg" alt="IDN Live" className="live-img" />
-              </a>
+              <div className="live-item">
+                <a href={idnLive.url} target="_blank" rel="noreferrer">
+                  <img
+                    src={idnLive.image_url}
+                    alt={idnLive.title}
+                    className="live-img"
+                    loading="lazy"
+                  />
+                </a>
+                <p className="live-title">
+                  <strong style={{ color: "red" }}>IDN Live:</strong>{" "}
+                  <span style={{ color: "red", fontWeight: "bold" }}>{idnLive.title}</span>
+                </p>
+                <a
+                  href={idnLive.url}
+                  className="live-viewers"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {idnLive.view_count?.toLocaleString("id-ID")} penonton
+                </a>
+              </div>
             )}
+
             {showroom && (
               <a href={showroom?.url || "#"} target="_blank" rel="noreferrer">
                 <img src="/nayla-live.jpg" alt="Showroom Live" className="live-img" />

@@ -80,13 +80,22 @@ app.get("/api/nayla/showroom", async (req, res) => {
 app.get("/api/nayla/idnlive", async (req, res) => {
   try {
     const idnLive = await jkt48Api.liveIdn(apiKey);
-    const naylaIDN = idnLive.find(live => live.member_id === "65ce68ed1dd7aa2c8c0ca780");
 
-    if (!naylaIDN) {
+    const naylaLives = idnLive.filter(item =>
+      item?.creator?.username === "jkt48_nayla"
+    );
+
+    if (!naylaLives.length) {
       return res.status(404).json({ error: "IDN Live Nayla tidak ditemukan atau tidak sedang live" });
     }
 
-    res.json(naylaIDN);
+    const sorted = naylaLives.sort((a, b) =>
+      new Date(b.live_at) - new Date(a.live_at)
+    );
+
+    const latestLive = sorted[0];
+    res.json(latestLive);
+
   } catch (error) {
     console.error("❌ Gagal ambil data IDN Live Nayla:", error.message);
     res.status(500).json({ error: "Gagal ambil data IDN Live Nayla" });
