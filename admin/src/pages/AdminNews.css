@@ -1,0 +1,109 @@
+.admin-news-container {
+  display: flex;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+/* Konten utama disesuaikan dengan posisi sidebar yang fixed 240px + padding tambahan */
+.admin-news-content {
+  margin-left: 290px;
+  padding: 2rem;
+  background-color: white;
+  min-height: 100vh;
+  font-family: 'Merriweather Sans', sans-serif;
+  width: 100%;
+}
+
+.admin-news-content h2 {
+  color: #800000;
+  margin-bottom: 1.5rem;
+}
+
+.news-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin-bottom: 2rem;
+}
+
+.news-form label {
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.news-form input,
+.news-form textarea {
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-family: 'Merriweather Sans', sans-serif;
+}
+
+.news-form button {
+  margin-top: 1rem;
+  background-color: #800000;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.news-form button:hover {
+  background-color: #a00000;
+}
+
+.news-item {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+  background-color: #fff;
+}
+
+.news-item img {
+  width: 100%;
+  max-width: 300px;
+  margin-top: 0.5rem;
+  border-radius: 6px;
+}
+
+.news-content-text {
+  white-space: pre-wrap;
+  margin-top: 0.5rem;
+}
+
+.delete-btn {
+  background-color: crimson;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.delete-btn:hover {
+  background-color: darkred;
+}
+
+@media (max-width: 768px) {
+  .admin-news-content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  .news-form {
+    max-width: 100%;
+  }
+
+  .news-item img {
+    max-width: 100%;
+  }
+}
