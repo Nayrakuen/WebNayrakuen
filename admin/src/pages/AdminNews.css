@@ -93,6 +93,17 @@
   background-color: darkred;
 }
 
+.news-warning {
+  background-color: #fff4e5;
+  border-left: 6px solid #ffa500;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  color: #333;
+  border-radius: 4px;
+  font-family: 'Merriweather Sans', sans-serif;
+}
+
 @media (max-width: 768px) {
   .admin-news-content {
     margin-left: 0;

@@ -40,7 +40,13 @@ const AdminNews = () => {
       <Sidebar />
       <div className="admin-news-content">
         <h2>Kelola Berita</h2>
+
+        <div className="news-warning">
+          <strong>Perhatian:</strong> Dilarang mengunggah konten yang mengandung unsur <strong>kekerasan</strong>, <strong>kebencian</strong>, <strong>pornografi</strong>, atau <strong>isu sensitif lainnya</strong>. Pelanggaran dapat menyebabkan pemblokiran akses dan dikenakan hukuman yang berlaku.
+        </div>
+
         <NewsForm onSuccess={fetchNews} />
+
         <div>
           {newsList.map((news) => (
             <div key={news.id} className="news-item">
