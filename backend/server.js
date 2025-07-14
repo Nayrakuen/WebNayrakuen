@@ -18,11 +18,13 @@ app.use(express.json());
 const adminPesanRoutes = require("./routes/adminPesan");
 const vcScheduleRoutes = require("./routes/vcScheduleRoutes");
 const authRoutes = require("./routes/authRoutes");
+const newsRoutes = require('./routes/news');
 const exportRoute = require('./routes/export');
 
 app.use("/api/vc-schedule", vcScheduleRoutes);
 app.use("/api/admin-pesan", adminPesanRoutes);
 app.use("/api/auth", authRoutes);
+app.use('/api/news', newsRoutes);
 app.use('/api', exportRoute);
 
 app.get("/api/member/nayla", async (req, res) => {
