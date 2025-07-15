@@ -55,20 +55,28 @@ app.get("/api/nayla/schedule", async (req, res) => {
     const result = await theater(apiKey);
     const shows = result.theater || [];
 
+    const details = await Promise.all(
+      shows.map(show => theaterDetail(show.id, apiKey).catch(() => null))
+    );
+
     const filtered = [];
 
-    for (const show of shows) {
-      const detail = await theaterDetail(show.id, apiKey);
-      const showDetail = detail.shows?.[0];
+    const today = new Date();
+    const twoWeeksAhead = new Date();
+    twoWeeksAhead.setDate(today.getDate() + 7);
+
+    for (const detail of details) {
+      const showDetail = detail?.shows?.[0];
       if (!showDetail) continue;
 
-      console.log("🔍 Detail show:", showDetail.title, showDetail.members);
+      const showDate = new Date(showDetail.date);
+      const isUpcoming = showDate >= today && showDate <= twoWeeksAhead;
 
       const adaNayla = showDetail.members?.some(
         m => m.url_key?.toLowerCase() === "nayla"
       );
 
-      if (adaNayla) {
+      if (isUpcoming && adaNayla) {
         filtered.push({
           id: showDetail.id,
           title: showDetail.title,
@@ -80,7 +88,9 @@ app.get("/api/nayla/schedule", async (req, res) => {
       }
     }
 
+    filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
     res.json(filtered);
+
   } catch (error) {
     console.error("❌ Gagal ambil jadwal Nayla:", error.message);
     res.status(500).json({ error: "Gagal ambil jadwal Nayla" });
