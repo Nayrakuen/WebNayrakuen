@@ -1,13 +1,20 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const jkt48Api = require("@jkt48/core");
+const {
+  theater,
+  theaterDetail,
+  liveShowroom,
+  liveIdn,
+  members: getAllMembers,
+} = require("@jkt48/core");
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const apiKey = process.env.JKT48_API_KEY || "NK-SUJ1";
+const NAYLA_ID = "65ce68ed1dd7aa2c8c0ca780";
 
 app.use(cors({
   origin: ["http://localhost:5173", "http://localhost:3000", "http://localhost:3001"],
@@ -29,8 +36,8 @@ app.use('/api', exportRoute);
 
 app.get("/api/member/nayla", async (req, res) => {
   try {
-    const members = await jkt48Api.members(apiKey);
-    const nayla = members.find(m => m._id === "65ce68ed1dd7aa2c8c0ca780");
+    const allMembers = await getAllMembers(apiKey);
+    const nayla = allMembers.find(m => m._id === NAYLA_ID);
 
     if (!nayla) {
       return res.status(404).json({ error: "Data Nayla tidak ditemukan" });
@@ -45,16 +52,35 @@ app.get("/api/member/nayla", async (req, res) => {
 
 app.get("/api/nayla/schedule", async (req, res) => {
   try {
-    const result = await jkt48Api.theater(apiKey);
-    const theater = Array.isArray(result) ? result : result?.data || [];
+    const result = await theater(apiKey);
+    const shows = result.theater || [];
 
-    const naylaSchedule = theater.filter(item =>
-      item.members?.some(member =>
-        member.toLowerCase().includes("nayla")
-      )
-    );
+    const filtered = [];
 
-    res.json(naylaSchedule);
+    for (const show of shows) {
+      const detail = await theaterDetail(show.id, apiKey);
+      const showDetail = detail.shows?.[0];
+      if (!showDetail) continue;
+
+      console.log("🔍 Detail show:", showDetail.title, showDetail.members);
+
+      const adaNayla = showDetail.members?.some(
+        m => m.url_key?.toLowerCase() === "nayla"
+      );
+
+      if (adaNayla) {
+        filtered.push({
+          id: showDetail.id,
+          title: showDetail.title,
+          date: showDetail.date,
+          url: showDetail.url,
+          members: showDetail.members,
+          seitansai: showDetail.seitansai || [],
+        });
+      }
+    }
+
+    res.json(filtered);
   } catch (error) {
     console.error("❌ Gagal ambil jadwal Nayla:", error.message);
     res.status(500).json({ error: "Gagal ambil jadwal Nayla" });
@@ -63,14 +89,14 @@ app.get("/api/nayla/schedule", async (req, res) => {
 
 app.get("/api/nayla/showroom", async (req, res) => {
   try {
-    const liveShowroom = await jkt48Api.liveShowroom(apiKey);
-    const naylaShowroom = liveShowroom.find(live => live.member_id === "65ce68ed1dd7aa2c8c0ca780");
+    const liveSR = await liveShowroom(apiKey);
+    const naylaSR = liveSR.find(live => live.member_id === NAYLA_ID);
 
-    if (!naylaShowroom) {
+    if (!naylaSR) {
       return res.status(404).json({ error: "Showroom Nayla tidak ditemukan atau tidak sedang live" });
     }
 
-    res.json(naylaShowroom);
+    res.json(naylaSR);
   } catch (error) {
     console.error("❌ Gagal ambil data Showroom Nayla:", error.message);
     res.status(500).json({ error: "Gagal ambil data Showroom Nayla" });
@@ -79,7 +105,7 @@ app.get("/api/nayla/showroom", async (req, res) => {
 
 app.get("/api/nayla/idnlive", async (req, res) => {
   try {
-    const idnLive = await jkt48Api.liveIdn(apiKey);
+    const idnLive = await liveIdn(apiKey);
 
     const naylaLives = idnLive.filter(item =>
       item?.creator?.username === "jkt48_nayla"

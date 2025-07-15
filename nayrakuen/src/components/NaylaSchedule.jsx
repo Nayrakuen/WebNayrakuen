@@ -85,10 +85,25 @@ function NaylaSchedule() {
                       })}
                     </td>
                     <td>{item.title}</td>
-                    <td>{item.performers || "Nayla dan member lainnya"}</td>
                     <td>
-                      {item.ticket_url ? (
-                        <a href={item.ticket_url} target="_blank" rel="noreferrer" className="ticket-link">
+                      {item.members && item.members.length > 0 ? (
+                        item.members.map((member, i) => (
+                          <span key={member.id}>
+                            {member.name.toLowerCase() === "nayla" ? (
+                              <strong>{member.name}</strong>
+                            ) : (
+                              member.name
+                            )}
+                            {i < item.members.length - 1 ? ", " : ""}
+                          </span>
+                        ))
+                      ) : (
+                        "Nayla dan member lainnya"
+                      )}
+                    </td>
+                    <td>
+                      {item.url ? (
+                        <a href={item.url} target="_blank" rel="noreferrer" className="ticket-link">
                           Beli Tiket
                         </a>
                       ) : (
