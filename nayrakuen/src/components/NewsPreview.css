@@ -1,66 +1,105 @@
 .news-preview-section {
   padding: 2rem 1rem;
-  background-color: none;
-  font-family: 'Merriweather Sans', sans-serif;
+  background: #fff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.news-preview-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #5a0000;
 }
 
 .news-preview-list {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-  max-width: 1200px;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 1rem 1rem;
   margin: 0 auto;
+  max-width: 1140px;
+}
+
+.news-preview-list::-webkit-scrollbar {
+  display: none;
 }
 
 .news-preview-card {
-  width: 300px;
-  border-radius: 5px;
+  min-width: 240px;
+  max-width: 240px;
+  background: #fefefe;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   overflow: hidden;
-  background-color: #fff;
   text-decoration: none;
-  transition: transform 0.2s ease;
-}
-
-.news-preview-card:hover {
-  transform: translateY(-5px);
+  color: inherit;
+  flex-shrink: 0;
 }
 
 .news-preview-img {
   width: 100%;
-  height: 180px;
+  height: 150px;
   object-fit: cover;
-  display: block;
 }
 
 .news-preview-info {
-  padding: 0.8rem 1rem 1rem;
+  padding: 0.7rem;
 }
 
 .news-preview-headline {
   font-size: 1rem;
-  font-weight: bold;
-  margin: 0;
-  color: #111;
-  text-align: left;
-  line-height: 1.4;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
 }
 
 .news-preview-date {
-  font-size: 0.85rem;
-  color: #777;
-  margin-top: 0.4rem;
-  text-align: left;
+  font-size: 0.8rem;
+  color: #666;
 }
 
-.news-preview-more {
-  text-align: center;
-  margin-top: 2rem;
+.news-preview-bar {
+  max-width: 1140px;
+  margin: 1rem auto 0;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .news-preview-link {
-  color: maroon;
+  color: #5a0000;
+  font-weight: 600;
   text-decoration: underline;
+  font-size: 0.95rem;
+}
+
+.scroll-buttons button {
+  background: none;
+  border: 1px solid #5a0000;
+  color: #5a0000;
+  font-size: 1.1rem;
   font-weight: bold;
-  font-size: 1rem;
+  border-radius: 4px;
+  padding: 0.4rem 0.6rem;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+.scroll-buttons button:hover {
+  background-color: #f3f3f3;
+}
+
+@media (max-width: 768px) {
+  .scroll-buttons button {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.95rem;
+    border-radius: 3px;
+    margin-left: 0.5rem;
+  }
+
+  .scroll-buttons button {
+    font-size: 1rem;
+    padding: 3px 8px;
+  }
 }
