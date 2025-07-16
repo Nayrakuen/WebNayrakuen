@@ -1,6 +1,7 @@
 import React from "react";
 import HeroClouds from './HeroClouds';
 import NaylaProfile from './NaylaProfile';
+import NewsPreview from '../components/NewsPreview';
 import EventCard from './EventCard';
 import TheaterSchedule from './TheaterSchedule';
 import NayArt from './NayArt';
@@ -12,6 +13,7 @@ const Home = ({ t, language }) => {
     <>
       <HeroClouds />
       <NaylaProfile />
+      <NewsPreview />
       <EventCard t={t} language={language} />
       <TheaterSchedule />
       <NayArt t={t} />
