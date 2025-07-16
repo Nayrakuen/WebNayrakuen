@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const streamifier = require('streamifier');
-const { verifyToken } = require('../middleware/authMiddleware');
 
 const cloudinary = require('../utils/cloudinary');
 const galleryController = require('../controllers/galleryController');
@@ -29,8 +28,8 @@ router.post('/upload', upload.single('image'), (req, res) => {
   streamifier.createReadStream(req.file.buffer).pipe(stream);
 });
 
-router.post('/', verifyToken, galleryController.createGallery);
+router.post('/', galleryController.createGallery);
 router.get('/', galleryController.getAllGallery);
-router.delete('/:id', verifyToken, galleryController.deleteGallery);
+router.delete('/:id', galleryController.deleteGallery);
 
 module.exports = router;

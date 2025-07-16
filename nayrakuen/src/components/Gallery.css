@@ -1,3 +1,7 @@
+.gallery-section {
+  margin-bottom: 3rem;
+}
+
 .gallery-wrapper {
   display: flex;
   justify-content: center;
@@ -44,11 +48,11 @@
 
 .masonry-gallery {
   column-count: 3;
-  column-gap: 1rem;
+  column-gap: 0.5rem;
 }
 
 .masonry-item {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   overflow: hidden;
   break-inside: avoid;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

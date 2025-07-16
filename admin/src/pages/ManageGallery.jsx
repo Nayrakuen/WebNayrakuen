@@ -30,30 +30,43 @@ const ManageGallery = () => {
     formData.append('folder', folder);
 
     try {
-      const uploadRes = await axios.post('http://localhost:5000/api/gallery/upload', formData);
+      const uploadRes = await axios.post(
+        'http://localhost:5000/api/gallery/upload',
+        formData
+      );
+
+      console.log('✅ Response Upload:', uploadRes.data);
+
       const { imageUrl, publicId } = uploadRes.data;
 
-      await axios.post('http://localhost:5000/api/gallery', {
-        imageUrl,
-        publicId,
-        folder,
-      }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-      });
+      if (!imageUrl || !publicId) {
+        alert("Upload ke Cloudinary berhasil, tapi data tidak lengkap");
+        return;
+      }
+
+      await axios.post(
+        'http://localhost:5000/api/gallery',
+        { imageUrl, publicId, folder },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        }
+      );
 
       setFile(null);
       setFolder('');
       fetchGallery();
+      alert('✅ Upload berhasil!');
     } catch (err) {
-      console.error('Gagal upload:', err);
+      console.error('❌ Gagal upload:', err.response?.data || err.message);
+      alert('Upload gagal, cek console.');
     }
   };
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/gallery/${id}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-      });
+      await axios.delete(`http://localhost:5000/api/gallery/${id}`);
       fetchGallery();
     } catch (err) {
       console.error('Gagal hapus:', err);
@@ -68,12 +81,15 @@ const ManageGallery = () => {
 
         <form className="schedule-form" onSubmit={handleUpload}>
           <label>Folder</label>
-          <input
-            type="text"
+          <select
             value={folder}
             onChange={(e) => setFolder(e.target.value)}
             required
-          />
+          >
+            <option value="">-- Pilih Folder --</option>
+            <option value="Naylabu">Naylabu</option>
+            <option value="Digital Photobook">Digital Photobook</option>
+          </select>
 
           <label>Pilih Gambar</label>
           <input
@@ -81,6 +97,7 @@ const ManageGallery = () => {
             onChange={(e) => setFile(e.target.files[0])}
             required
           />
+          {file && <p style={{ marginTop: '5px' }}>File: {file.name}</p>}
 
           <button type="submit">Upload Gambar</button>
         </form>
@@ -100,7 +117,11 @@ const ManageGallery = () => {
               images.map((img) => (
                 <tr key={img.id}>
                   <td>
-                    <img src={img.image_url} alt="preview" style={{ width: '100px', borderRadius: '6px' }} />
+                    <img
+                      src={img.image_url}
+                      alt="preview"
+                      style={{ width: '100px', borderRadius: '6px' }}
+                    />
                   </td>
                   <td>{img.folder}</td>
                   <td>{new Date(img.created_at).toLocaleString()}</td>
