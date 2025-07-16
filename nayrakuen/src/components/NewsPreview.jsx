@@ -22,9 +22,12 @@ const NewsPreview = () => {
     fetchNews();
   }, []);
 
-  const getDate = (content) => {
-    const lines = content?.split('\n');
-    return lines?.[1]?.trim() || '-';
+  const formatDateTime = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleString('id-ID', {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    });
   };
 
   return (
@@ -37,7 +40,7 @@ const NewsPreview = () => {
             )}
             <div className="news-preview-info">
               <h3 className="news-preview-headline">{item.title}</h3>
-              <p className="news-preview-date">{getDate(item.content)}</p>
+              <p className="news-preview-date">{formatDateTime(item.created_at)}</p>
             </div>
           </Link>
         ))}
