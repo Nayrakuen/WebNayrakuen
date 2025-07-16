@@ -34,7 +34,7 @@ const NewsPreview = () => {
     <section className="news-preview-section">
       <div className="news-preview-list">
         {news.map((item) => (
-          <Link to={`/berita/${item.id}`} key={item.id} className="news-preview-card">
+          <Link to={`/news/${item.id}`} key={item.id} className="news-preview-card">
             {item.image_url && (
               <img src={item.image_url} alt="thumbnail" className="news-preview-img" />
             )}

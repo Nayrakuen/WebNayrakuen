@@ -8,12 +8,30 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import NavbarComponent from './components/NavbarComponents';
 import LoadingScreen from './components/LoadingScreen';
 import Home from './components/Home';
+import NewsDetail from './components/NewsDetail';
 import Schedule from './components/NaylaSchedule';
 import AboutNayla from './components/AboutNayla';
 import Gallery from './components/Gallery';
 import TentangKami from './components/TentangKami';
 import ScrollToTop from './components/ScrollToTop';
 import translate from './translate.json';
+
+const getPageTitle = (pathname) => {
+  switch (pathname) {
+    case '/':
+      return 'Nayrakuen';
+    case '/schedule':
+      return 'Nayrakuen - Schedule';
+    case '/about-nayla':
+      return 'Nayrakuen - About Nayla';
+    case '/gallery':
+      return 'Nayrakuen - Gallery';
+    case '/tentang-kami':
+      return 'Nayrakuen - Tentang Kami';
+    default:
+      return 'Nayrakuen';
+  }
+};
 
 function AppWrapper() {
   const location = useLocation();
@@ -25,27 +43,10 @@ function AppWrapper() {
   }, []);
 
   useEffect(() => {
-    document.title = getPageTitle();
+    document.title = getPageTitle(location.pathname);
   }, [location.pathname]);
 
   const t = (section, key) => translate[language][section][key];
-
-  const getPageTitle = () => {
-    switch (location.pathname) {
-      case '/':
-        return 'Nayrakuen';
-      case '/schedule':
-        return 'Nayrakuen - Schedule';
-      case '/about-nayla':
-        return 'Nayrakuen - About Nayla';
-      case '/gallery':
-        return 'Nayrakuen - Gallery';
-      case '/tentang-kami':
-        return 'Nayrakuen - Tentang Kami';
-      default:
-        return 'Nayrakuen';
-    }
-  };
 
   if (isLoading && location.pathname === '/') {
     return <LoadingScreen onFinish={() => setIsLoading(false)} />;
@@ -58,6 +59,7 @@ function AppWrapper() {
 
       <Routes>
         <Route path="/" element={<Home t={t} language={language} />} />
+        <Route path="/news/:id" element={<NewsDetail />} />
         <Route path="/schedule" element={<Schedule t={t} />} />
         <Route path="/about-nayla" element={<AboutNayla t={t} />} />
         <Route path="/gallery" element={<Gallery t={t} />} />
