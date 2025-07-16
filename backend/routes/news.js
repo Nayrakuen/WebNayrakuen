@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const newsController = require('../controllers/newsController');
-const { verifyToken } = require('../middleware/authMiddleware');
 const cloudinary = require('../utils/cloudinary');
 
 const multer = require('multer');
 const streamifier = require('streamifier');
 const upload = multer();
 
-router.post('/upload', verifyToken, upload.single('image'), (req, res) => {
+router.post('/upload', upload.single('image'), (req, res) => {
   const uniqueName = `news_${Date.now()}`;
 
   const stream = cloudinary.uploader.upload_stream(
@@ -32,8 +31,8 @@ router.post('/upload', verifyToken, upload.single('image'), (req, res) => {
 
 router.get('/', newsController.getAllNews);
 router.get('/:id', newsController.getNewsById);
-router.post('/', verifyToken, newsController.createNews);
-router.put('/:id', verifyToken, newsController.updateNews);
-router.delete('/:id', verifyToken, newsController.deleteNews);
+router.post('/', newsController.createNews);
+router.put('/:id', newsController.updateNews);
+router.delete('/:id', newsController.deleteNews);
 
 module.exports = router;

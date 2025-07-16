@@ -31,6 +31,37 @@ const AdminNews = () => {
     }
   };
 
+  const formatNewsContent = (text) => {
+    if (!text) return null;
+
+    const lines = text.trim().split('\n').map(line => line.trim());
+    const paragraphs = [];
+    let tempPara = [];
+
+    for (const line of lines) {
+      if (line === '') {
+        if (tempPara.length > 0) {
+          paragraphs.push(tempPara.join(' '));
+          tempPara = [];
+        }
+      } else {
+        tempPara.push(line);
+      }
+    }
+
+    if (tempPara.length > 0) {
+      paragraphs.push(tempPara.join(' '));
+    }
+
+    return (
+      <>
+        {paragraphs.map((para, idx) => (
+          <p key={idx} className="news-paragraph">{para}</p>
+        ))}
+      </>
+    );
+  };
+
   useEffect(() => {
     fetchNews();
   }, []);
@@ -50,12 +81,14 @@ const AdminNews = () => {
         <div>
           {newsList.map((news) => (
             <div key={news.id} className="news-item">
-              <h3>{news.title}</h3>
+              <h2 className="news-title">{news.title}</h2>
               {news.image_url && (
                 <img src={news.image_url} alt="gambar berita" />
               )}
-              <p className="mt-2 whitespace-pre-line">{news.content}</p>
-              <button onClick={() => handleDelete(news.id)}>Hapus</button>
+              <div className="news-content-text">
+                {formatNewsContent(news.content)}
+              </div>
+              <button className="delete-btn" onClick={() => handleDelete(news.id)}>Hapus</button>
             </div>
           ))}
         </div>
