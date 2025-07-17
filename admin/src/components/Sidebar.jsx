@@ -1,6 +1,14 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaTachometerAlt, FaImages, FaCalendarAlt, FaComments, FaSignOutAlt, FaNewspaper } from 'react-icons/fa';
+import {
+  FaTachometerAlt,
+  FaImages,
+  FaCalendarAlt,
+  FaComments,
+  FaSignOutAlt,
+  FaNewspaper,
+  FaUser
+} from 'react-icons/fa';
 import './Sidebar.css';
 
 const Sidebar = () => {
@@ -12,6 +20,7 @@ const Sidebar = () => {
     { label: "Jadwal VC", path: "/schedule", icon: <FaCalendarAlt /> },
     { label: "Pesan", path: "/messages", icon: <FaComments /> },
     { label: "Berita", path: "/news", icon: <FaNewspaper /> },
+    { label: "Tentang Nayla", path: "/about-nayla", icon: <FaUser /> }
   ];
 
   const handleLogout = () => {

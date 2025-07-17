@@ -6,6 +6,7 @@ import ManageGallery from './pages/ManageGallery';
 import ManageSchedule from './pages/ManageSchedule';
 import AdminPesan from './pages/AdminPesan';
 import AdminNews from './pages/AdminNews';
+import AboutEditor from './pages/AboutEditor';
 // import PrivateRoute from './components/PrivateRoute';
 
 function App() {
@@ -13,33 +14,27 @@ function App() {
     <Routes>
       <Route
         path="/"
-        element={
-            <Dashboard />
-        }
+        element={<Dashboard />}
       />
       <Route
         path="/gallery"
-        element={
-            <ManageGallery />
-        }
+        element={<ManageGallery />}
       />
       <Route
         path="/schedule"
-        element={
-            <ManageSchedule />
-        }
+        element={<ManageSchedule />}
       />
       <Route
         path="/messages"
-        element={
-            <AdminPesan />
-        }
+        element={<AdminPesan />}
       />
       <Route
         path="/news"
-        element={
-            <AdminNews />
-        }
+        element={<AdminNews />}
+      />
+      <Route
+        path="/about-nayla"
+        element={<AboutEditor />}
       />
     </Routes>
   );

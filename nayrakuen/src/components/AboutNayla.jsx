@@ -1,36 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./AboutNayla.css";
 
 function AboutNayla() {
+  const [paragraphs, setParagraphs] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/about-nayla")
+      .then((res) => {
+        let content = res.data.content || "";
+        content = content.replace(/\\n/g, '\n');
+
+        const parts = content.split(/\n\s*\n/);
+        setParagraphs(parts);
+      })
+      .catch((err) => {
+        console.error("Gagal mengambil data narasi:", err);
+      });
+  }, []);
+
   return (
     <div className="about-wrapper">
       <div className="about-container">
         <h2 className="about-title" data-aos="fade-down">Profile Nayla</h2>
 
-        <p className="profile-description" data-aos="fade-up" data-aos-delay="100">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at
-          venenatis quam. Donec vel posuere orci. Sed fermentum neque urna, vel
-          consequat sapien auctor id. Curabitur nisi est, venenatis quis dolor
-          vitae, convallis lobortis ex. Aliquam semper, leo vitae facilisis
-          luctus, neque dui sodales arcu, ut dictum sem dui a enim. Quisque
-          eget risus neque. Nulla commodo ornare est, in mollis nisl viverra
-          ac.
-        </p>
-
-        <p className="profile-description" data-aos="fade-up" data-aos-delay="200">
-          Morbi vitae magna turpis. Proin fringilla tellus leo, eget molestie
-          arcu vehicula non. Sed eu mollis velit. In sed est ut metus viverra
-          tempor. Sed fermentum orci odio, eget fermentum dolor semper non.
-          Cras sagittis, urna vel malesuada suscipit, diam velit volutpat
-          magna, sed rhoncus nibh dolor in mauris. Integer molestie tempor
-          sollicitudin.
-        </p>
+        {paragraphs.map((para, index) => (
+          <p
+            key={index}
+            className="profile-description"
+            data-aos="fade-up"
+            data-aos-delay={100 * (index + 1)}
+          >
+            {para}
+          </p>
+        ))}
 
         <div className="video-wrapper" data-aos="zoom-in" data-aos-delay="300">
           <div className="youtube-embed-container">
             <iframe
               className="youtube-video"
-              src="https://www.youtube.com/embed/dVPVlqVPgZ0?autoplay=1&mute=1&controls=0&rel=0"
+              src="https://www.youtube.com/embed/dVPVlqVPgZ0?autoplay=1&mute=1&controls=1&rel=0&loop=1&playlist=dVPVlqVPgZ0"
               title="Nayla Suji Video"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
