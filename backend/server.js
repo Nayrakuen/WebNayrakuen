@@ -28,6 +28,7 @@ const authRoutes = require("./routes/authRoutes");
 const galleryRoutes = require('./routes/gallery');
 const newsRoutes = require('./routes/news');
 const aboutNaylaRoute = require('./routes/aboutNayla');
+const miniProfileRoutes = require("./routes/miniProfile");
 const exportRoute = require('./routes/export');
 
 app.use("/api/vc-schedule", vcScheduleRoutes);
@@ -36,6 +37,7 @@ app.use("/api/auth", authRoutes);
 app.use('/api/gallery', galleryRoutes);
 app.use('/api/news', newsRoutes);
 app.use('/api/about-nayla', aboutNaylaRoute);
+app.use("/api/mini-profile", miniProfileRoutes);
 app.use('/api', exportRoute);
 
 app.get("/api/member/nayla", async (req, res) => {
