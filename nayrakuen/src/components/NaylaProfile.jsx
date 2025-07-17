@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./NaylaProfile.css";
 // import naylaImage from "../assets/nayla-suji.jpeg";
 import instagramIcon from "../assets/icons/Instagram.png";
 import twitterIcon from "../assets/icons/Twitter.png";
 import tiktokIcon from "../assets/icons/Tiktok.png";
 import idnIcon from "../assets/icons/IDN-Live.png";
+import axios from "axios";
 
 function NaylaProfile() {
+  const [paragraphs, setParagraphs] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/mini-profile")
+      .then((res) => {
+        let content = res.data.content || "";
+        content = content.replace(/\\n/g, "\n");
+        const parts = content.split(/\n\s*\n/);
+        setParagraphs(parts);
+      })
+      .catch((err) => {
+        console.error("Gagal mengambil data narasi Nayla:", err);
+      });
+  }, []);
+
   return (
     <section className="profile-section py-5">
       <div className="container">
@@ -21,16 +38,16 @@ function NaylaProfile() {
               <h2 className="profile-title m-0">Nayla Suji</h2>
             </div>
 
-            <p className="profile-description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget
-              libero nec augue imperdiet ullamcorper. Suspendisse gravida, felis
-              ac laoreet rhoncus, justo leo pretium lorem, sed tempor elit justo eu arcu.
-            </p>
-            <p className="profile-description">
-              Curabitur pretium nisl eu sapien lobortis, nec tristique velit malesuada.
-              Nullam tempor ligula sit amet velit convallis, a fermentum libero interdum.
-              Morbi et leo risus. Nam vitae purus nec tellus vulputate fringilla.
-            </p>
+            {paragraphs.map((para, index) => (
+              <p
+                key={index}
+                className="profile-description"
+                data-aos="fade-up"
+                data-aos-delay={100 * (index + 1)}
+              >
+                {para}
+              </p>
+            ))}
 
             <div className="social-icons mt-3 d-flex gap-3 flex-wrap">
               <a href="https://www.idn.app/jkt48_nayla" target="_blank" rel="noreferrer">
@@ -48,7 +65,7 @@ function NaylaProfile() {
             </div>
           </div>
 
-          {/* Gambar */}
+          {/* Gambar opsional jika dibutuhkan */}
           {/* <div
             className="col-md-5 text-center mb-4 mb-md-0"
             data-aos="fade-left"

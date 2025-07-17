@@ -1,36 +1,26 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../config/db");
+const pool = require("../config/db");
 
 router.get("/", async (req, res) => {
   try {
-    const [rows] = await db.execute("SELECT * FROM mini_profile ORDER BY created_at DESC");
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const [result] = await pool.query("SELECT * FROM mini_profile WHERE id = 1");
+    if (result.length === 0) {
+      return res.status(404).json({ message: "Mini profile not found" });
+    }
+    res.json(result[0]);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
-router.post("/", async (req, res) => {
+router.put("/", async (req, res) => {
   const { content } = req.body;
   try {
-    await db.execute(
-      "INSERT INTO mini_profile (content) VALUES (?)",
-      [content]
-    );
-    res.status(201).json({ message: "Narasi berhasil ditambahkan." });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-router.delete("/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    await db.execute("DELETE FROM mini_profile WHERE id = ?", [id]);
-    res.json({ message: "Narasi berhasil dihapus." });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    await pool.query("UPDATE mini_profile SET content = ? WHERE id = 1", [content]);
+    res.json({ message: "Mini profile updated successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
