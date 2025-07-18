@@ -7,8 +7,6 @@ import ManageSchedule from './pages/ManageSchedule';
 import AdminPesan from './pages/AdminPesan';
 import AdminNews from './pages/AdminNews';
 import AboutEditor from './pages/AboutEditor';
-import MiniProfile from './pages/MiniProfile';
-import ManageAboutUs from "./pages/TentangKami";
 
 function App() {
   return (
@@ -19,8 +17,6 @@ function App() {
       <Route path="/messages" element={<AdminPesan />} />
       <Route path="/news" element={<AdminNews />} />
       <Route path="/about-nayla" element={<AboutEditor />} />
-      <Route path="/mini-profile" element={<MiniProfile />} />
-      <Route path="/tentang-kami" element={<ManageAboutUs />} />
     </Routes>
   );
 }

@@ -7,7 +7,7 @@ import {
   FaComments,
   FaSignOutAlt,
   FaNewspaper,
-  FaUser
+  FaBook
 } from 'react-icons/fa';
 import './Sidebar.css';
 
@@ -20,7 +20,7 @@ const Sidebar = () => {
     { label: "Jadwal VC", path: "/schedule", icon: <FaCalendarAlt /> },
     { label: "Pesan", path: "/messages", icon: <FaComments /> },
     { label: "Berita", path: "/news", icon: <FaNewspaper /> },
-    { label: "Tentang Nayla", path: "/about-nayla", icon: <FaUser /> }
+    { label: "Narasi", path: "/about-nayla", icon: <FaBook /> }
   ];
 
   const handleLogout = () => {
