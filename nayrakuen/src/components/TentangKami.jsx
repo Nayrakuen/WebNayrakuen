@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./TentangKami.css";
-
+import axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -14,8 +14,28 @@ import foto6 from "../assets/Nayrakuen/Photo6.jpg";
 import foto7 from "../assets/Nayrakuen/Photo7.jpg";
 
 function TentangKami() {
+  const [content, setContent] = useState("");
+  const [isEmpty, setIsEmpty] = useState(false);
+
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
+
+    axios
+      .get("http://localhost:5000/api/tentang-kami")
+      .then((response) => {
+        const data = response.data;
+
+        if (Array.isArray(data) && data.length > 0 && data[0].content) {
+          setContent(data[0].content);
+        } else if (data && data.content) {
+          setContent(data.content);
+        } else {
+          setIsEmpty(true);
+        }
+      })
+      .catch(() => {
+        setIsEmpty(true);
+      });
   }, []);
 
   const galeriFoto = [
@@ -27,6 +47,8 @@ function TentangKami() {
     { src: foto6, caption: "Anniversary Nayrakuen 1th" },
     { src: foto7, caption: "Anniversary Nayrakuen 1th" },
   ];
+
+  const paragraphs = content ? content.split("\n\n") : [];
 
   return (
     <div className="tentang-wrapper">
@@ -40,17 +62,11 @@ function TentangKami() {
         <div className="tentang-logo-paragraph" data-aos="fade-up" data-aos-delay="100">
           <img src={logoSquare} alt="Logo Nayrakuen" className="logo-square" />
           <div className="tentang-text">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tincidunt elit quis risus
-              facilisis maximus. Pellentesque ut malesuada nibh, eu mollis purus. Duis lobortis
-              dolor viverra lacus iaculis congue. Sed sagittis malesuada aliquam.
-            </p>
-            <p>
-              Integer ac turpis varius, pharetra libero ut, fermentum velit. Sed pulvinar placerat
-              velit, vel pellentesque elit ornare non. Pellentesque sed turpis massa. Praesent sit
-              amet mollis arcu, ac tristique magna. In at magna ac nisi viverra interdum eget sit
-              amet justo.
-            </p>
+            {isEmpty ? (
+              <p>Konten belum tersedia untuk saat ini.</p>
+            ) : (
+              paragraphs.map((para, idx) => <p key={idx}>{para}</p>)
+            )}
           </div>
         </div>
 

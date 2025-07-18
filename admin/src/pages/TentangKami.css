@@ -1,0 +1,54 @@
+.manage-about-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.manage-about-container h2 {
+  color: maroon;
+  margin-bottom: 1rem;
+}
+
+.manage-about-container textarea {
+  width: 100%;
+  font-family: inherit;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+.manage-about-container button {
+  padding: 0.5rem 1.5rem;
+  background-color: maroon;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.message {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  color: green;
+}
+
+.preview {
+  margin-top: 2rem;
+}
+
+.preview h3 {
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.preview p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
