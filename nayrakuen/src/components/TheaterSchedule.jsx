@@ -10,24 +10,42 @@ function TheaterSchedule() {
   const [month, setMonth] = useState(today.getMonth());
 
   useEffect(() => {
-    setShows([]);
-
     const fetchSchedule = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/api/nayla/schedule");
+      const results = await Promise.allSettled([
+        axios.get("http://localhost:5000/api/nayla/schedule"),
+        axios.get("http://localhost:5000/api/teater"),
+      ]);
 
-        const filtered = res.data.filter((item) => {
-          const itemDate = new Date(item.date);
-          return (
-            itemDate.getFullYear() === year &&
-            itemDate.getMonth() === month
-          );
-        });
+      const [scheduleResult, theaterResult] = results;
 
-        setShows(filtered);
-      } catch (err) {
-        console.error("❌ Gagal mengambil jadwal Nayla:", err.message);
-      }
+      const naylaFormatted =
+        scheduleResult.status === "fulfilled"
+          ? scheduleResult.value.data.map((item) => ({
+              date: item.date,
+              title: item.title,
+              ticket_url: item.ticket_url || "#",
+              time: new Date(item.date).toTimeString().slice(0, 5),
+            }))
+          : [];
+
+      const teaterFormatted =
+        theaterResult.status === "fulfilled"
+          ? theaterResult.value.data.map((item) => ({
+              date: item.tanggal,
+              title: item.setlist,
+              ticket_url: "",
+              time: item.jam ? item.jam.slice(0, 5) : "00:00",
+            }))
+          : [];
+
+      const combined = [...naylaFormatted, ...teaterFormatted];
+
+      const filtered = combined.filter((item) => {
+        const d = new Date(item.date);
+        return d.getFullYear() === year && d.getMonth() === month;
+      });
+
+      setShows(filtered);
     };
 
     fetchSchedule();
@@ -61,8 +79,8 @@ function TheaterSchedule() {
 
   const getEventsForDate = (day) => {
     return shows.filter((show) => {
-      const date = new Date(show.date);
-      return date.getDate() === day;
+      const d = new Date(show.date);
+      return d.getDate() === day && d.getMonth() === month && d.getFullYear() === year;
     });
   };
 
@@ -118,17 +136,13 @@ function TheaterSchedule() {
                       <div className="calendar-day">{day}</div>
                       {getEventsForDate(day).map((event, idx) => (
                         <div key={idx} className="calendar-event">
-                          <span className="dot">●</span>
+                          <span className="dot">●</span>{" "}
                           <a
                             href={event.ticket_url || "#"}
                             target="_blank"
                             rel="noreferrer"
                           >
-                            {new Date(event.date).toLocaleTimeString("id-ID", {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}{" "}
-                            {event.title}
+                            {event.time} {event.title}
                           </a>
                         </div>
                       ))}
@@ -140,25 +154,24 @@ function TheaterSchedule() {
           ))}
         </tbody>
       </table>
-          <tr>
-            <td colSpan={3} style={{ textAlign: "left", padding: "8px" }}>
-              <span
-                onClick={handlePrevMonth}
-                style={{ cursor: "pointer", color: "#800000", fontWeight: "bold" }}
-              >
-                Bulan Sebelumnya
-              </span>
-            </td>
-            <td>|</td>
-            <td colSpan={3} style={{ textAlign: "right", padding: "8px" }}>
-              <span
-                onClick={handleNextMonth}
-                style={{ cursor: "pointer", color: "#800000", fontWeight: "bold" }}
-              >
-                Bulan Berikutnya
-              </span>
-            </td>
-          </tr>
+
+      <div
+        className="calendar-nav mt-2"
+        style={{ display: "flex", justifyContent: "space-between", padding: "8px" }}
+      >
+        <span
+          onClick={handlePrevMonth}
+          style={{ cursor: "pointer", color: "#800000", fontWeight: "bold" }}
+        >
+          Bulan Sebelumnya
+        </span>
+        <span
+          onClick={handleNextMonth}
+          style={{ cursor: "pointer", color: "#800000", fontWeight: "bold" }}
+        >
+          Bulan Berikutnya
+        </span>
+      </div>
     </div>
   );
 }
