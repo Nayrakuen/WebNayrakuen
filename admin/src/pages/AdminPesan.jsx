@@ -10,6 +10,9 @@ const AdminPesan = () => {
   const [nama, setNama] = useState('');
   const [review, setReview] = useState('');
   const [messages, setMessages] = useState([]);
+  const [isSubmittingReview, setIsSubmittingReview] = useState(false);
+  const [approvingId, setApprovingId] = useState(null);
+  const [isExporting, setIsExporting] = useState(false);
 
   useEffect(() => {
     fetchReviews();
@@ -38,6 +41,7 @@ const AdminPesan = () => {
     e.preventDefault();
     if (!bulan || !nama || !review) return alert("Semua field wajib diisi");
 
+    setIsSubmittingReview(true);
     try {
       await axios.post('http://localhost:5000/api/admin-pesan/review-vc', {
         bulan, nama, review
@@ -48,6 +52,8 @@ const AdminPesan = () => {
       fetchReviews();
     } catch (err) {
       console.error("❌ Gagal tambah review:", err);
+    } finally {
+      setIsSubmittingReview(false);
     }
   };
 
@@ -62,11 +68,14 @@ const AdminPesan = () => {
   };
 
   const handleApprove = async (id) => {
+    setApprovingId(id);
     try {
       await axios.put(`http://localhost:5000/api/admin-pesan/fans-message/approve/${id}`);
       fetchMessages();
     } catch (err) {
       console.error("❌ Gagal setujui pesan:", err);
+    } finally {
+      setApprovingId(null);
     }
   };
 
@@ -80,6 +89,7 @@ const AdminPesan = () => {
   };
 
   const handleExportExcel = async () => {
+    setIsExporting(true);
     try {
       const response = await fetch('http://localhost:5000/api/export/nayfriends', {
         method: 'GET',
@@ -99,6 +109,8 @@ const AdminPesan = () => {
     } catch (error) {
       console.error('❌ Gagal export Excel:', error);
       alert('Export gagal, coba lagi!');
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -117,7 +129,9 @@ const AdminPesan = () => {
           <input type="text" value={nama} onChange={(e) => setNama(e.target.value)} required />
           <label>Review</label>
           <textarea value={review} onChange={(e) => setReview(e.target.value)} rows={4} required></textarea>
-          <button type="submit" >Tambah Review</button>
+          <button type="submit" disabled={isSubmittingReview}>
+            {isSubmittingReview ? 'Mengirim...' : 'Tambah Review'}
+          </button>
         </form>
 
         <table className="review-table">
@@ -152,9 +166,10 @@ const AdminPesan = () => {
         <button
           onClick={handleExportExcel}
           className="export-btn"
+          disabled={isExporting}
           style={{ marginBottom: '1rem', backgroundColor: '#28a745', color: 'white', padding: '0.5rem 1rem', border: 'none', borderRadius: '4px' }}
         >
-        Export ke Excel
+          {isExporting ? 'Mengekspor...' : 'Export ke Excel'}
         </button>
 
         {messages.length === 0 ? (
@@ -177,7 +192,13 @@ const AdminPesan = () => {
                   <td className="message-cell">{msg.message}</td>
                   <td>
                     {!msg.is_approved && (
-                      <button onClick={() => handleApprove(msg.id)} className="approve-btn">✔️ Setujui</button>
+                      <button
+                        onClick={() => handleApprove(msg.id)}
+                        className="approve-btn"
+                        disabled={approvingId === msg.id}
+                      >
+                        {approvingId === msg.id ? 'Menyetujui...' : 'Setujui'}
+                      </button>
                     )}
                     <button onClick={() => handleDeleteMessage(msg.id)} className="delete-btn">Hapus</button>
                   </td>

@@ -9,6 +9,7 @@ const ManageSchedule = () => {
     sesi: '', nama: '', preparation: '', masuk: '', status: 'Ready'
   });
   const [editId, setEditId] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fetchSchedule = async () => {
     try {
@@ -29,21 +30,22 @@ const ManageSchedule = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     try {
       if (editId) {
-        // Mode edit (PUT)
         await axios.put(`http://localhost:5000/api/vc-schedule/${editId}`, form);
       } else {
-        // Mode tambah (POST)
         await axios.post('http://localhost:5000/api/vc-schedule', form);
       }
 
       fetchSchedule();
       setForm({ sesi: '', nama: '', preparation: '', masuk: '', status: 'Ready' });
-      setEditId(null); // keluar dari mode edit
+      setEditId(null);
     } catch (error) {
       console.error("Gagal simpan jadwal:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -92,8 +94,20 @@ const ManageSchedule = () => {
             <option value="Sold">Sold</option>
           </select>
           <div style={{ display: 'flex', gap: '10px' }}>
-            <button type="submit">{editId ? 'Simpan Perubahan' : 'Tambah Jadwal'}</button>
-            {editId && <button type="button" onClick={handleCancelEdit}>Batal</button>}
+            <button type="submit" disabled={isSubmitting}>
+              {isSubmitting
+                ? editId
+                  ? 'Menyimpan...'
+                  : 'Menambahkan...'
+                : editId
+                ? 'Simpan Perubahan'
+                : 'Tambah Jadwal'}
+            </button>
+            {editId && (
+              <button type="button" onClick={handleCancelEdit} disabled={isSubmitting}>
+                Batal
+              </button>
+            )}
           </div>
         </form>
 
@@ -119,8 +133,8 @@ const ManageSchedule = () => {
                   <td>{item.masuk}</td>
                   <td>{item.status}</td>
                   <td>
-                    <button onClick={() => handleEdit(item)}>Edit</button>
-                    <button onClick={() => handleDelete(item.id)}>Hapus</button>
+                    <button onClick={() => handleEdit(item)} disabled={isSubmitting}>Edit</button>
+                    <button onClick={() => handleDelete(item.id)} disabled={isSubmitting}>Hapus</button>
                   </td>
                 </tr>
               ))

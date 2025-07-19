@@ -7,6 +7,7 @@ const ManageGallery = () => {
   const [images, setImages] = useState([]);
   const [file, setFile] = useState(null);
   const [folder, setFolder] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
 
   const fetchGallery = async () => {
     try {
@@ -25,6 +26,8 @@ const ManageGallery = () => {
     e.preventDefault();
     if (!file || !folder) return;
 
+    setIsUploading(true);
+
     const formData = new FormData();
     formData.append('image', file);
     formData.append('folder', folder);
@@ -35,12 +38,11 @@ const ManageGallery = () => {
         formData
       );
 
-      console.log('✅ Response Upload:', uploadRes.data);
-
       const { imageUrl, publicId } = uploadRes.data;
 
       if (!imageUrl || !publicId) {
         alert("Upload ke Cloudinary berhasil, tapi data tidak lengkap");
+        setIsUploading(false);
         return;
       }
 
@@ -48,9 +50,7 @@ const ManageGallery = () => {
         'http://localhost:5000/api/gallery',
         { imageUrl, publicId, folder },
         {
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
         }
       );
 
@@ -61,6 +61,8 @@ const ManageGallery = () => {
     } catch (err) {
       console.error('❌ Gagal upload:', err.response?.data || err.message);
       alert('Upload gagal, cek console.');
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -99,7 +101,9 @@ const ManageGallery = () => {
           />
           {file && <p style={{ marginTop: '5px' }}>File: {file.name}</p>}
 
-          <button type="submit">Upload Gambar</button>
+          <button type="submit" disabled={isUploading}>
+            {isUploading ? 'Mengunggah...' : 'Upload Gambar'}
+          </button>
         </form>
 
         <h3>Daftar Galeri</h3>
@@ -126,7 +130,9 @@ const ManageGallery = () => {
                   <td>{img.folder}</td>
                   <td>{new Date(img.created_at).toLocaleString()}</td>
                   <td>
-                    <button onClick={() => handleDelete(img.id)}>Hapus</button>
+                    <button onClick={() => handleDelete(img.id)} disabled={isUploading}>
+                      Hapus
+                    </button>
                   </td>
                 </tr>
               ))

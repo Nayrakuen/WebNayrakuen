@@ -9,6 +9,7 @@ function AboutEditor() {
   const [tentangKami, setTentangKami] = useState('');
   const [tentangKamiId, setTentangKamiId] = useState(null);
   const [message, setMessage] = useState({ section: '', text: '' });
+  const [loading, setLoading] = useState({ mini: false, about: false, kami: false });
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/mini-profile')
@@ -30,24 +31,45 @@ function AboutEditor() {
       });
   }, []);
 
-  const handleSaveMiniProfile = () => {
+  const handleSaveMiniProfile = async () => {
+    setLoading((prev) => ({ ...prev, mini: true }));
     const content = miniProfile.replace(/\n/g, '\\n');
-    axios.put('http://localhost:5000/api/mini-profile', { content })
-      .then(() => setMessage({ section: 'mini', text: 'Mini Profile berhasil disimpan!' }))
-      .catch(() => setMessage({ section: 'mini', text: 'Gagal menyimpan Mini Profile.' }));
+
+    try {
+      await axios.put('http://localhost:5000/api/mini-profile', { content });
+      setMessage({ section: 'mini', text: 'Mini Profile berhasil disimpan!' });
+    } catch {
+      setMessage({ section: 'mini', text: 'Gagal menyimpan Mini Profile.' });
+    } finally {
+      setLoading((prev) => ({ ...prev, mini: false }));
+    }
   };
 
-  const handleSaveAboutNayla = () => {
+  const handleSaveAboutNayla = async () => {
+    setLoading((prev) => ({ ...prev, about: true }));
     const content = aboutNayla.replace(/\n/g, '\\n');
-    axios.post('http://localhost:5000/api/about-nayla', { content })
-      .then(() => setMessage({ section: 'about', text: 'About Nayla berhasil disimpan!' }))
-      .catch(() => setMessage({ section: 'about', text: 'Gagal menyimpan About Nayla.' }));
+
+    try {
+      await axios.post('http://localhost:5000/api/about-nayla', { content });
+      setMessage({ section: 'about', text: 'About Nayla berhasil disimpan!' });
+    } catch {
+      setMessage({ section: 'about', text: 'Gagal menyimpan About Nayla.' });
+    } finally {
+      setLoading((prev) => ({ ...prev, about: false }));
+    }
   };
 
-  const handleSaveTentangKami = () => {
-    axios.put(`http://localhost:5000/api/tentang-kami/${tentangKamiId}`, { content: tentangKami })
-      .then(() => setMessage({ section: 'kami', text: 'Tentang Kami berhasil disimpan!' }))
-      .catch(() => setMessage({ section: 'kami', text: 'Gagal menyimpan Tentang Kami.' }));
+  const handleSaveTentangKami = async () => {
+    setLoading((prev) => ({ ...prev, kami: true }));
+
+    try {
+      await axios.put(`http://localhost:5000/api/tentang-kami/${tentangKamiId}`, { content: tentangKami });
+      setMessage({ section: 'kami', text: 'Tentang Kami berhasil disimpan!' });
+    } catch {
+      setMessage({ section: 'kami', text: 'Gagal menyimpan Tentang Kami.' });
+    } finally {
+      setLoading((prev) => ({ ...prev, kami: false }));
+    }
   };
 
   const renderPreview = (text) =>
@@ -68,7 +90,9 @@ function AboutEditor() {
               value={miniProfile}
               onChange={(e) => setMiniProfile(e.target.value)}
             />
-            <button onClick={handleSaveMiniProfile}>Simpan</button>
+            <button onClick={handleSaveMiniProfile} disabled={loading.mini}>
+              {loading.mini ? 'Menyimpan...' : 'Simpan'}
+            </button>
             {message.section === 'mini' && <p className="status-message">{message.text}</p>}
             <div className="preview">
               <h3>Preview:</h3>
@@ -84,7 +108,9 @@ function AboutEditor() {
               value={aboutNayla}
               onChange={(e) => setAboutNayla(e.target.value)}
             />
-            <button onClick={handleSaveAboutNayla}>Simpan</button>
+            <button onClick={handleSaveAboutNayla} disabled={loading.about}>
+              {loading.about ? 'Menyimpan...' : 'Simpan'}
+            </button>
             {message.section === 'about' && <p className="status-message">{message.text}</p>}
             <div className="preview">
               <h3>Preview:</h3>
@@ -100,7 +126,9 @@ function AboutEditor() {
               value={tentangKami}
               onChange={(e) => setTentangKami(e.target.value)}
             />
-            <button onClick={handleSaveTentangKami}>Simpan</button>
+            <button onClick={handleSaveTentangKami} disabled={loading.kami}>
+              {loading.kami ? 'Menyimpan...' : 'Simpan'}
+            </button>
             {message.section === 'kami' && <p className="status-message">{message.text}</p>}
             <div className="preview">
               <h3>Preview:</h3>
