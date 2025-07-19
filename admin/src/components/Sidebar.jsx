@@ -18,6 +18,7 @@ const Sidebar = () => {
     { label: "Dashboard", path: "/", icon: <FaTachometerAlt /> },
     { label: "Galeri", path: "/gallery", icon: <FaImages /> },
     { label: "Jadwal VC", path: "/schedule", icon: <FaCalendarAlt /> },
+    { label: "Jadwal Show", path: "/performance", icon: <FaCalendarAlt /> },
     { label: "Pesan", path: "/messages", icon: <FaComments /> },
     { label: "Berita", path: "/news", icon: <FaNewspaper /> },
     { label: "Narasi", path: "/about-nayla", icon: <FaBook /> }

@@ -7,6 +7,7 @@ import ManageSchedule from './pages/ManageSchedule';
 import AdminPesan from './pages/AdminPesan';
 import AdminNews from './pages/AdminNews';
 import AboutEditor from './pages/AboutEditor';
+import SchedulePerformence from './pages/SchedulePerformence';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/messages" element={<AdminPesan />} />
       <Route path="/news" element={<AdminNews />} />
       <Route path="/about-nayla" element={<AboutEditor />} />
+      <Route path="/performance" element={<SchedulePerformence />} />
     </Routes>
   );
 }

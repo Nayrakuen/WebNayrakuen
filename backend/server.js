@@ -30,6 +30,7 @@ const newsRoutes = require('./routes/news');
 const aboutNaylaRoute = require('./routes/aboutNayla');
 const miniProfileRoutes = require("./routes/miniProfile");
 const tentangKamiRoute = require("./routes/tentangKami");
+const teaterRoutes = require('./routes/teater');
 const exportRoute = require('./routes/export');
 
 app.use("/api/vc-schedule", vcScheduleRoutes);
@@ -40,6 +41,7 @@ app.use('/api/news', newsRoutes);
 app.use('/api/about-nayla', aboutNaylaRoute);
 app.use("/api/mini-profile", miniProfileRoutes);
 app.use("/api/tentang-kami", tentangKamiRoute);
+app.use('/api/teater', teaterRoutes);
 app.use('/api', exportRoute);
 
 app.get("/api/member/nayla", async (req, res) => {
