@@ -29,7 +29,7 @@ const galleryRoutes = require('./routes/gallery');
 const newsRoutes = require('./routes/news');
 const aboutNaylaRoute = require('./routes/aboutNayla');
 const miniProfileRoutes = require("./routes/miniProfile");
-const tentangKamiRoute = require("./routes/tentangKami");
+const tentangKamiRoute = require('./routes/tentangKami');
 const teaterRoutes = require('./routes/teater');
 const exportRoute = require('./routes/export');
 
@@ -44,29 +44,36 @@ app.use("/api/tentang-kami", tentangKamiRoute);
 app.use('/api/teater', teaterRoutes);
 app.use('/api', exportRoute);
 
-app.get("/api/member/nayla", async (req, res) => {
-  try {
-    const allMembers = await getAllMembers(apiKey);
-    const nayla = allMembers.find(m => m._id === NAYLA_ID);
+function timeoutPromise(promise, ms) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Timeout")), ms)
+    )
+  ]);
+}
 
-    if (!nayla) {
-      return res.status(404).json({ error: "Data Nayla tidak ditemukan" });
-    }
-
-    res.json(nayla);
-  } catch (error) {
-    console.error("❌ Gagal mengambil data Nayla:", error.message);
-    res.status(500).json({ error: "Gagal ambil data Nayla dari API JKT48" });
-  }
-});
+let cachedSchedule = null;
+let lastFetched = 0;
 
 app.get("/api/nayla/schedule", async (req, res) => {
+  const now = Date.now();
+  if (cachedSchedule && now - lastFetched < 60_000) {
+    return res.json(cachedSchedule);
+  }
+
   try {
+    console.log("Memuat jadwal Nayla...");
     const result = await theater(apiKey);
-    const shows = result.theater || [];
+    const shows = result.theater.slice(0, 10);
 
     const details = await Promise.all(
-      shows.map(show => theaterDetail(show.id, apiKey).catch(() => null))
+      shows.map(show =>
+        timeoutPromise(theaterDetail(show.id, apiKey), 5000).catch((err) => {
+          console.warn(`Gagal fetch detail show ID ${show.id}`);
+          return null;
+        })
+      )
     );
 
     const filtered = [];
@@ -99,8 +106,9 @@ app.get("/api/nayla/schedule", async (req, res) => {
     }
 
     filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+    cachedSchedule = filtered;
+    lastFetched = now;
     res.json(filtered);
-
   } catch (error) {
     console.error("❌ Gagal ambil jadwal Nayla:", error.message);
     res.status(500).json({ error: "Gagal ambil jadwal Nayla" });
@@ -141,7 +149,6 @@ app.get("/api/nayla/idnlive", async (req, res) => {
 
     const latestLive = sorted[0];
     res.json(latestLive);
-
   } catch (error) {
     console.error("❌ Gagal ambil data IDN Live Nayla:", error.message);
     res.status(500).json({ error: "Gagal ambil data IDN Live Nayla" });
