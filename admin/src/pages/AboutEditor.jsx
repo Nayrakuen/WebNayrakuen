@@ -31,44 +31,25 @@ function AboutEditor() {
       });
   }, []);
 
-  const handleSaveMiniProfile = async () => {
-    setLoading((prev) => ({ ...prev, mini: true }));
-    const content = miniProfile.replace(/\n/g, '\\n');
-
+  const handleSave = async (type) => {
+    setLoading((prev) => ({ ...prev, [type]: true }));
     try {
-      await axios.put('http://localhost:5000/api/mini-profile', { content });
-      setMessage({ section: 'mini', text: 'Mini Profile berhasil disimpan!' });
+      if (type === 'mini') {
+        const content = miniProfile.replace(/\n/g, '\\n');
+        await axios.put('http://localhost:5000/api/mini-profile', { content });
+        setMessage({ section: 'mini', text: 'Mini Profile berhasil disimpan!' });
+      } else if (type === 'about') {
+        const content = aboutNayla.replace(/\n/g, '\\n');
+        await axios.post('http://localhost:5000/api/about-nayla', { content });
+        setMessage({ section: 'about', text: 'About Nayla berhasil disimpan!' });
+      } else if (type === 'kami') {
+        await axios.put(`http://localhost:5000/api/tentang-kami/${tentangKamiId}`, { content: tentangKami });
+        setMessage({ section: 'kami', text: 'Tentang Kami berhasil disimpan!' });
+      }
     } catch {
-      setMessage({ section: 'mini', text: 'Gagal menyimpan Mini Profile.' });
+      setMessage({ section: type, text: 'Gagal menyimpan.' });
     } finally {
-      setLoading((prev) => ({ ...prev, mini: false }));
-    }
-  };
-
-  const handleSaveAboutNayla = async () => {
-    setLoading((prev) => ({ ...prev, about: true }));
-    const content = aboutNayla.replace(/\n/g, '\\n');
-
-    try {
-      await axios.post('http://localhost:5000/api/about-nayla', { content });
-      setMessage({ section: 'about', text: 'About Nayla berhasil disimpan!' });
-    } catch {
-      setMessage({ section: 'about', text: 'Gagal menyimpan About Nayla.' });
-    } finally {
-      setLoading((prev) => ({ ...prev, about: false }));
-    }
-  };
-
-  const handleSaveTentangKami = async () => {
-    setLoading((prev) => ({ ...prev, kami: true }));
-
-    try {
-      await axios.put(`http://localhost:5000/api/tentang-kami/${tentangKamiId}`, { content: tentangKami });
-      setMessage({ section: 'kami', text: 'Tentang Kami berhasil disimpan!' });
-    } catch {
-      setMessage({ section: 'kami', text: 'Gagal menyimpan Tentang Kami.' });
-    } finally {
-      setLoading((prev) => ({ ...prev, kami: false }));
+      setLoading((prev) => ({ ...prev, [type]: false }));
     }
   };
 
@@ -76,66 +57,64 @@ function AboutEditor() {
     text.split(/\n{2,}/).map((para, i) => <p key={i}>{para}</p>);
 
   return (
-    <div className="manage-narrative-container">
+    <div className="manage-schedule-container">
       <Sidebar />
-      <div className="manage-narrative-content">
-        <div className="narrative-wrapper">
-          <h2>Manage Narrative</h2>
+      <div className="manage-schedule-content">
+        <h2>Kelola Narasi</h2>
 
-          <div className="narrative-section">
-            <label htmlFor="miniProfile">Mini Profile</label>
-            <textarea
-              id="miniProfile"
-              rows={7}
-              value={miniProfile}
-              onChange={(e) => setMiniProfile(e.target.value)}
-            />
-            <button onClick={handleSaveMiniProfile} disabled={loading.mini}>
-              {loading.mini ? 'Menyimpan...' : 'Simpan'}
-            </button>
-            {message.section === 'mini' && <p className="status-message">{message.text}</p>}
-            <div className="preview">
-              <h3>Preview:</h3>
-              {renderPreview(miniProfile)}
-            </div>
+        <form className="schedule-form" onSubmit={(e) => e.preventDefault()}>
+          <label htmlFor="miniProfile">Mini Profile</label>
+          <textarea
+            id="miniProfile"
+            rows={6}
+            value={miniProfile}
+            onChange={(e) => setMiniProfile(e.target.value)}
+          />
+          <button type="button" onClick={() => handleSave('mini')} disabled={loading.mini}>
+            {loading.mini ? 'Menyimpan...' : 'Simpan'}
+          </button>
+          {message.section === 'mini' && <p className="status-message">{message.text}</p>}
+          <div className="preview">
+            <h4>Preview:</h4>
+            {renderPreview(miniProfile)}
           </div>
 
-          <div className="narrative-section">
-            <label htmlFor="aboutNayla">About Nayla / Profile Lengkap</label>
-            <textarea
-              id="aboutNayla"
-              rows={10}
-              value={aboutNayla}
-              onChange={(e) => setAboutNayla(e.target.value)}
-            />
-            <button onClick={handleSaveAboutNayla} disabled={loading.about}>
-              {loading.about ? 'Menyimpan...' : 'Simpan'}
-            </button>
-            {message.section === 'about' && <p className="status-message">{message.text}</p>}
-            <div className="preview">
-              <h3>Preview:</h3>
-              {renderPreview(aboutNayla)}
-            </div>
+          <hr />
+
+          <label htmlFor="aboutNayla">About Nayla / Profil Lengkap</label>
+          <textarea
+            id="aboutNayla"
+            rows={8}
+            value={aboutNayla}
+            onChange={(e) => setAboutNayla(e.target.value)}
+          />
+          <button type="button" onClick={() => handleSave('about')} disabled={loading.about}>
+            {loading.about ? 'Menyimpan...' : 'Simpan'}
+          </button>
+          {message.section === 'about' && <p className="status-message">{message.text}</p>}
+          <div className="preview">
+            <h4>Preview:</h4>
+            {renderPreview(aboutNayla)}
           </div>
 
-          <div className="narrative-section">
-            <label htmlFor="tentangKami">Tentang Nayrakuen / Komunitas</label>
-            <textarea
-              id="tentangKami"
-              rows={12}
-              value={tentangKami}
-              onChange={(e) => setTentangKami(e.target.value)}
-            />
-            <button onClick={handleSaveTentangKami} disabled={loading.kami}>
-              {loading.kami ? 'Menyimpan...' : 'Simpan'}
-            </button>
-            {message.section === 'kami' && <p className="status-message">{message.text}</p>}
-            <div className="preview">
-              <h3>Preview:</h3>
-              {renderPreview(tentangKami)}
-            </div>
+          <hr />
+
+          <label htmlFor="tentangKami">Tentang Komunitas Nayrakuen</label>
+          <textarea
+            id="tentangKami"
+            rows={10}
+            value={tentangKami}
+            onChange={(e) => setTentangKami(e.target.value)}
+          />
+          <button type="button" onClick={() => handleSave('kami')} disabled={loading.kami}>
+            {loading.kami ? 'Menyimpan...' : 'Simpan'}
+          </button>
+          {message.section === 'kami' && <p className="status-message">{message.text}</p>}
+          <div className="preview">
+            <h4>Preview:</h4>
+            {renderPreview(tentangKami)}
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
