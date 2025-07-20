@@ -67,23 +67,25 @@ const AdminNews = () => {
   }, []);
 
   return (
-    <div className="admin-news-container">
+    <div className="manage-schedule-container">
       <Sidebar />
-      <div className="admin-news-content">
+      <div className="manage-schedule-content">
         <h2>Kelola Berita</h2>
 
         <div className="news-warning">
-          <strong>Perhatian:</strong> Dilarang mengunggah konten yang mengandung unsur <strong>kekerasan</strong>, <strong>kebencian</strong>, <strong>pornografi</strong>, atau <strong>isu sensitif lainnya</strong>. Pelanggaran dapat menyebabkan pemblokiran akses dan dikenakan hukuman yang berlaku.
+          <strong>Perhatian:</strong> Dilarang mengunggah konten yang mengandung unsur <strong>kekerasan</strong>, <strong>kebencian</strong>, <strong>pornografi</strong>, atau <strong>isu sensitif lainnya</strong>.
         </div>
 
-        <NewsForm onSuccess={fetchNews} />
+        <div className="schedule-form">
+          <NewsForm onSuccess={fetchNews} />
+        </div>
 
         <div>
           {newsList.map((news) => (
             <div key={news.id} className="news-item">
               <h2 className="news-title">{news.title}</h2>
               {news.image_url && (
-                <img src={news.image_url} alt="gambar berita" />
+                <img src={news.image_url} alt="gambar berita" className="news-image" />
               )}
               <div className="news-content-text">
                 {formatNewsContent(news.content)}

@@ -4,7 +4,6 @@
   min-height: 100vh;
 }
 
-/* Konten utama disesuaikan dengan posisi sidebar yang fixed 240px + padding tambahan */
 .admin-news-content {
   margin-left: 290px;
   padding: 2rem;
