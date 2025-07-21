@@ -12,31 +12,52 @@ exports.importReviewFromExcel = async (req, res) => {
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const data = xlsx.utils.sheet_to_json(sheet);
 
-    const bulan = "Juli 2025";
     let inserted = 0;
     let skipped = 0;
 
     for (const row of data) {
       const nama = row["NAMA"] || "";
+      const tanggalRaw = row["TANGGAL VIDEO CALL"];
       let review = row["FEEDBACK / REVIEW"] || "";
       const rating = row["RATING"] || "";
 
-      if (!nama || !review) continue;
+      if (!nama || !review || !tanggalRaw) {
+        skipped++;
+        continue;
+      }
 
       const words = review.trim().split(/\s+/);
       if (words.length > 50) {
         review = words.slice(0, 50).join(" ");
       }
 
+      let tanggal;
+      if (typeof tanggalRaw === "number") {
+        tanggal = new Date(Math.round((tanggalRaw - 25569) * 86400 * 1000));
+      } else if (typeof tanggalRaw === "string") {
+        const parsed = dayjs(tanggalRaw, ["DD/MM/YYYY", "D/M/YYYY", "DD-MM-YYYY", "YYYY-MM-DD"], true);
+        if (parsed.isValid()) {
+          tanggal = parsed.toDate();
+        }
+      } else if (tanggalRaw instanceof Date) {
+        tanggal = tanggalRaw;
+      }
+
+      if (!tanggal || isNaN(tanggal.getTime())) {
+        console.warn("Lewatkan karena format tanggal tidak valid:", tanggalRaw);
+        skipped++;
+        continue;
+      }
+
       const [existing] = await db.query(
-        "SELECT * FROM vc_reviews WHERE bulan = ? AND nama = ? AND review = ?",
-        [bulan, nama, review]
+        "SELECT * FROM vc_reviews WHERE nama = ? AND review = ? AND tanggal = ?",
+        [nama, review, tanggal]
       );
 
       if (existing.length === 0) {
         await db.query(
-          "INSERT INTO vc_reviews (bulan, nama, review, rating) VALUES (?, ?, ?, ?)",
-          [bulan, nama, review, rating]
+          "INSERT INTO vc_reviews (nama, review, rating, tanggal) VALUES (?, ?, ?, ?)",
+          [nama, review, rating, tanggal]
         );
         inserted++;
       } else {
@@ -47,7 +68,7 @@ exports.importReviewFromExcel = async (req, res) => {
     fs.unlinkSync(file.path);
 
     res.json({
-      message: `${inserted} review berhasil diimport. ${skipped} review dilewati karena duplikat atau melebihi batas kata.`,
+      message: `${inserted} review berhasil diimport. ${skipped} review dilewati.`,
     });
   } catch (error) {
     console.error("❌ Gagal proses file Excel:", error);

@@ -24,7 +24,8 @@ const AdminPesan = () => {
   const fetchReviews = async () => {
     try {
       const res = await axios.get('http://localhost:5000/api/admin-pesan/review-vc');
-      setReviews(res.data);
+      const sorted = res.data.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+      setReviews(sorted);
     } catch (err) {
       console.error("❌ Gagal ambil review:", err);
     }
@@ -42,6 +43,11 @@ const AdminPesan = () => {
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
     if (!nama || !review) return alert("Nama dan review wajib diisi");
+
+    const wordCount = review.trim().split(/\s+/).length;
+    if (wordCount > 50) {
+      return alert("Review maksimal 50 kata");
+    }
 
     setIsSubmittingReview(true);
     try {
@@ -92,15 +98,11 @@ const AdminPesan = () => {
   const handleExportExcel = async () => {
     setIsExporting(true);
     try {
-      const response = await fetch('http://localhost:5000/api/export/nayfriends', {
-        method: 'GET',
-      });
-
+      const response = await fetch('http://localhost:5000/api/export/nayfriends');
       if (!response.ok) throw new Error('Gagal mengambil file');
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
-
       const link = document.createElement('a');
       link.href = url;
       link.download = 'nayfriends_messages.xlsx';
@@ -137,9 +139,10 @@ const AdminPesan = () => {
           <thead>
             <tr>
               <th>No</th>
-              <th>Tanggal</th>
+              <th>Tanggal VC</th>
               <th>Nama</th>
               <th>Review</th>
+              <th>Rating</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -147,9 +150,10 @@ const AdminPesan = () => {
             {reviews.map((r, index) => (
               <tr key={r.id}>
                 <td>{index + 1}</td>
-                <td>{dayjs(r.created_at).format("D MMMM YYYY")}</td>
+                <td>{r.tanggal ? dayjs(r.tanggal).format("D MMMM YYYY") : '-'}</td>
                 <td>{r.nama}</td>
                 <td className="message-cell">{r.review}</td>
+                <td>{r.rating || '-'}</td>
                 <td>
                   <button onClick={() => handleDeleteReview(r.id)} className="delete-btn">Hapus</button>
                 </td>
