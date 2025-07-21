@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./FanMessages.css";
 import bgImage from "../assets/bg.png";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
 const FanMessages = () => {
   const [reviews, setReviews] = useState([]);
-  const [formData, setFormData] = useState({ from: "", message: "" });
+  const [formData, setFormData] = useState({ from: "", message: "", rating: 0 });
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
@@ -28,16 +29,18 @@ const FanMessages = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.from.trim() || !formData.message.trim()) return;
+    if (!formData.from.trim() || !formData.message.trim() || formData.rating === 0) return;
 
     try {
       await axios.post("http://localhost:5000/api/admin-pesan/fans-message", {
         name: formData.from,
         message: formData.message,
+        rating: formData.rating,
       });
 
-      setFormData({ from: "", message: "" });
+      setFormData({ from: "", message: "", rating: 0 });
       setShowForm(false);
+      fetchReviews();
     } catch (err) {
       console.error("❌ Gagal kirim pesan fans:", err);
     }
@@ -96,6 +99,15 @@ const FanMessages = () => {
                 <p className="fan-message">
                   <strong>“</strong>{msg.review}<strong>”</strong>
                 </p>
+                <div className="fan-rating">
+                  {[1, 2, 3, 4, 5].map((num) =>
+                    num <= msg.rating ? (
+                      <FaStar key={num} className="star filled" />
+                    ) : (
+                      <FaRegStar key={num} className="star" />
+                    )
+                  )}
+                </div>
               </div>
             ))}
           </div>

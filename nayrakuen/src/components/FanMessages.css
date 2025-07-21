@@ -95,6 +95,23 @@
   overflow: hidden;
 }
 
+.rating-stars,
+.fan-rating {
+  display: flex;
+  gap: 5px;
+  margin: 5px 0;
+}
+
+.star {
+  color: #ccc;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.star.filled {
+  color: gold;
+}
+
 @keyframes scroll-left {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
