@@ -147,7 +147,7 @@ const ManageSchedule = () => {
                   <td>{item.sesi}</td>
                   <td>{item.nama}</td>
                   <td>{getTimeRange(item.preparation, 15)}</td>
-                  <td>{getTimeRange(item.masuk, 40)}</td>
+                  <td>{getTimeRange(item.masuk, 60)}</td>
                   <td>{item.status}</td>
                   <td>
                     <button onClick={() => handleEdit(item)} disabled={isSubmitting}>Edit</button>

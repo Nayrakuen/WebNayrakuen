@@ -160,7 +160,7 @@ function NaylaSchedule() {
                     <td>{item.sesi}</td>
                     <td>{item.nama}</td>
                     <td>{getTimeRange(item.preparation, 15)}</td>
-                    <td>{getTimeRange(item.masuk, 40)}</td>
+                    <td>{getTimeRange(item.masuk, 60)}</td>
                     <td>
                       <span className={`status-${item.status.toLowerCase()}`}>
                         {item.status}
