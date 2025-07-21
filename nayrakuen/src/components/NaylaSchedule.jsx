@@ -52,6 +52,23 @@ function NaylaSchedule() {
     fetchLive();
   }, []);
 
+  const getTimeRange = (startTime, durationMinutes = 15) => {
+    if (!startTime) return '';
+    const [hour, minute] = startTime.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hour);
+    date.setMinutes(minute);
+
+    const start = new Date(date);
+    const end = new Date(date);
+    end.setMinutes(end.getMinutes() + durationMinutes);
+
+    const format = (d) =>
+      `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+
+    return `${format(start)} - ${format(end)}`;
+  };
+
   return (
     <div className="schedule-wrapper">
       <div className="schedule-container">
@@ -142,8 +159,8 @@ function NaylaSchedule() {
                   <tr key={item.id}>
                     <td>{item.sesi}</td>
                     <td>{item.nama}</td>
-                    <td>{item.preparation}</td>
-                    <td>{item.masuk}</td>
+                    <td>{getTimeRange(item.preparation, 15)}</td>
+                    <td>{getTimeRange(item.masuk, 40)}</td>
                     <td>
                       <span className={`status-${item.status.toLowerCase()}`}>
                         {item.status}
