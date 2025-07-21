@@ -79,7 +79,6 @@
   display: flex;
   gap: 6px;
   margin: 5px 0 15px 0;
-  justify-content: center;
 }
 
 .star {
