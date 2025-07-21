@@ -1,8 +1,9 @@
 const db = require("../config/db");
 const xlsx = require("xlsx");
 const path = require("path");
+const fs = require("fs");
 
-exports.importReviewFromExcel = (req, res) => {
+exports.importReviewFromExcel = async (req, res) => {
   try {
     const file = req.file;
     if (!file) return res.status(400).json({ error: "File Excel tidak ditemukan" });
@@ -12,26 +13,41 @@ exports.importReviewFromExcel = (req, res) => {
     const data = xlsx.utils.sheet_to_json(sheet);
 
     const bulan = "Juli 2025";
+    let inserted = 0;
+    let skipped = 0;
 
-    const values = data.map(row => [
-      bulan,
-      row["NAMA"] || "",
-      row["FEEDBACK / REVIEW"] || "",
-      row["RATING"] || ""
-    ]);
+    for (const row of data) {
+      const nama = row["NAMA"] || "";
+      let review = row["FEEDBACK / REVIEW"] || "";
+      const rating = row["RATING"] || "";
 
-    if (values.length === 0) {
-      return res.status(400).json({ error: "Tidak ada data valid pada file" });
-    }
+      if (!nama || !review) continue;
 
-    const sql = "INSERT INTO vc_reviews (bulan, nama, review, rating) VALUES ?";
-    db.query(sql, [values], (err, result) => {
-      if (err) {
-        console.error("❌ Gagal import ke database:", err);
-        return res.status(500).json({ error: "Gagal menyimpan data ke database" });
+      const words = review.trim().split(/\s+/);
+      if (words.length > 50) {
+        review = words.slice(0, 50).join(" ");
       }
 
-      res.json({ message: `${result.affectedRows} review berhasil diimport.` });
+      const [existing] = await db.query(
+        "SELECT * FROM vc_reviews WHERE bulan = ? AND nama = ? AND review = ?",
+        [bulan, nama, review]
+      );
+
+      if (existing.length === 0) {
+        await db.query(
+          "INSERT INTO vc_reviews (bulan, nama, review, rating) VALUES (?, ?, ?, ?)",
+          [bulan, nama, review, rating]
+        );
+        inserted++;
+      } else {
+        skipped++;
+      }
+    }
+
+    fs.unlinkSync(file.path);
+
+    res.json({
+      message: `${inserted} review berhasil diimport. ${skipped} review dilewati karena duplikat atau melebihi batas kata.`,
     });
   } catch (error) {
     console.error("❌ Gagal proses file Excel:", error);
@@ -41,7 +57,7 @@ exports.importReviewFromExcel = (req, res) => {
 
 exports.getReviews = async (req, res) => {
   try {
-    const [result] = await db.query("SELECT * FROM vc_reviews ORDER BY id ASC");
+    const [result] = await db.query("SELECT * FROM vc_reviews ORDER BY created_at DESC");
     res.json(result);
   } catch (err) {
     console.error("❌ Gagal ambil review:", err);
@@ -50,16 +66,30 @@ exports.getReviews = async (req, res) => {
 };
 
 exports.createReview = async (req, res) => {
-  const { bulan, nama, review } = req.body;
+  const { bulan, nama, review, rating } = req.body;
 
   if (!bulan || !nama || !review) {
     return res.status(400).json({ error: "Semua field wajib diisi" });
   }
 
+  const wordCount = review.trim().split(/\s+/).length;
+  if (wordCount > 50) {
+    return res.status(400).json({ error: "Review maksimal 50 kata" });
+  }
+
   try {
-    await db.query(
-      "INSERT INTO vc_reviews (bulan, nama, review) VALUES (?, ?, ?)",
+    const [existing] = await db.query(
+      "SELECT * FROM vc_reviews WHERE bulan = ? AND nama = ? AND review = ?",
       [bulan, nama, review]
+    );
+
+    if (existing.length > 0) {
+      return res.status(400).json({ error: "Review ini sudah ada." });
+    }
+
+    await db.query(
+      "INSERT INTO vc_reviews (bulan, nama, review, rating) VALUES (?, ?, ?, ?)",
+      [bulan, nama, review, rating || null]
     );
     res.json({ message: "Review berhasil ditambahkan" });
   } catch (err) {
@@ -82,7 +112,7 @@ exports.deleteReview = async (req, res) => {
 
 exports.getMessages = async (req, res) => {
   try {
-    const [result] = await db.query("SELECT * FROM fans_messages ORDER BY id DESC");
+    const [result] = await db.query("SELECT * FROM fans_messages ORDER BY created_at DESC");
     res.json(result);
   } catch (err) {
     console.error("❌ Gagal ambil pesan fans:", err);

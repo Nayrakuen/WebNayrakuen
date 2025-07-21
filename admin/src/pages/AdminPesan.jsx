@@ -3,10 +3,12 @@ import axios from 'axios';
 import Sidebar from '../components/Sidebar';
 import './FanMessages.css';
 import ImportReviewExcel from '../components/ImportReviewExcel';
+import dayjs from 'dayjs';
+import 'dayjs/locale/id';
+dayjs.locale('id');
 
 const AdminPesan = () => {
   const [reviews, setReviews] = useState([]);
-  const [bulan, setBulan] = useState('');
   const [nama, setNama] = useState('');
   const [review, setReview] = useState('');
   const [messages, setMessages] = useState([]);
@@ -39,14 +41,13 @@ const AdminPesan = () => {
 
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
-    if (!bulan || !nama || !review) return alert("Semua field wajib diisi");
+    if (!nama || !review) return alert("Nama dan review wajib diisi");
 
     setIsSubmittingReview(true);
     try {
       await axios.post('http://localhost:5000/api/admin-pesan/review-vc', {
-        bulan, nama, review
+        nama, review
       });
-      setBulan('');
       setNama('');
       setReview('');
       fetchReviews();
@@ -84,7 +85,7 @@ const AdminPesan = () => {
       await axios.delete(`http://localhost:5000/api/admin-pesan/fans-message/${id}`);
       fetchMessages();
     } catch (err) {
-      console.error("❌ Gagal hapus pesan:", err);
+      console.error("❌ Gagal hapus pesan fans:", err);
     }
   };
 
@@ -123,8 +124,6 @@ const AdminPesan = () => {
         <ImportReviewExcel onSuccess={fetchReviews} />
 
         <form className="schedule-form" onSubmit={handleReviewSubmit}>
-          <label>Bulan</label>
-          <input type="text" value={bulan} onChange={(e) => setBulan(e.target.value)} placeholder="Contoh: Juli 2025" required />
           <label>Nama</label>
           <input type="text" value={nama} onChange={(e) => setNama(e.target.value)} required />
           <label>Review</label>
@@ -138,7 +137,7 @@ const AdminPesan = () => {
           <thead>
             <tr>
               <th>No</th>
-              <th>Bulan</th>
+              <th>Tanggal</th>
               <th>Nama</th>
               <th>Review</th>
               <th>Aksi</th>
@@ -148,7 +147,7 @@ const AdminPesan = () => {
             {reviews.map((r, index) => (
               <tr key={r.id}>
                 <td>{index + 1}</td>
-                <td>{r.bulan}</td>
+                <td>{dayjs(r.created_at).format("D MMMM YYYY")}</td>
                 <td>{r.nama}</td>
                 <td className="message-cell">{r.review}</td>
                 <td>
@@ -167,7 +166,14 @@ const AdminPesan = () => {
           onClick={handleExportExcel}
           className="export-btn"
           disabled={isExporting}
-          style={{ marginBottom: '1rem', backgroundColor: '#28a745', color: 'white', padding: '0.5rem 1rem', border: 'none', borderRadius: '4px' }}
+          style={{
+            marginBottom: '1rem',
+            backgroundColor: '#28a745',
+            color: 'white',
+            padding: '0.5rem 1rem',
+            border: 'none',
+            borderRadius: '4px'
+          }}
         >
           {isExporting ? 'Mengekspor...' : 'Export ke Excel'}
         </button>
