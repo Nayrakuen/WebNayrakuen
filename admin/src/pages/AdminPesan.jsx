@@ -9,10 +9,7 @@ dayjs.locale('id');
 
 const AdminPesan = () => {
   const [reviews, setReviews] = useState([]);
-  const [nama, setNama] = useState('');
-  const [review, setReview] = useState('');
   const [messages, setMessages] = useState([]);
-  const [isSubmittingReview, setIsSubmittingReview] = useState(false);
   const [approvingId, setApprovingId] = useState(null);
   const [isExporting, setIsExporting] = useState(false);
 
@@ -37,30 +34,6 @@ const AdminPesan = () => {
       setMessages(res.data);
     } catch (err) {
       console.error("❌ Gagal ambil pesan fans:", err);
-    }
-  };
-
-  const handleReviewSubmit = async (e) => {
-    e.preventDefault();
-    if (!nama || !review) return alert("Nama dan review wajib diisi");
-
-    const wordCount = review.trim().split(/\s+/).length;
-    if (wordCount > 50) {
-      return alert("Review maksimal 50 kata");
-    }
-
-    setIsSubmittingReview(true);
-    try {
-      await axios.post('http://localhost:5000/api/admin-pesan/review-vc', {
-        nama, review
-      });
-      setNama('');
-      setReview('');
-      fetchReviews();
-    } catch (err) {
-      console.error("❌ Gagal tambah review:", err);
-    } finally {
-      setIsSubmittingReview(false);
     }
   };
 
@@ -124,16 +97,6 @@ const AdminPesan = () => {
         <h2>Review <strong>Video Call</strong></h2>
 
         <ImportReviewExcel onSuccess={fetchReviews} />
-
-        <form className="schedule-form" onSubmit={handleReviewSubmit}>
-          <label>Nama</label>
-          <input type="text" value={nama} onChange={(e) => setNama(e.target.value)} required />
-          <label>Review</label>
-          <textarea value={review} onChange={(e) => setReview(e.target.value)} rows={4} required></textarea>
-          <button type="submit" disabled={isSubmittingReview}>
-            {isSubmittingReview ? 'Mengirim...' : 'Tambah Review'}
-          </button>
-        </form>
 
         <table className="review-table">
           <thead>
