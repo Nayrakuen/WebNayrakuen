@@ -48,16 +48,19 @@ const FanMessages = () => {
 
   return (
     <div className="fan-section" style={{ backgroundImage: `url(${bgImage})` }}>
-      <h3 className="fan-title">Perasaan <strong>#NayFriends</strong> setelah bertemu Nayla</h3>
+      <h3 className="fan-title">
+        Perasaan <strong>#NayFriends</strong> setelah bertemu Nayla
+      </h3>
 
       <button className="fan-float-button" onClick={() => setShowForm(true)}>
-        Kirim Pesan hangat untuk Nayla
+        Kirim Fan letter untuk Nayla
       </button>
 
       {showForm && (
         <div className="form-overlay">
           <div className="form-modal">
             <h2>Pesan untuk Nayla</h2>
+            <p className="note">Pesan ini akan langsung dikirim dan dibaca oleh Nayla Suji.</p>
             <form onSubmit={handleSubmit}>
               <label htmlFor="from">Nama Kamu</label>
               <input
@@ -67,20 +70,25 @@ const FanMessages = () => {
                 value={formData.from}
                 onChange={handleChange}
                 required
+                placeholder="Contoh: Adit"
               />
 
-              <label htmlFor="message">Review</label>
+              <label htmlFor="message">Pesanmu</label>
               <textarea
                 id="message"
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
                 required
+                placeholder="Tulis pesan hangatmu setelah bertemu Nayla..."
+                rows={4}
               />
 
               <div className="modal-buttons">
                 <button type="submit">Kirim</button>
-                <button type="button" onClick={() => setShowForm(false)}>Batal</button>
+                <button type="button" onClick={() => setShowForm(false)}>
+                  Batal
+                </button>
               </div>
             </form>
           </div>
@@ -97,7 +105,9 @@ const FanMessages = () => {
               <div key={`${rowIndex}-${i}`} className="fan-card">
                 <p className="fan-from">From: {msg.nama}</p>
                 <p className="fan-message">
-                  <strong>“</strong>{msg.review}<strong>”</strong>
+                  <strong>“</strong>
+                  {msg.review}
+                  <strong>”</strong>
                 </p>
                 <div className="fan-rating">
                   {[1, 2, 3, 4, 5].map((num) =>
