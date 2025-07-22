@@ -30,7 +30,7 @@ function ContainerInsideExample({ language, setLanguage, t }) {
 
   return (
     <Navbar expand="lg" fixed="top" className="navbar-maroon" expanded={expanded}>
-      <Container fluid className="px-5">
+      <Container fluid className="px-4">
         
         <Navbar.Brand as={Link} to="/" className="text-white fw-bold">
           {t('navbar', 'brand')} Nayrakuen | ナイラの楽園
