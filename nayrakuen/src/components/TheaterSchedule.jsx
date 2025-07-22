@@ -8,6 +8,8 @@ function TheaterSchedule() {
   const [calendar, setCalendar] = useState([]);
   const [year, setYear] = useState(today.getFullYear());
   const [month, setMonth] = useState(today.getMonth());
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     const fetchSchedule = async () => {
@@ -109,9 +111,19 @@ function TheaterSchedule() {
     year: "numeric",
   });
 
+  const openPopup = (event) => {
+    setSelectedEvent(event);
+    setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setSelectedEvent(null);
+    setShowPopup(false);
+  };
+
   return (
     <div className="calendar-container">
-      <h2 className="theater-title text-center mb-2">Jadwal Teater Nayla</h2>
+      <h2 className="theater-title text-center mb-2">Nayla Schedule</h2>
       <h5 className="calendar-title text-center">{monthLabel}</h5>
 
       <table className="calendar">
@@ -135,15 +147,13 @@ function TheaterSchedule() {
                     <>
                       <div className="calendar-day">{day}</div>
                       {getEventsForDate(day).map((event, idx) => (
-                        <div key={idx} className="calendar-event">
-                          <span className="dot">●</span>{" "}
-                          <a
-                            href={event.ticket_url || "#"}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            {event.time} {event.title}
-                          </a>
+                        <div
+                          key={idx}
+                          className="calendar-event"
+                          onClick={() => openPopup(event)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <span className="dot">●</span> {event.time} {event.title}
                         </div>
                       ))}
                     </>
@@ -155,23 +165,33 @@ function TheaterSchedule() {
         </tbody>
       </table>
 
-      <div
-        className="calendar-nav mt-2"
-        style={{ display: "flex", justifyContent: "space-between", padding: "8px" }}
-      >
-        <span
-          onClick={handlePrevMonth}
-          style={{ cursor: "pointer", color: "#800000", fontWeight: "bold" }}
-        >
-          Bulan Sebelumnya
-        </span>
-        <span
-          onClick={handleNextMonth}
-          style={{ cursor: "pointer", color: "#800000", fontWeight: "bold" }}
-        >
-          Bulan Berikutnya
-        </span>
+      <div className="calendar-nav mt-2">
+        <span onClick={handlePrevMonth}>Bulan Sebelumnya</span>
+        <span onClick={handleNextMonth}>Bulan Berikutnya</span>
       </div>
+
+      {showPopup && selectedEvent && (
+        <div className="popup-overlay" onClick={closePopup}>
+          <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+            <div className="popup-header">
+              Detail Jadwal
+              <span className="popup-close" onClick={closePopup}>✖</span>
+            </div>
+            <div className="popup-body">
+              <p><strong>Tanggal:</strong> {new Date(selectedEvent.date).toLocaleDateString("id-ID")}</p>
+              <p><strong>Jam:</strong> {selectedEvent.time}</p>
+              <p><strong>Show / Event:</strong> {selectedEvent.title}</p>
+              {selectedEvent.ticket_url && (
+                <p>
+                  <a href={selectedEvent.ticket_url} target="_blank" rel="noreferrer">
+                    🎫 Link Tiket
+                  </a>
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
