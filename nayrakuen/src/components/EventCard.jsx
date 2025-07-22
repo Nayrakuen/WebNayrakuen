@@ -17,9 +17,11 @@ function EventCard({ t, language = "id" }) {
   return (
     <section className="event-section py-5">
       <div className="event-container container">
-        <h2 className="event-title text-center mb-5" data-aos="fade-up">
-          ≡ {t("navbar", "event")} ≡
-        </h2>
+        <div className="d-flex justify-content-center mb-5" data-aos="fade-up">
+          <h2 className="event-title">
+            ≡ Spesial Event ≡
+          </h2>
+        </div>
         <div className="event-grid row justify-content-center">
           {events.map((event, index) => (
             <div
