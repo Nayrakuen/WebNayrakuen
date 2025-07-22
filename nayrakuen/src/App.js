@@ -14,6 +14,7 @@ import AboutNayla from './components/AboutNayla';
 import Gallery from './components/Gallery';
 import TentangKami from './components/TentangKami';
 import ScrollToTop from './components/ScrollToTop';
+import EventPage from './components/EventPage';
 import translate from './translate.json';
 
 const getPageTitle = (pathname) => {
@@ -28,6 +29,8 @@ const getPageTitle = (pathname) => {
       return 'Nayrakuen - Gallery';
     case '/tentang-kami':
       return 'Nayrakuen - Tentang Kami';
+    case '/event':
+      return 'Nayrakuen - Event';
     default:
       return 'Nayrakuen';
   }
@@ -64,6 +67,7 @@ function AppWrapper() {
         <Route path="/about-nayla" element={<AboutNayla t={t} />} />
         <Route path="/gallery" element={<Gallery t={t} />} />
         <Route path="/tentang-kami" element={<TentangKami t={t} />} />
+        <Route path="/event" element={<EventPage />} />
       </Routes>
     </>
   );
