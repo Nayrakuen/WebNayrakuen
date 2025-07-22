@@ -29,10 +29,21 @@ const images = [
 
 function NayArt({ t }) {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [showAll, setShowAll] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const displayedImages = isMobile && !showAll ? images.slice(0, 3) : images;
 
   return (
     <section className="nayart-section py-5">
@@ -43,7 +54,7 @@ function NayArt({ t }) {
         </div>
 
         <div className="masonry">
-          {images.map((img, index) => (
+          {displayedImages.map((img, index) => (
             <img
               key={index}
               src={img}
@@ -55,7 +66,11 @@ function NayArt({ t }) {
           ))}
         </div>
 
-        <div className="see-more-text">{t("nayart", "seeMore")}</div>
+        {isMobile && !showAll && (
+          <div className="see-more-text text-center mt-3" onClick={() => setShowAll(true)}>
+            <span className="see-more-link">{t("nayart", "seeMore")}</span>
+          </div>
+        )}
       </div>
 
       {selectedImage && (
