@@ -63,3 +63,15 @@
   color: #555;
   text-align: center;
 }
+
+.see-more-link {
+  color: #800000;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.see-more-link:hover {
+  color: orangered;
+  text-decoration: underline;
+}

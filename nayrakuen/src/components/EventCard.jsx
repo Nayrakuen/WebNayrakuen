@@ -4,6 +4,7 @@ import translate from '../translate.json';
 import eventImage1 from '../assets/Poster.jpeg';
 import eventImage2 from '../assets/Poster1.jpeg';
 import eventImage3 from '../assets/Poster2.jpeg';
+import { Link } from 'react-router-dom';
 
 const imageMap = {
   "Poster.jpeg": eventImage1,
@@ -34,6 +35,12 @@ function EventCard({ t, language = "id" }) {
               <p className="poster-subtitle">{event.title}</p>
             </div>
           ))}
+        </div>
+
+        <div className="text-center mt-4">
+          <Link to="/event" className="see-more-link">
+            Lihat Selengkapnya
+          </Link>
         </div>
       </div>
     </section>
