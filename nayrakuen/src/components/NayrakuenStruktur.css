@@ -1,0 +1,32 @@
+.org-section {
+  background-color: #f0f0f0;
+  padding: 3rem 1rem 3rem; 
+}
+
+.org-image-wrapper {
+  margin: 2rem auto;
+  padding: 1rem;
+  max-width: 95%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.org-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.org-menu {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.org-menu button:hover {
+  background-color: #a00000;
+}

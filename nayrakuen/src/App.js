@@ -13,8 +13,9 @@ import Schedule from './components/NaylaSchedule';
 import AboutNayla from './components/AboutNayla';
 import Gallery from './components/Gallery';
 import TentangKami from './components/TentangKami';
-import ScrollToTop from './components/ScrollToTop';
 import EventPage from './components/EventPage';
+import NayrakuenStruktur from './components/NayrakuenStruktur';
+import ScrollToTop from './components/ScrollToTop';
 import translate from './translate.json';
 
 const getPageTitle = (pathname) => {
@@ -31,6 +32,8 @@ const getPageTitle = (pathname) => {
       return 'Nayrakuen - Tentang Kami';
     case '/event':
       return 'Nayrakuen - Event';
+    case '/struktur-organisasi':
+      return 'Nayrakuen - Struktur Nayrakuen';
     default:
       return 'Nayrakuen';
   }
@@ -68,6 +71,7 @@ function AppWrapper() {
         <Route path="/gallery" element={<Gallery t={t} />} />
         <Route path="/tentang-kami" element={<TentangKami t={t} />} />
         <Route path="/event" element={<EventPage />} />
+        <Route path="/struktur-nayrakuen" element={<NayrakuenStruktur />} />
       </Routes>
     </>
   );
