@@ -17,6 +17,7 @@ import EventPage from './components/EventPage';
 import NayrakuenStruktur from './components/NayrakuenStruktur';
 import ScrollToTop from './components/ScrollToTop';
 import translate from './translate.json';
+import Footer from "./components/Footer";
 
 const getPageTitle = (pathname) => {
   switch (pathname) {
@@ -73,6 +74,7 @@ function AppWrapper() {
         <Route path="/event" element={<EventPage />} />
         <Route path="/struktur-nayrakuen" element={<NayrakuenStruktur />} />
       </Routes>
+      <Footer />
     </>
   );
 }
