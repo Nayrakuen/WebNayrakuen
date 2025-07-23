@@ -7,7 +7,7 @@ import Image from 'react-bootstrap/Image';
 import { Link, useLocation } from 'react-router-dom';
 import './NavbarComponents.css';
 
-function ContainerInsideExample({ language, setLanguage, t }) {
+function ContainerInsideExample({ language, setLanguage }) {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 992);
   const [expanded, setExpanded] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -33,7 +33,7 @@ function ContainerInsideExample({ language, setLanguage, t }) {
       <Container fluid className="px-4">
         
         <Navbar.Brand as={Link} to="/" className="text-white fw-bold">
-          {t('navbar', 'brand')} Nayrakuen | ナイラの楽園
+          Nayrakuen | ナイラの楽園
         </Navbar.Brand>
 
         <Navbar.Toggle
@@ -55,31 +55,23 @@ function ContainerInsideExample({ language, setLanguage, t }) {
                   onMouseLeave={() => setDropdownOpen(false)}
                   title=""
                 >
-                  <NavDropdown.Item as={Link} to="/event">{t('navbar', 'event')}</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/gallery">{t('navbar', 'galeri')}</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/schedule">{t('navbar', 'schedule')}</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/about-nayla">{t('navbar', 'aboutNayla')}</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/event">Event</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/gallery">Galeri</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/schedule">Jadwal</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/about-nayla">Tentang Nayla</NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item as={Link} to="/tentang-kami">{t('navbar', 'tentangKami')}</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/tentang-kami">Tentang Kami</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/struktur-nayrakuen">Struktur Nayrakuen</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             ) : (
               <Nav className="flex-column">
-                <Nav.Link as={Link} to="/event" onClick={() => setExpanded(false)}>
-                  {t('navbar', 'event')}
-                </Nav.Link>
-                <Nav.Link as={Link} to="/gallery" onClick={() => setExpanded(false)}>
-                  {t('navbar', 'galeri')}
-                </Nav.Link>
-                <Nav.Link as={Link} to="/schedule" onClick={() => setExpanded(false)}>
-                  {t('navbar', 'schedule')}
-                </Nav.Link>
-                <Nav.Link as={Link} to="/about-nayla" onClick={() => setExpanded(false)}>
-                  {t('navbar', 'aboutNayla')}
-                </Nav.Link>
-                <Nav.Link as={Link} to="/tentang-kami" onClick={() => setExpanded(false)}>
-                  {t('navbar', 'tentangKami')}
-                </Nav.Link>
+                <Nav.Link as={Link} to="/event" onClick={() => setExpanded(false)}>Event</Nav.Link>
+                <Nav.Link as={Link} to="/gallery" onClick={() => setExpanded(false)}>Galeri</Nav.Link>
+                <Nav.Link as={Link} to="/schedule" onClick={() => setExpanded(false)}>Jadwal</Nav.Link>
+                <Nav.Link as={Link} to="/about-nayla" onClick={() => setExpanded(false)}>Tentang Nayla</Nav.Link>
+                <Nav.Link as={Link} to="/tentang-kami" onClick={() => setExpanded(false)}>Tentang Kami</Nav.Link>
+                <Nav.Link as={Link} to="/struktur-nayrakuen" onClick={() => setExpanded(false)}>Struktur Nayrakuen</Nav.Link>
               </Nav>
             )}
 
