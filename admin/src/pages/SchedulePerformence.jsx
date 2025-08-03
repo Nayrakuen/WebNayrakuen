@@ -3,6 +3,8 @@ import Sidebar from '../components/Sidebar';
 import axios from 'axios';
 import './SchedulePerformence.css';
 
+const API_BASE_URL = 'https://backend-seven-nu-19.vercel.app/api/teater';
+
 const ManageSchedule = () => {
   const [schedule, setSchedule] = useState([]);
   const [form, setForm] = useState({
@@ -13,7 +15,7 @@ const ManageSchedule = () => {
 
   const fetchSchedule = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/teater');
+      const res = await axios.get(API_BASE_URL);
       setSchedule(res.data);
     } catch (error) {
       console.error("Gagal ambil data jadwal teater:", error);
@@ -34,9 +36,9 @@ const ManageSchedule = () => {
 
     try {
       if (editId) {
-        await axios.put(`http://localhost:5000/api/teater/${editId}`, form);
+        await axios.put(`${API_BASE_URL}/${editId}`, form);
       } else {
-        await axios.post('http://localhost:5000/api/teater', form);
+        await axios.post(API_BASE_URL, form);
       }
 
       fetchSchedule();
@@ -51,7 +53,7 @@ const ManageSchedule = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/teater/${id}`);
+      await axios.delete(`${API_BASE_URL}/${id}`);
       fetchSchedule();
     } catch (error) {
       console.error("Gagal hapus jadwal teater:", error);
