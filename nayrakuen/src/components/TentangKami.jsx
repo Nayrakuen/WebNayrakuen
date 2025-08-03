@@ -5,13 +5,14 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 import logoSquare from "../assets/LogoMerah.png";
-import foto1 from "../assets/Nayrakuen/Photo3.jpg";
+import foto1 from "../assets/Nayrakuen/Photo1.jpeg";
 import foto2 from "../assets/Nayrakuen/Photo2.jpg";
-import foto3 from "../assets/Nayrakuen/Photo1.jpg";
+import foto3 from "../assets/Nayrakuen/Photo3.jpg";
 import foto4 from "../assets/Nayrakuen/Photo4.jpg";
 import foto5 from "../assets/Nayrakuen/Photo5.jpg";
 import foto6 from "../assets/Nayrakuen/Photo6.jpg";
 import foto7 from "../assets/Nayrakuen/Photo7.jpg";
+import foto8 from "../assets/Nayrakuen/Photo8.jpg";
 
 function TentangKami() {
   const [content, setContent] = useState("");
@@ -39,13 +40,14 @@ function TentangKami() {
   }, []);
 
   const galeriFoto = [
-    { src: foto1, caption: "Birthday Project Sweet Naylalaland" },
-    { src: foto2, caption: "Spesial Gathering with Ancol Beach" },
-    { src: foto3, caption: "Offline Gathering" },
-    { src: foto4, caption: "Meet and Greet Nayla #4" },
-    { src: foto5, caption: "JKT48 Meet n Greet Festival 26th Single" },
-    { src: foto6, caption: "Anniversary Nayrakuen 1th" },
-    { src: foto7, caption: "Anniversary Nayrakuen 1th" },
+    { src: foto1, caption: "“Happiness on Pizzaland”\n(誕生日のプロジェクト)" },
+    { src: foto2, caption: "“Sweet Seventeen”\n(誕生日のプロジェクト)" },
+    { src: foto3, caption: "“Happiness on Pizzaland”\n(誕生日のプロジェクト)" },
+    { src: foto4, caption: "“Happiness on Pizzaland”\n(誕生日のプロジェクト)" },
+    { src: foto5, caption: "“Happiness on Pizzaland”\n(誕生日のプロジェクト)" },
+    { src: foto6, caption: "“Happiness on Pizzaland”\n(誕生日のプロジェクト)" },
+    { src: foto7, caption: "“Happiness on Pizzaland”\n(誕生日のプロジェクト)" },
+    { src: foto8, caption: "“Happiness on Pizzaland”\n(誕生日のプロジェクト)" },
   ];
 
   const paragraphs = content ? content.split("\n\n") : [];
@@ -77,8 +79,15 @@ function TentangKami() {
             data-aos="fade-up"
             data-aos-delay={150 + index * 100}
           >
-            <img src={foto.src} alt={foto.caption} />
-            <p className="image-caption">{foto.caption}</p>
+            <img src={foto.src} alt="Foto Galeri Nayrakuen" />
+            <p className="image-caption">
+              {foto.caption.split("\n").map((line, i) => (
+                <React.Fragment key={i}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
+            </p>
           </div>
         ))}
       </div>
