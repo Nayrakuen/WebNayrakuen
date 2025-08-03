@@ -3,20 +3,26 @@ import Sidebar from '../components/Sidebar';
 import axios from 'axios';
 import './ManageSchedule.css';
 
+const API_BASE_URL = 'https://backend-seven-nu-19.vercel.app/api/vc-schedule';
+
 const ManageSchedule = () => {
   const [schedule, setSchedule] = useState([]);
   const [form, setForm] = useState({
-    sesi: '', nama: '', preparation: '', masuk: '', status: 'Ready'
+    sesi: '',
+    nama: '',
+    preparation: '',
+    masuk: '',
+    status: 'Ready',
   });
   const [editId, setEditId] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fetchSchedule = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/vc-schedule');
+      const res = await axios.get(API_BASE_URL);
       setSchedule(res.data);
     } catch (error) {
-      console.error("Gagal ambil data jadwal:", error);
+      console.error('Gagal ambil data jadwal:', error);
     }
   };
 
@@ -34,16 +40,23 @@ const ManageSchedule = () => {
 
     try {
       if (editId) {
-        await axios.put(`http://localhost:5000/api/vc-schedule/${editId}`, form);
+        await axios.put(`${API_BASE_URL}/${editId}`, {
+          ...form,
+          sesi: parseInt(form.sesi, 10),
+          id: editId,
+        });
       } else {
-        await axios.post('http://localhost:5000/api/vc-schedule', form);
+        await axios.post(API_BASE_URL, {
+          ...form,
+          sesi: parseInt(form.sesi, 10),
+        });
       }
 
       fetchSchedule();
       setForm({ sesi: '', nama: '', preparation: '', masuk: '', status: 'Ready' });
       setEditId(null);
     } catch (error) {
-      console.error("Gagal simpan jadwal:", error);
+      console.error('Gagal simpan jadwal:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -51,16 +64,16 @@ const ManageSchedule = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/vc-schedule/${id}`);
+      await axios.delete(`${API_BASE_URL}/${id}`);
       fetchSchedule();
     } catch (error) {
-      console.error("Gagal hapus jadwal:", error);
+      console.error('Gagal hapus jadwal:', error);
     }
   };
 
   const handleEdit = (item) => {
     setForm({
-      sesi: item.sesi,
+      sesi: item.sesi.toString(),
       nama: item.nama,
       preparation: item.preparation,
       masuk: item.masuk,
@@ -77,13 +90,9 @@ const ManageSchedule = () => {
   const getTimeRange = (startTime, durationMinutes = 15) => {
     if (!startTime) return '';
     const [hour, minute] = startTime.split(':').map(Number);
-    const date = new Date();
-    date.setHours(hour);
-    date.setMinutes(minute);
-
-    const start = new Date(date);
-    const end = new Date(date);
-    end.setMinutes(end.getMinutes() + durationMinutes);
+    const start = new Date();
+    start.setHours(hour, minute, 0, 0);
+    const end = new Date(start.getTime() + durationMinutes * 60000);
 
     const format = (d) =>
       `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
@@ -108,7 +117,7 @@ const ManageSchedule = () => {
           <label>Status</label>
           <select name="status" value={form.status} onChange={handleChange}>
             <option value="Ready">Ready</option>
-            <option value="Sold">Sold</option>
+            <option value="sold out">Sold Out</option> {/* ✅ Sesuaikan value dengan isi dari database */}
           </select>
           <div style={{ display: 'flex', gap: '10px' }}>
             <button type="submit" disabled={isSubmitting}>
