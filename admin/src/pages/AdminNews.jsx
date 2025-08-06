@@ -9,7 +9,7 @@ const AdminNews = () => {
 
   const fetchNews = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/news');
+      const res = await axios.get('https://backend-seven-nu-19.vercel.app/api/news');
       setNewsList(res.data);
     } catch (err) {
       console.error(err);
@@ -21,7 +21,7 @@ const AdminNews = () => {
     if (!window.confirm('Yakin hapus berita ini?')) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/news/${id}`, {
+      await axios.delete(`https://backend-seven-nu-19.vercel.app/api/news/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchNews();

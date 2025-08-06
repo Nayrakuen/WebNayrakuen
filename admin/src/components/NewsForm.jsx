@@ -22,7 +22,7 @@ const NewsForm = ({ onSuccess }) => {
         formData.append('folder', 'news');
 
         const res = await axios.post(
-          'http://localhost:5000/api/news/upload',
+          'https://backend-seven-nu-19.vercel.app/api/news/upload',
           formData,
           {
             headers: {
@@ -44,7 +44,7 @@ const NewsForm = ({ onSuccess }) => {
 
     try {
       await axios.post(
-        'http://localhost:5000/api/news',
+        'https://backend-seven-nu-19.vercel.app/api/news',
         { title, content, image_url, cloudinary_id },
         {
           headers: { Authorization: `Bearer ${token}` },

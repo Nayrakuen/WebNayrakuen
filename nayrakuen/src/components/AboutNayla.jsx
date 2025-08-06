@@ -7,7 +7,7 @@ function AboutNayla() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/about-nayla")
+      .get("https://backend-seven-nu-19.vercel.app/api/about-nayla")
       .then((res) => {
         let content = res.data.content || "";
         content = content.replace(/\\n/g, '\n');

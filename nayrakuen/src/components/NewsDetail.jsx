@@ -12,7 +12,7 @@ const NewsDetail = () => {
   useEffect(() => {
     const fetchNewsDetail = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/news/${id}`);
+        const res = await axios.get(`https://backend-seven-nu-19.vercel.app/api/news/${id}`);
         setNews(res.data);
       } catch (err) {
         console.error('Gagal mengambil detail berita:', err);
@@ -22,7 +22,7 @@ const NewsDetail = () => {
 
     const fetchAllNews = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/news`);
+        const res = await axios.get(`https://backend-seven-nu-19.vercel.app/api/news`);
         const sorted = res.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
         setAllNews(sorted.slice(0, 5));
       } catch (err) {

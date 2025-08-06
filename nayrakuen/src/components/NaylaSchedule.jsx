@@ -15,19 +15,19 @@ function NaylaSchedule() {
 
     const fetchSchedule = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/nayla/schedule");
+        const res = await axios.get("https://backend-seven-nu-19.vercel.app/api/nayla/schedule");
         setShows(res.data);
       } catch (err) {
-        console.error("❌ Gagal ambil jadwal teater:", err.message);
+        console.error("Gagal ambil jadwal teater:", err.message);
       }
     };
 
     const fetchVC = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/vc-schedule");
+        const res = await axios.get("hhttps://backend-seven-nu-19.vercel.app/api/vc-schedule");
         setVcSchedule(res.data);
       } catch (err) {
-        console.error("❌ Gagal ambil jadwal VC:", err.message);
+        console.error("Gagal ambil jadwal VC:", err.message);
       }
     };
 

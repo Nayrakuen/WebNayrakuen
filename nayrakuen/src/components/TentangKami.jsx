@@ -22,7 +22,7 @@ function TentangKami() {
     AOS.init({ duration: 800, once: true });
 
     axios
-      .get("http://localhost:5000/api/tentang-kami")
+      .get("https://backend-seven-nu-19.vercel.app/api/tentang-kami")
       .then((response) => {
         const data = response.data;
 

@@ -18,7 +18,6 @@ const Home = ({ t, language }) => {
       <TheaterSchedule />
       <NayArt t={t} />
       <FanMessages />
-      <Footer />
     </>
   );
 };

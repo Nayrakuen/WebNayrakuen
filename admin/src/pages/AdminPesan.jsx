@@ -5,7 +5,10 @@ import './FanMessages.css';
 import ImportReviewExcel from '../components/ImportReviewExcel';
 import dayjs from 'dayjs';
 import 'dayjs/locale/id';
+
 dayjs.locale('id');
+
+const BASE_URL = 'https://backend-seven-nu-19.vercel.app/api/admin-pesan';
 
 const AdminPesan = () => {
   const [reviews, setReviews] = useState([]);
@@ -20,40 +23,46 @@ const AdminPesan = () => {
 
   const fetchReviews = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin-pesan/review-vc');
-      const sorted = res.data.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+      const res = await axios.get(`${BASE_URL}/review-vc`);
+      const sorted = (res.data || []).sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
       setReviews(sorted);
     } catch (err) {
-      console.error("❌ Gagal ambil review:", err);
+      console.error("Gagal ambil review:", err);
+      alert("Gagal mengambil data review.");
     }
   };
 
   const fetchMessages = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin-pesan/fans-message');
-      setMessages(res.data);
+      const res = await axios.get(`${BASE_URL}/fans-message`);
+      setMessages(res.data || []);
     } catch (err) {
-      console.error("❌ Gagal ambil pesan fans:", err);
+      console.error("Gagal ambil pesan fans:", err);
+      alert("Gagal mengambil pesan fans.");
     }
   };
 
   const handleDeleteReview = async (id) => {
     if (!window.confirm("Yakin ingin menghapus review ini?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/admin-pesan/review-vc/${id}`);
+      await axios.delete(`${BASE_URL}/review-vc/${id}`);
       fetchReviews();
     } catch (err) {
-      console.error("❌ Gagal hapus review:", err);
+      console.error("Gagal hapus review:", err);
+      alert("Gagal menghapus review.");
     }
   };
 
   const handleApprove = async (id) => {
     setApprovingId(id);
     try {
-      await axios.put(`http://localhost:5000/api/admin-pesan/fans-message/approve/${id}`);
+      await axios.put(`${BASE_URL}/fans-message/approve/${id}`);
       fetchMessages();
     } catch (err) {
-      console.error("❌ Gagal setujui pesan:", err);
+      console.error("Gagal setujui pesan:", err);
+      alert("Gagal menyetujui pesan.");
     } finally {
       setApprovingId(null);
     }
@@ -61,17 +70,18 @@ const AdminPesan = () => {
 
   const handleDeleteMessage = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/admin-pesan/fans-message/${id}`);
+      await axios.delete(`${BASE_URL}/fans-message/${id}`);
       fetchMessages();
     } catch (err) {
-      console.error("❌ Gagal hapus pesan fans:", err);
+      console.error("Gagal hapus pesan fans:", err);
+      alert("Gagal menghapus pesan fans.");
     }
   };
 
   const handleExportExcel = async () => {
     setIsExporting(true);
     try {
-      const response = await fetch('http://localhost:5000/api/export/nayfriends');
+      const response = await fetch(`${BASE_URL}/export/nayfriends`);
       if (!response.ok) throw new Error('Gagal mengambil file');
 
       const blob = await response.blob();
@@ -83,7 +93,7 @@ const AdminPesan = () => {
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      console.error('❌ Gagal export Excel:', error);
+      console.error('Gagal export Excel:', error);
       alert('Export gagal, coba lagi!');
     } finally {
       setIsExporting(false);
@@ -98,32 +108,36 @@ const AdminPesan = () => {
 
         <ImportReviewExcel onSuccess={fetchReviews} />
 
-        <table className="review-table">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Tanggal VC</th>
-              <th>Nama</th>
-              <th>Review</th>
-              <th>Rating</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reviews.map((r, index) => (
-              <tr key={r.id}>
-                <td>{index + 1}</td>
-                <td>{r.tanggal ? dayjs(r.tanggal).format("D MMMM YYYY") : '-'}</td>
-                <td>{r.nama}</td>
-                <td className="message-cell">{r.review}</td>
-                <td>{r.rating || '-'}</td>
-                <td>
-                  <button onClick={() => handleDeleteReview(r.id)} className="delete-btn">Hapus</button>
-                </td>
+        {reviews.length === 0 ? (
+          <p>Belum ada review yang tersedia.</p>
+        ) : (
+          <table className="review-table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Tanggal Upload</th>
+                <th>Nama</th>
+                <th>Review</th>
+                <th>Rating</th>
+                <th>Aksi</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {reviews.map((r, index) => (
+                <tr key={r.id}>
+                  <td>{index + 1}</td>
+                  <td>{r.created_at ? dayjs(r.created_at).format("D MMMM YYYY") : '-'}</td>
+                  <td>{r.nama || '-'}</td>
+                  <td className="message-cell">{r.review || '-'}</td>
+                  <td>{r.rating || '-'}</td>
+                  <td>
+                    <button onClick={() => handleDeleteReview(r.id)} className="delete-btn">Hapus</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
 
         <hr style={{ margin: '2rem 0' }} />
 
@@ -161,8 +175,8 @@ const AdminPesan = () => {
               {messages.map((msg, index) => (
                 <tr key={msg.id}>
                   <td>{index + 1}</td>
-                  <td>{msg.name}</td>
-                  <td className="message-cell">{msg.message}</td>
+                  <td>{msg.name || '-'}</td>
+                  <td className="message-cell">{msg.message || '-'}</td>
                   <td>
                     {!msg.is_approved && (
                       <button

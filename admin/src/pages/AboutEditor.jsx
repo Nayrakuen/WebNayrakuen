@@ -12,19 +12,19 @@ function AboutEditor() {
   const [loading, setLoading] = useState({ mini: false, about: false, kami: false });
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/mini-profile')
+    axios.get('https://backend-seven-nu-19.vercel.app/api/mini-profile')
       .then(res => {
         const content = (res.data.content || '').replace(/\\n/g, '\n');
         setMiniProfile(content);
       });
 
-    axios.get('http://localhost:5000/api/about-nayla')
+    axios.get('https://backend-seven-nu-19.vercel.app/api/about-nayla')
       .then(res => {
         const content = (res.data.content || '').replace(/\\n/g, '\n');
         setAboutNayla(content);
       });
 
-    axios.get('http://localhost:5000/api/tentang-kami')
+    axios.get('https://backend-seven-nu-19.vercel.app/api/tentang-kami')
       .then(res => {
         setTentangKami(res.data.content || '');
         setTentangKamiId(res.data.id);
@@ -36,14 +36,14 @@ function AboutEditor() {
     try {
       if (type === 'mini') {
         const content = miniProfile.replace(/\n/g, '\\n');
-        await axios.put('http://localhost:5000/api/mini-profile', { content });
+        await axios.put('https://backend-seven-nu-19.vercel.app/api/mini-profile', { content });
         setMessage({ section: 'mini', text: 'Mini Profile berhasil disimpan!' });
       } else if (type === 'about') {
         const content = aboutNayla.replace(/\n/g, '\\n');
-        await axios.post('http://localhost:5000/api/about-nayla', { content });
+        await axios.post('https://backend-seven-nu-19.vercel.app/api/about-nayla', { content });
         setMessage({ section: 'about', text: 'About Nayla berhasil disimpan!' });
       } else if (type === 'kami') {
-        await axios.put(`http://localhost:5000/api/tentang-kami/${tentangKamiId}`, { content: tentangKami });
+        await axios.put(`https://backend-seven-nu-19.vercel.app/api/tentang-kami/${tentangKamiId}`, { content: tentangKami });
         setMessage({ section: 'kami', text: 'Tentang Kami berhasil disimpan!' });
       }
     } catch {

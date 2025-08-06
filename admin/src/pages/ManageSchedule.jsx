@@ -117,7 +117,7 @@ const ManageSchedule = () => {
           <label>Status</label>
           <select name="status" value={form.status} onChange={handleChange}>
             <option value="Ready">Ready</option>
-            <option value="sold out">Sold Out</option> {/* ✅ Sesuaikan value dengan isi dari database */}
+            <option value="sold out">Sold Out</option>
           </select>
           <div style={{ display: 'flex', gap: '10px' }}>
             <button type="submit" disabled={isSubmitting}>

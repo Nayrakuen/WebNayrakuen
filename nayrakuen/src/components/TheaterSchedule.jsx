@@ -14,8 +14,8 @@ function TheaterSchedule() {
   useEffect(() => {
     const fetchSchedule = async () => {
       const results = await Promise.allSettled([
-        axios.get("http://localhost:5000/api/nayla/schedule"),
-        axios.get("http://localhost:5000/api/teater"),
+        axios.get("https://backend-seven-nu-19.vercel.app/api/nayla/schedule"),
+        axios.get("https://backend-seven-nu-19.vercel.app/api/teater"),
       ]);
 
       const [scheduleResult, theaterResult] = results;

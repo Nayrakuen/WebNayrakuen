@@ -12,7 +12,7 @@ function NaylaProfile() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/mini-profile")
+      .get("https://backend-seven-nu-19.vercel.app/api/mini-profile")
       .then((res) => {
         let content = res.data.content || "";
         content = content.replace(/\\n/g, "\n");

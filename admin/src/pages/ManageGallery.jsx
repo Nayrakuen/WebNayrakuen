@@ -11,7 +11,7 @@ const ManageGallery = () => {
 
   const fetchGallery = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/gallery');
+      const res = await axios.get('https://backend-seven-nu-19.vercel.app/api/gallery');
       setImages(res.data);
     } catch (err) {
       console.error('Gagal ambil data galeri:', err);
@@ -34,7 +34,7 @@ const ManageGallery = () => {
 
     try {
       const uploadRes = await axios.post(
-        'http://localhost:5000/api/gallery/upload',
+        'https://backend-seven-nu-19.vercel.app/api/gallery/upload',
         formData
       );
 
@@ -47,7 +47,7 @@ const ManageGallery = () => {
       }
 
       await axios.post(
-        'http://localhost:5000/api/gallery',
+        'https://backend-seven-nu-19.vercel.app/api/gallery',
         { imageUrl, publicId, folder },
         {
           headers: { 'Content-Type': 'application/json' },
@@ -57,9 +57,9 @@ const ManageGallery = () => {
       setFile(null);
       setFolder('');
       fetchGallery();
-      alert('✅ Upload berhasil!');
+      alert('Upload berhasil!');
     } catch (err) {
-      console.error('❌ Gagal upload:', err.response?.data || err.message);
+      console.error('Gagal upload:', err.response?.data || err.message);
       alert('Upload gagal, cek console.');
     } finally {
       setIsUploading(false);
@@ -68,7 +68,7 @@ const ManageGallery = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/gallery/${id}`);
+      await axios.delete(`https://backend-seven-nu-19.vercel.app/api/gallery/${id}`);
       fetchGallery();
     } catch (err) {
       console.error('Gagal hapus:', err);
