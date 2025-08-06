@@ -24,7 +24,7 @@ function NaylaSchedule() {
 
     const fetchVC = async () => {
       try {
-        const res = await axios.get("hhttps://backend-seven-nu-19.vercel.app/api/vc-schedule");
+        const res = await axios.get("https://backend-seven-nu-19.vercel.app/api/vc-schedule");
         setVcSchedule(res.data);
       } catch (err) {
         console.error("Gagal ambil jadwal VC:", err.message);
@@ -33,14 +33,14 @@ function NaylaSchedule() {
 
     const fetchLive = async () => {
       try {
-        const showroomRes = await axios.get("http://localhost:5000/api/nayla/showroom");
+        const showroomRes = await axios.get("https://backend-seven-nu-19.vercel.app/api/nayla/showroom");
         setShowroom(showroomRes.data);
       } catch (err) {
         setShowroom(null);
       }
 
       try {
-        const idnRes = await axios.get("http://localhost:5000/api/nayla/idnlive");
+        const idnRes = await axios.get("https://backend-seven-nu-19.vercel.app/api/nayla/idnlive");
         setIdnLive(idnRes.data);
       } catch (err) {
         setIdnLive(null);
