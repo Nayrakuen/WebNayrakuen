@@ -106,6 +106,7 @@ const AdminPesan = () => {
       <div className="manage-schedule-content">
         <h2>Review <strong>Video Call</strong></h2>
 
+        {/* Komponen Import Excel */}
         <ImportReviewExcel onSuccess={fetchReviews} />
 
         {reviews.length === 0 ? (

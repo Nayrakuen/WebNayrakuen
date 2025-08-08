@@ -10,7 +10,7 @@ const NewsPreview = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/news');
+        const res = await axios.get('https://backend-seven-nu-19.vercel.app/api/news');
         const sorted = res.data
           .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
           .slice(0, 6);

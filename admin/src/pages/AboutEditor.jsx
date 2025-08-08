@@ -18,13 +18,13 @@ function AboutEditor() {
         setMiniProfile(content);
       });
 
-    axios.get('https://backend-seven-nu-19.vercel.app/api/about-nayla')
+    axios.get('')
       .then(res => {
         const content = (res.data.content || '').replace(/\\n/g, '\n');
         setAboutNayla(content);
       });
 
-    axios.get('https://backend-seven-nu-19.vercel.app/api/tentang-kami')
+    axios.get('')
       .then(res => {
         setTentangKami(res.data.content || '');
         setTentangKamiId(res.data.id);
@@ -36,14 +36,14 @@ function AboutEditor() {
     try {
       if (type === 'mini') {
         const content = miniProfile.replace(/\n/g, '\\n');
-        await axios.put('https://backend-seven-nu-19.vercel.app/api/mini-profile', { content });
+        await axios.put('', { content });
         setMessage({ section: 'mini', text: 'Mini Profile berhasil disimpan!' });
       } else if (type === 'about') {
         const content = aboutNayla.replace(/\n/g, '\\n');
-        await axios.post('https://backend-seven-nu-19.vercel.app/api/about-nayla', { content });
+        await axios.post('', { content });
         setMessage({ section: 'about', text: 'About Nayla berhasil disimpan!' });
       } else if (type === 'kami') {
-        await axios.put(`https://backend-seven-nu-19.vercel.app/api/tentang-kami/${tentangKamiId}`, { content: tentangKami });
+        await axios.put(`/${tentangKamiId}`, { content: tentangKami });
         setMessage({ section: 'kami', text: 'Tentang Kami berhasil disimpan!' });
       }
     } catch {

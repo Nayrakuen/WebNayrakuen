@@ -1,64 +1,46 @@
 import React, { useState } from 'react';
+import * as XLSX from 'xlsx';
 import axios from 'axios';
 
-const BASE_URL = 'https://backend-seven-nu-19.vercel.app/api/admin-pesan';
-
-const ImportReviewExcel = ({ onSuccess }) => {
+const ImportReviewExcel = () => {
   const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState('');
 
-  const handleUpload = async (e) => {
-    e.preventDefault();
+  const handleUpload = async () => {
     if (!file) {
-      alert('Pilih file Excel terlebih dahulu');
+      setStatus('Pilih file terlebih dahulu');
       return;
     }
 
-    const formData = new FormData();
-    formData.append('file', file);
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
-    setLoading(true);
-    try {
-      const res = await axios.post(`${BASE_URL}/import-review-excel`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      alert(res.data.message || 'Upload berhasil');
-      setFile(null);
-      if (onSuccess) onSuccess();
-    } catch (err) {
-      console.error("Gagal import review:", err);
-      const msg = err?.response?.data?.error || 'Gagal import file. Pastikan format Excel berisi kolom: Nama, Review, Rating';
-      alert(msg);
-    } finally {
-      setLoading(false);
-    }
+      try {
+        const response = await axios.post('https://backend-seven-nu-19.vercel.app/api/admin-pesan/import', {
+          data: jsonData,
+        });
+
+        setStatus(response.data.message || 'Berhasil mengimpor');
+      } catch (error) {
+        console.error(error);
+        setStatus('Gagal mengimpor');
+      }
+    };
+
+    reader.readAsArrayBuffer(file);
   };
 
   return (
-    <form onSubmit={handleUpload} style={{ marginBottom: '1rem' }}>
-      <input
-        type="file"
-        accept=".xlsx, .xls"
-        onChange={(e) => setFile(e.target.files[0])}
-        disabled={loading}
-      />
-      {file && <span style={{ marginLeft: '0.5rem' }}>{file.name}</span>}
-      <button
-        type="submit"
-        disabled={loading}
-        style={{
-          marginLeft: '1rem',
-          padding: '0.5rem 1rem',
-          backgroundColor: '#007bff',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-        }}
-      >
-        {loading ? 'Mengupload...' : 'Upload Excel'}
-      </button>
-    </form>
+    <div>
+      <input type="file" accept=".xlsx" onChange={(e) => setFile(e.target.files[0])} />
+      <button onClick={handleUpload}>Import</button>
+      <p>{status}</p>
+    </div>
   );
 };
 
