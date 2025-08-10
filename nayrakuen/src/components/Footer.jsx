@@ -8,7 +8,11 @@ function Footer() {
       <div className="container">
         <div className="footer-top">
           <div className="footer-brand">
-            <img src={logo} alt="Nayrakuen Logo" className="footer-logo-img-large" />
+            <img
+              src={logo}
+              alt="Nayrakuen Logo"
+              className="footer-logo-img-large"
+            />
             <div className="footer-text-block">
               <h4 className="footer-logo-text">Nayrakuen</h4>
               <p className="footer-description">
@@ -33,6 +37,21 @@ function Footer() {
                 <li><a href="https://x.com/Nayrakuen_ID" target="_blank" rel="noopener noreferrer">X / Twitter</a></li>
                 <li><a href="https://www.instagram.com/nayrakuen_id/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                 <li><a href="https://www.tiktok.com/@nayrakuen_id" target="_blank" rel="noopener noreferrer">Tiktok</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-group">
+              <h5>Online Shop</h5>
+              <ul>
+                <li>
+                  <a
+                    href="https://tokopedia.link/dhuGIdtBIVb"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Tokopedia
+                  </a>
+                </li>
               </ul>
             </div>
 
