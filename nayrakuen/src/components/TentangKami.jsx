@@ -41,13 +41,13 @@ function TentangKami() {
 
   const galeriFoto = [
     { src: foto1, caption: "“Happiness on Pizzaland”\n(誕生日のプロジェクト)" },
-    { src: foto2, caption: "“Sweet Seventeen”\n(誕生日のプロジェクト)" },
-    { src: foto3, caption: "“Happiness on Pizzaland”\n(誕生日のプロジェクト)" },
-    { src: foto4, caption: "“Happiness on Pizzaland”\n(誕生日のプロジェクト)" },
-    { src: foto5, caption: "“Happiness on Pizzaland”\n(誕生日のプロジェクト)" },
-    { src: foto6, caption: "“Happiness on Pizzaland”\n(誕生日のプロジェクト)" },
-    { src: foto7, caption: "“Happiness on Pizzaland”\n(誕生日のプロジェクト)" },
-    { src: foto8, caption: "“Happiness on Pizzaland”\n(誕生日のプロジェクト)" },
+    { src: foto2, caption: "“Happiness on Sweet Island”\n(スイートアイランドハピネス)" },
+    { src: foto3, caption: "“Anniversary 1th Nayrakuen”\n(1周年 ナイラの楽園)" },
+    { src: foto4, caption: "“Fun Match Mini Soccer ”\n(ファンマッチミニサッカー)" },
+    { src: foto5, caption: "“Spesial Meet n Greet #KuSangatSuka ”\n(誕生日のプロジェクト)" },
+    { src: foto6, caption: "“Fun Match Mini Soccer ”\n(ファンマッチミニサッカー)" },
+    { src: foto7, caption: "“Offline Gathering with Senayan”\n(Hutan Kota GBKとのスペシャルオフラインミートアップ)" },
+    { src: foto8, caption: "“Spesial Offline Gathering with Ancol Beach”\n(アンチョールビーチとの特別なオフライン集会)" },
   ];
 
   const paragraphs = content ? content.split("\n\n") : [];
