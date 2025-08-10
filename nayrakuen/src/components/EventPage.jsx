@@ -30,12 +30,12 @@ const events = [
     title: "Nayla's Journey",
     poster: poster2,
     description: [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris convallis purus sit amet neque faucibus, et elementum metus dapibus. Vestibulum placerat arcu eu elit pellentesque, vitae maximus justo placerat. Nam lobortis, purus ut gravida consectetur, nunc eros porttitor nunc, volutpat tristique velit lorem ac eros. Pellentesque finibus nisl ut euismod ultrices. Etiam convallis odio mi, et rhoncus velit porttitor id. Integer nec augue ut libero pretium venenatis. Fusce turpis nunc, placerat ut iaculis sit amet, vestibulum maximus erat. Nam sit amet elit dui. Aliquam erat volutpat. Pellentesque condimentum ante lorem, non tincidunt quam aliquet sodales. Nullam lorem leo, euismod vitae libero id, rutrum fermentum tellus.",
-      "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque metus mauris, faucibus et purus volutpat, rutrum elementum est. Phasellus cursus in sem et tempor. Sed sit amet iaculis purus. Integer sit amet placerat ante, id scelerisque turpis. Ut eu dui gravida, faucibus nunc eu, venenatis nunc. Aenean venenatis tempor lectus, consectetur ultrices sem vulputate sed. Maecenas facilisis mi sit amet ipsum porta vulputate. Fusce vel nisl a tellus dignissim suscipit in vitae leo. Aenean feugiat facilisis arcu nec tempus. Aenean sollicitudin nulla in mauris lobortis ullamcorper. Mauris augue libero, placerat vel dignissim porta, euismod ultrices tortor. Suspendisse nisl nisl, porttitor a maximus id, cursus sit amet nibh. Etiam vitae ante augue.",
+      "JourNayla jadi sebuah langkah sekaligus tanda petualangan member JKT48 generasi ke-12, Nayla Suji, yang sedang menciptakan harapan menjadi seorang IDOL.",
+      "Sebuah pijakan awal untuk menggapai mimpi sebagai seorang IDOLA. Pada saat itu, kesempatan Nayla Suji untuk memulai langkahnya diiringi dengan setlist [劇場] AITAKATTA dan kami Nayrakuen akan selalu ada di setiap langkah untuk memberikan semangat dan senyuman.",
     ],
     timeline: [
-      "Bergabung di Nayrakuen sebagai fans awal.",
-      "Mengirim surat dukungan pertama untuk Nayla.",
+      "Diperkenalkan menjadi member traine JKT48 pada tanggal 18 November 2023 di acara Jak Japan Matsuri 2023.",
+      "Kurang dari dua bulan setelah debut tersebut, ia melakukan shonichi untuk setlist Ingin Bertemu pada 1 Maret 2024.",
       "Menghadiri event video call bareng member.",
       "Membuat fanart dan dibagikan di sosial media.",
       "Menonton teater langsung pertama kali.",
