@@ -46,6 +46,14 @@
   margin: 0;
 }
 
+.vc-subtitle {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #444;
+}
+
 .subtitle-icon {
   width: 28px;
   height: 28px;

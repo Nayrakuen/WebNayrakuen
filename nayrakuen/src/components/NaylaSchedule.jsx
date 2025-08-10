@@ -15,8 +15,13 @@ function NaylaSchedule() {
 
     const fetchSchedule = async () => {
       try {
-        const res = await axios.get("https://backend-seven-nu-19.vercel.app/api/nayla/schedule");
-        setShows(res.data);
+        const res = await axios.get(
+          "https://backend-seven-nu-19.vercel.app/api/nayla/schedule"
+        );
+        const sorted = [...res.data].sort(
+          (a, b) => new Date(a.date) - new Date(b.date)
+        );
+        setShows(sorted);
       } catch (err) {
         console.error("Gagal ambil jadwal teater:", err.message);
       }
@@ -24,8 +29,15 @@ function NaylaSchedule() {
 
     const fetchVC = async () => {
       try {
-        const res = await axios.get("https://backend-seven-nu-19.vercel.app/api/vc-schedule");
-        setVcSchedule(res.data);
+        const res = await axios.get(
+          "https://backend-seven-nu-19.vercel.app/api/vc-schedule"
+        );
+        const sortedVC = [...res.data].sort((a, b) => {
+          const dateDiff = new Date(a.tanggal) - new Date(b.tanggal);
+          if (dateDiff !== 0) return dateDiff;
+          return a.sesi - b.sesi;
+        });
+        setVcSchedule(sortedVC);
       } catch (err) {
         console.error("Gagal ambil jadwal VC:", err.message);
       }
@@ -33,16 +45,20 @@ function NaylaSchedule() {
 
     const fetchLive = async () => {
       try {
-        const showroomRes = await axios.get("https://backend-seven-nu-19.vercel.app/api/nayla/showroom");
+        const showroomRes = await axios.get(
+          "https://backend-seven-nu-19.vercel.app/api/nayla/showroom"
+        );
         setShowroom(showroomRes.data);
-      } catch (err) {
+      } catch {
         setShowroom(null);
       }
 
       try {
-        const idnRes = await axios.get("https://backend-seven-nu-19.vercel.app/api/nayla/idnlive");
+        const idnRes = await axios.get(
+          "https://backend-seven-nu-19.vercel.app/api/nayla/idnlive"
+        );
         setIdnLive(idnRes.data);
-      } catch (err) {
+      } catch {
         setIdnLive(null);
       }
     };
@@ -53,8 +69,8 @@ function NaylaSchedule() {
   }, []);
 
   const getTimeRange = (startTime, durationMinutes = 15) => {
-    if (!startTime) return '';
-    const [hour, minute] = startTime.split(':').map(Number);
+    if (!startTime) return "";
+    const [hour, minute] = startTime.split(":").map(Number);
     const date = new Date();
     date.setHours(hour);
     date.setMinutes(minute);
@@ -64,15 +80,31 @@ function NaylaSchedule() {
     end.setMinutes(end.getMinutes() + durationMinutes);
 
     const format = (d) =>
-      `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+      `${String(d.getHours()).padStart(2, "0")}:${String(
+        d.getMinutes()
+      ).padStart(2, "0")}`;
 
     return `${format(start)} - ${format(end)}`;
   };
 
+  const groupedVC = vcSchedule.reduce((acc, item) => {
+    const dateStr = new Date(item.tanggal).toLocaleDateString("id-ID", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+    if (!acc[dateStr]) acc[dateStr] = [];
+    acc[dateStr].push(item);
+    return acc;
+  }, {});
+
   return (
     <div className="schedule-wrapper">
       <div className="schedule-container">
-        <h2 className="schedule-title" data-aos="fade-down">Schedule</h2>
+        <h2 className="schedule-title" data-aos="fade-down">
+          Schedule
+        </h2>
 
         <section className="schedule-section" data-aos="fade-up">
           <div className="subtitle-wrapper">
@@ -103,7 +135,7 @@ function NaylaSchedule() {
                     </td>
                     <td>{item.title}</td>
                     <td>
-                      {item.members && item.members.length > 0 ? (
+                      {item.members?.length > 0 ? (
                         item.members.map((member, i) => (
                           <span key={member.id}>
                             {member.name.toLowerCase() === "nayla" ? (
@@ -120,7 +152,12 @@ function NaylaSchedule() {
                     </td>
                     <td>
                       {item.url ? (
-                        <a href={item.url} target="_blank" rel="noreferrer" className="ticket-link">
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="ticket-link"
+                        >
                           Beli Tiket
                         </a>
                       ) : (
@@ -130,7 +167,11 @@ function NaylaSchedule() {
                   </tr>
                 ))
               ) : (
-                <tr><td colSpan="4" className="text-center">Tidak ada jadwal tampil.</td></tr>
+                <tr>
+                  <td colSpan="4" className="text-center">
+                    Tidak ada jadwal tampil.
+                  </td>
+                </tr>
               )}
             </tbody>
           </table>
@@ -143,36 +184,43 @@ function NaylaSchedule() {
             <img src="/Cam.svg" alt="Icon Cam" className="subtitle-icon" />
           </div>
 
-          <table className="schedule-table videocall-table">
-            <thead>
-              <tr>
-                <th>Sesi</th>
-                <th>Nama</th>
-                <th>Preparation</th>
-                <th>Masuk</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {vcSchedule.length > 0 ? (
-                vcSchedule.map((item) => (
-                  <tr key={item.id}>
-                    <td>{item.sesi}</td>
-                    <td>{item.nama}</td>
-                    <td>{getTimeRange(item.preparation, 15)}</td>
-                    <td>{getTimeRange(item.masuk, 60)}</td>
-                    <td>
-                      <span className={`status-${item.status.toLowerCase()}`}>
-                        {item.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr><td colSpan="5" className="text-center">Belum ada jadwal video call.</td></tr>
-              )}
-            </tbody>
-          </table>
+          {Object.keys(groupedVC).length > 0 ? (
+            Object.keys(groupedVC).map((date) => (
+              <div key={date}>
+                <h4 className="vc-subtitle">{date}</h4>
+                <table className="schedule-table videocall-table">
+                  <thead>
+                    <tr>
+                      <th>Sesi</th>
+                      <th>Nama</th>
+                      <th>Preparation</th>
+                      <th>Masuk</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {groupedVC[date].map((item) => (
+                      <tr key={item.id}>
+                        <td>{item.sesi}</td>
+                        <td>{item.nama}</td>
+                        <td>{getTimeRange(item.preparation, 15)}</td>
+                        <td>{getTimeRange(item.masuk, 60)}</td>
+                        <td>
+                          <span
+                            className={`status-${item.status.toLowerCase()}`}
+                          >
+                            {item.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ))
+          ) : (
+            <p className="text-center">Belum ada jadwal video call.</p>
+          )}
         </section>
 
         <section className="schedule-section" data-aos="fade-up">
@@ -194,7 +242,9 @@ function NaylaSchedule() {
                 </a>
                 <p className="live-title">
                   <strong style={{ color: "red" }}>IDN Live:</strong>{" "}
-                  <span style={{ color: "red", fontWeight: "bold" }}>{idnLive.title}</span>
+                  <span style={{ color: "red", fontWeight: "bold" }}>
+                    {idnLive.title}
+                  </span>
                 </p>
                 <a
                   href={idnLive.url}
@@ -208,8 +258,16 @@ function NaylaSchedule() {
             )}
 
             {showroom && (
-              <a href={showroom?.url || "#"} target="_blank" rel="noreferrer">
-                <img src="/nayla-live.jpg" alt="Showroom Live" className="live-img" />
+              <a
+                href={showroom?.url || "#"}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  src="/nayla-live.jpg"
+                  alt="Showroom Live"
+                  className="live-img"
+                />
               </a>
             )}
             {!idnLive && !showroom && (
