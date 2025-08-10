@@ -330,6 +330,19 @@
   left: -7px;
 }
 
+.coming-soon-box {
+  background: #ccc;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  height: 450px;
+  border-radius: 8px;
+}
+
 @media (max-width: 768px) {
   .timeline-line {
     left: 21.5px;

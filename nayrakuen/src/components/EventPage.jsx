@@ -4,7 +4,6 @@ import "aos/dist/aos.css";
 import "./EventPage.css";
 
 import poster1 from "../assets/Poster.jpeg";
-import poster2 from "../assets/Poster1.jpeg";
 import poster3 from "../assets/Poster2.jpeg";
 import memory1 from "../assets/LINE_ALBUM_Nayla's Birthday Archiv_250720_1.jpg";
 import memory2 from "../assets/LINE_ALBUM_Nayla's Birthday Archiv_250720_2.jpg";
@@ -18,37 +17,35 @@ import memory9 from "../assets/GtvfHbTXgAARi_4.jpeg";
 
 const events = [
   {
-    title: "Happiness on Naylalaland17",
+    title: "Happiness on Sweet Island",
     poster: poster1,
     description: [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris convallis purus sit amet neque faucibus, et elementum metus dapibus. Vestibulum placerat arcu eu elit pellentesque, vitae maximus justo placerat. Nam lobortis, purus ut gravida consectetur, nunc eros porttitor nunc, volutpat tristique velit lorem ac eros. Pellentesque finibus nisl ut euismod ultrices. Etiam convallis odio mi, et rhoncus velit porttitor id. Integer nec augue ut libero pretium venenatis. Fusce turpis nunc, placerat ut iaculis sit amet, vestibulum maximus erat. Nam sit amet elit dui. Aliquam erat volutpat. Pellentesque condimentum ante lorem, non tincidunt quam aliquet sodales. Nullam lorem leo, euismod vitae libero id, rutrum fermentum tellus.",
-      "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque metus mauris, faucibus et purus volutpat, rutrum elementum est. Phasellus cursus in sem et tempor. Sed sit amet iaculis purus. Integer sit amet placerat ante, id scelerisque turpis. Ut eu dui gravida, faucibus nunc eu, venenatis nunc. Aenean venenatis tempor lectus, consectetur ultrices sem vulputate sed. Maecenas facilisis mi sit amet ipsum porta vulputate. Fusce vel nisl a tellus dignissim suscipit in vitae leo. Aenean feugiat facilisis arcu nec tempus. Aenean sollicitudin nulla in mauris lobortis ullamcorper. Mauris augue libero, placerat vel dignissim porta, euismod ultrices tortor. Suspendisse nisl nisl, porttitor a maximus id, cursus sit amet nibh. Etiam vitae ante augue.",
+      "Sebuah Perayaan untuk menyambut Ulang Tahun Nayla Suji yang ke 17th",
+      "Dalam terjemahan bahasa Indonesia bisa disebut Kebahagiaan di Pulau Manis Kebahagiaan disini tidak hanya kebahagiaan yang sementara saja, tetapi juga kami berharap sebuah kebahagian yang abadi. Seperti yang dirasakan ketika berada di tempat yang sempurna dan penuh cinta.",
+      "Semoga Nayla dapat menemukan kebahagiaan ini di setiap aspek kehidupannya, dan merasakan manisnya hidup di Pulau Manis.",
+      "Maka dari itu, Kami menggunakan Hastag #SweetNaylalalan17",
     ],
     memories: [memory1, memory2, memory3, memory4],
-  },
-  {
-    title: "Nayla's Journey",
-    poster: poster2,
-    description: [
-      "JourNayla jadi sebuah langkah sekaligus tanda petualangan member JKT48 generasi ke-12, Nayla Suji, yang sedang menciptakan harapan menjadi seorang IDOL.",
-      "Sebuah pijakan awal untuk menggapai mimpi sebagai seorang IDOLA. Pada saat itu, kesempatan Nayla Suji untuk memulai langkahnya diiringi dengan setlist [劇場] AITAKATTA dan kami Nayrakuen akan selalu ada di setiap langkah untuk memberikan semangat dan senyuman.",
-    ],
-    timeline: [
-      "Diperkenalkan menjadi member traine JKT48 pada tanggal 18 November 2023 di acara Jak Japan Matsuri 2023.",
-      "Kurang dari dua bulan setelah debut tersebut, ia melakukan shonichi untuk setlist Ingin Bertemu pada 1 Maret 2024.",
-      "Menghadiri event video call bareng member.",
-      "Membuat fanart dan dibagikan di sosial media.",
-      "Menonton teater langsung pertama kali.",
-    ],
   },
   {
     title: "Happiness Slice on Pizzaland",
     poster: poster3,
     description: [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris convallis purus sit amet neque faucibus, et elementum metus dapibus. Vestibulum placerat arcu eu elit pellentesque, vitae maximus justo placerat. Nam lobortis, purus ut gravida consectetur, nunc eros porttitor nunc, volutpat tristique velit lorem ac eros. Pellentesque finibus nisl ut euismod ultrices. Etiam convallis odio mi, et rhoncus velit porttitor id. Integer nec augue ut libero pretium venenatis. Fusce turpis nunc, placerat ut iaculis sit amet, vestibulum maximus erat. Nam sit amet elit dui. Aliquam erat volutpat. Pellentesque condimentum ante lorem, non tincidunt quam aliquet sodales. Nullam lorem leo, euismod vitae libero id, rutrum fermentum tellus.",
-      "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque metus mauris, faucibus et purus volutpat, rutrum elementum est. Phasellus cursus in sem et tempor. Sed sit amet iaculis purus. Integer sit amet placerat ante, id scelerisque turpis. Ut eu dui gravida, faucibus nunc eu, venenatis nunc. Aenean venenatis tempor lectus, consectetur ultrices sem vulputate sed. Maecenas facilisis mi sit amet ipsum porta vulputate. Fusce vel nisl a tellus dignissim suscipit in vitae leo. Aenean feugiat facilisis arcu nec tempus. Aenean sollicitudin nulla in mauris lobortis ullamcorper. Mauris augue libero, placerat vel dignissim porta, euismod ultrices tortor. Suspendisse nisl nisl, porttitor a maximus id, cursus sit amet nibh. Etiam vitae ante augue.",
+      "Sebuah Perayaan untuk menyambut Ulang Tahun Nayla Suji yang ke 18th",
+      "Di antara harum keju yang meleleh dan adonan yang menari di udara, Nayla menemukan kebahagiaan dalam hal sederhana yakni sepotong pizza. Bukan hanya sekedar rasanya yang lezat ataupun topping nya yang beragam, tapi karena tiap gigitan pizza yang ia makan mengingatkan nya pada tawa, keluarga, dan momen yang sederhana tapi membahagiakan.",
+      "Kini di usia nya yang ke-18, kami ingin merayakan kebahagiaan sederhana itu dalam tema Happiness Slice on Pizzaland. Nayla, sang chef kecil, meracik adonan kebahagiaan nya sendiri dari remah-remah kasih sayang, taburan bumbu tawa sahabatnya dan juga lapisan cinta keluarga.",
+      "Selamat datang di #HappinessNaylalaland18🍕, sebuah perayaan hangat dan sederhana, karena hidup bukan hanya soal momen besar, tapi soal potongan-potongan kecil kebahagiaan, satu gigitan pada satu waktu.",
     ],
     memories: [memory5, memory6, memory7, memory8, memory9],
+  },
+  {
+    title: "Coming Soon",
+    poster: "COMING_SOON",
+    description: [
+      "",
+      "",
+    ],
+    memories: [],
   },
 ];
 
@@ -69,7 +66,6 @@ const EventPage = () => {
       setFadeIn(true);
       AOS.refresh();
     }, 100);
-
     return () => clearTimeout(timeout);
   }, [selectedEvent]);
 
@@ -88,7 +84,9 @@ const EventPage = () => {
   return (
     <div className="event-wrapper">
       <div className="event-container">
-        <h2 className="event-heading" data-aos="fade-down">Spesial Event</h2>
+        <h2 className="event-heading" data-aos="fade-down">
+          Spesial Event
+        </h2>
 
         <div className="event-tabs">
           {events.map((_, index) => (
@@ -113,42 +111,59 @@ const EventPage = () => {
           </div>
 
           <div className="event-body">
-            <img src={current.poster} alt="Poster" className="event-poster" />
-            <div className="event-text">
-              <p>{current.description[0]}</p>
-              <div className={`fade-text ${showFullText ? "show" : ""}`}>
-                <p>{current.description[1]}</p>
+            {current.poster === "COMING_SOON" ? (
+              <div
+                className="event-poster coming-soon-box"
+                style={{
+                  backgroundColor: "#ccc",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#555",
+                  fontSize: "1.5rem",
+                  fontWeight: "bold",
+                  minHeight: "400px",
+                  borderRadius: "8px",
+                }}
+              >
+                COMING SOON
               </div>
-              <button className="see-more-btn" onClick={toggleText}>
-                {showFullText ? "Tutup" : "Lihat Selengkapnya"}
-              </button>
+            ) : (
+              current.poster && (
+                <img
+                  src={current.poster}
+                  alt="Poster"
+                  className="event-poster"
+                  data-aos="zoom-in"
+                />
+              )
+            )}
+
+            <div className="event-text">
+              {current.description.slice(0, 2).map((desc, i) => (
+                <p key={i}>{desc}</p>
+              ))}
+
+              <div className={`fade-text ${showFullText ? "show" : ""}`}>
+                {current.description.slice(2).map((desc, i) => (
+                  <p key={i + 2}>{desc}</p>
+                ))}
+              </div>
+
+              {current.description.length > 2 && (
+                <button className="see-more-btn" onClick={toggleText}>
+                  {showFullText ? "Tutup" : "Lihat Selengkapnya"}
+                </button>
+              )}
             </div>
           </div>
         </div>
 
-        {current.timeline ? (
+        {current.memories.length > 0 && (
           <div className="gallery-section">
-            <h2 className="event-heading" data-aos="fade-down">Timeline</h2>
-            <div className="timeline-text">
-              <div className="timeline-line" />
-              {current.timeline.map((text, i) => (
-                <div
-                  className={`timeline-text-item ${i % 2 === 0 ? "left" : "right"}`}
-                  key={i}
-                  data-aos="fade-up"
-                  data-aos-delay={i * 100}
-                >
-                  <div className="timeline-circle" />
-                  <div className="timeline-text-content">
-                    <p>{text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="gallery-section">
-            <h2 className="event-heading" data-aos="fade-down">Memories</h2>
+            <h2 className="event-heading" data-aos="fade-down">
+              Memories
+            </h2>
             <div className="masonry-gallery">
               {current.memories.map((img, i) => (
                 <div
@@ -169,7 +184,9 @@ const EventPage = () => {
       {modalOpen && (
         <div className="image-modal" onClick={closeModal}>
           <img src={modalImage} alt="Zoomed" />
-          <span className="close-button" onClick={closeModal}>&times;</span>
+          <span className="close-button" onClick={closeModal}>
+            &times;
+          </span>
         </div>
       )}
     </div>
