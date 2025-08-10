@@ -69,6 +69,20 @@
   transform: scale(1.03);
 }
 
+.load-more-text {
+  text-align: right;
+  margin-top: 8px;
+  font-weight: 600;
+  color: #800000;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.load-more-text:hover {
+  color: #a52a2a;
+  text-decoration: underline;
+}
+
 @media (max-width: 992px) {
   .masonry-gallery {
     column-count: 2;
