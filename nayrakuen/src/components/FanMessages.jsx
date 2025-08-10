@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "./FanMessages.css";
 import bgImage from "../assets/bg.png";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import reviewsData from "../data/review.json";
 
 const FanMessages = () => {
   const [reviews, setReviews] = useState([]);
@@ -10,40 +10,31 @@ const FanMessages = () => {
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    fetchReviews();
+    setReviews(reviewsData.reverse());
   }, []);
-
-  const fetchReviews = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/admin-pesan/review-vc");
-      setReviews(res.data.reverse());
-    } catch (err) {
-      console.error("❌ Gagal ambil review VC:", err);
-    }
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.from.trim() || !formData.message.trim() || formData.rating === 0) return;
 
-    try {
-      await axios.post("http://localhost:5000/api/admin-pesan/fans-message", {
-        name: formData.from,
-        message: formData.message,
-        rating: formData.rating,
-      });
+    const newMessage = {
+      nama: formData.from,
+      review: formData.message,
+      rating: formData.rating,
+    };
 
-      setFormData({ from: "", message: "", rating: 0 });
-      setShowForm(false);
-      fetchReviews();
-    } catch (err) {
-      console.error("❌ Gagal kirim pesan fans:", err);
-    }
+    setReviews((prev) => [newMessage, ...prev]);
+
+    const savedMessages = JSON.parse(localStorage.getItem("fansMessages") || "[]");
+    localStorage.setItem("fansMessages", JSON.stringify([newMessage, ...savedMessages]));
+
+    setFormData({ from: "", message: "", rating: 0 });
+    setShowForm(false);
   };
 
   return (
