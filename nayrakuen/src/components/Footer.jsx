@@ -52,6 +52,15 @@ function Footer() {
                     Tokopedia
                   </a>
                 </li>
+                <li>
+                  <a
+                    href="https://shopee.co.id/nayrakuen_shop"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Shopee
+                  </a>
+                </li>
               </ul>
             </div>
 

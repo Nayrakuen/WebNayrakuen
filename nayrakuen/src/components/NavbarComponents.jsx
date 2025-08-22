@@ -7,7 +7,7 @@ import Image from 'react-bootstrap/Image';
 import { Link, useLocation } from 'react-router-dom';
 import './NavbarComponents.css';
 
-function ContainerInsideExample({ language, setLanguage }) {
+function ContainerInsideExample() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 992);
   const [expanded, setExpanded] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -78,20 +78,16 @@ function ContainerInsideExample({ language, setLanguage }) {
             <div className="d-flex align-items-center mt-2 mt-lg-0">
               <Image
                 src="/Indonesia.jpg"
-                alt="ID"
+                alt="Indonesia Flag"
                 width={30}
                 height={20}
                 className="me-2"
-                style={{ cursor: 'pointer' }}
-                onClick={() => setLanguage('id')}
               />
               <Image
                 src="/Japan.jpg"
-                alt="JP"
+                alt="Japan Flag"
                 width={30}
                 height={20}
-                style={{ cursor: 'pointer' }}
-                onClick={() => setLanguage('jp')}
               />
             </div>
 

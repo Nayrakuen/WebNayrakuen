@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import NavbarComponent from './components/NavbarComponents';
 import LoadingScreen from './components/LoadingScreen';
 import Home from './components/Home';
-// import NewsDetail from './components/NewsDetail';
+import NewsDetail from './components/NewsDetail';
 import Schedule from './components/NaylaSchedule';
 import AboutNayla from './components/AboutNayla';
 import Gallery from './components/Gallery';
@@ -66,7 +66,7 @@ function AppWrapper() {
 
       <Routes>
         <Route path="/" element={<Home t={t} language={language} />} />
-        {/* <Route path="/news/:id" element={<NewsDetail />} /> */}
+        <Route path="/news/:id" element={<NewsDetail />} />
         <Route path="/schedule" element={<Schedule t={t} />} />
         <Route path="/about-nayla" element={<AboutNayla t={t} />} />
         <Route path="/gallery" element={<Gallery t={t} />} />

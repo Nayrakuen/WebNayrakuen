@@ -13,7 +13,7 @@ const Home = ({ t, language }) => {
     <>
       <HeroClouds />
       <NaylaProfile />
-      {/* <NewsPreview /> */}
+      <NewsPreview />
       <EventCard t={t} language={language} />
       <TheaterSchedule />
       <NayArt t={t} />
