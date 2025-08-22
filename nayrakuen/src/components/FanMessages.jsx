@@ -88,7 +88,7 @@ const FanMessages = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    placeholder="Tulis pesan hangatmu setelah bertemu Nayla..."
+                    placeholder="Tulis perasaan mu kepada nayla disini"
                     rows={4}
                   />
 
