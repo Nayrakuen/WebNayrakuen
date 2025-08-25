@@ -4,6 +4,10 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import "./NaylaSchedule.css";
 
+const api = axios.create({
+  validateStatus: () => true,
+});
+
 function NaylaSchedule() {
   const [shows, setShows] = useState([]);
   const [vcSchedule, setVcSchedule] = useState([]);
@@ -14,51 +18,51 @@ function NaylaSchedule() {
     AOS.init({ duration: 800, once: true });
 
     const fetchSchedule = async () => {
-      try {
-        const res = await axios.get(
-          "https://backend-seven-nu-19.vercel.app/api/nayla/schedule"
-        );
+      const res = await api.get(
+        "https://backend-seven-nu-19.vercel.app/api/nayla/schedule"
+      );
+      if (res.status === 200) {
         const sorted = [...res.data].sort(
           (a, b) => new Date(a.date) - new Date(b.date)
         );
         setShows(sorted);
-      } catch (err) {
-        console.error("Gagal ambil jadwal teater:", err.message);
+      } else {
+        setShows([]);
       }
     };
 
     const fetchVC = async () => {
-      try {
-        const res = await axios.get(
-          "https://backend-seven-nu-19.vercel.app/api/vc-schedule"
-        );
+      const res = await api.get(
+        "https://backend-seven-nu-19.vercel.app/api/vc-schedule"
+      );
+      if (res.status === 200) {
         const sortedVC = [...res.data].sort((a, b) => {
           const dateDiff = new Date(a.tanggal) - new Date(b.tanggal);
           if (dateDiff !== 0) return dateDiff;
           return a.sesi - b.sesi;
         });
         setVcSchedule(sortedVC);
-      } catch (err) {
-        console.error("Gagal ambil jadwal VC:", err.message);
+      } else {
+        setVcSchedule([]);
       }
     };
 
     const fetchLive = async () => {
-      try {
-        const showroomRes = await axios.get(
-          "https://backend-seven-nu-19.vercel.app/api/nayla/showroom"
-        );
+      const showroomRes = await api.get(
+        "https://backend-seven-nu-19.vercel.app/api/nayla/showroom"
+      );
+      if (showroomRes.status === 200) {
         setShowroom(showroomRes.data);
-      } catch {
+      } else {
         setShowroom(null);
       }
 
-      try {
-        const idnRes = await axios.get(
-          "https://backend-seven-nu-19.vercel.app/api/nayla/idnlive"
-        );
+      const idnRes = await api.get(
+        "https://backend-seven-nu-19.vercel.app/api/nayla/idnlive"
+      );
+      if (idnRes.status === 200) {
         setIdnLive(idnRes.data);
-      } catch {
+      } else {
         setIdnLive(null);
       }
     };
@@ -258,11 +262,7 @@ function NaylaSchedule() {
             )}
 
             {showroom && (
-              <a
-                href={showroom?.url || "#"}
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href={showroom?.url || "#"} target="_blank" rel="noreferrer">
                 <img
                   src="/nayla-live.jpg"
                   alt="Showroom Live"
