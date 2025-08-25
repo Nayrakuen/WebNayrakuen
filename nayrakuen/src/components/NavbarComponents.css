@@ -2,10 +2,23 @@
   background-color: #800000;
 }
 
+.navbar-maroon .container-fluid {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+.navbar-maroon .navbar-brand {
+  margin-left: 0.25rem;
+}
+
 .navbar-maroon .nav-link {
   color: white !important;
   padding: 0.5rem 1rem;
   font-weight: 500;
+}
+
+.navbar-maroon .navbar-nav {
+  gap: 0.3rem;
 }
 
 .navbar-maroon .nav-link:hover,
@@ -93,5 +106,20 @@
 
   .navbar-maroon .dropdown-toggle::after {
     display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-maroon .container-fluid {
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+  }
+
+  .navbar-maroon .navbar-brand {
+    margin-left: 0.5rem;
+  }
+
+  .navbar-maroon .navbar-nav {
+    gap: 0.5rem;
   }
 }

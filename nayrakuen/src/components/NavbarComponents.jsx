@@ -14,10 +14,7 @@ function ContainerInsideExample() {
   const location = useLocation();
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 992);
-    };
-
+    const handleResize = () => setIsDesktop(window.innerWidth >= 992);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -31,7 +28,6 @@ function ContainerInsideExample() {
   return (
     <Navbar expand="lg" fixed="top" className="navbar-maroon" expanded={expanded}>
       <Container fluid className="px-4">
-        
         <Navbar.Brand as={Link} to="/" className="text-white fw-bold">
           Nayrakuen | ナイラの楽園
         </Navbar.Brand>
@@ -44,7 +40,7 @@ function ContainerInsideExample() {
 
         <Navbar.Collapse id="responsive-navbar-nav">
           <div className="w-100 d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center">
-            
+
             {isDesktop ? (
               <Nav>
                 <NavDropdown
@@ -62,6 +58,13 @@ function ContainerInsideExample() {
                   <NavDropdown.Divider />
                   <NavDropdown.Item as={Link} to="/tentang-kami">Tentang Kami</NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/struktur-nayrakuen">Struktur Nayrakuen</NavDropdown.Item>
+                  <NavDropdown.Item
+                    href="https://t.co/bgHI5oUHAU"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Our Links
+                  </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             ) : (
@@ -72,23 +75,20 @@ function ContainerInsideExample() {
                 <Nav.Link as={Link} to="/about-nayla" onClick={() => setExpanded(false)}>Tentang Nayla</Nav.Link>
                 <Nav.Link as={Link} to="/tentang-kami" onClick={() => setExpanded(false)}>Tentang Kami</Nav.Link>
                 <Nav.Link as={Link} to="/struktur-nayrakuen" onClick={() => setExpanded(false)}>Struktur Nayrakuen</Nav.Link>
+                <Nav.Link
+                  href="https://t.co/bgHI5oUHAU"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setExpanded(false)}
+                >
+                  Our Links
+                </Nav.Link>
               </Nav>
             )}
 
             <div className="d-flex align-items-center mt-2 mt-lg-0">
-              <Image
-                src="/Indonesia.jpg"
-                alt="Indonesia Flag"
-                width={30}
-                height={20}
-                className="me-2"
-              />
-              <Image
-                src="/Japan.jpg"
-                alt="Japan Flag"
-                width={30}
-                height={20}
-              />
+              <Image src="/Indonesia.jpg" alt="Indonesia Flag" width={30} height={20} className="me-2"/>
+              <Image src="/Japan.jpg" alt="Japan Flag" width={30} height={20}/>
             </div>
 
           </div>
