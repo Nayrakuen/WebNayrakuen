@@ -1,15 +1,25 @@
-import React from 'react';
-import Sidebar from '../components/Sidebar';
-import './Dashboard.css';
+import React, { useEffect } from "react";
+import Sidebar from "../components/Sidebar";
+import "./Dashboard.css";
 
-const Dashboard = () => {
+function Dashboard() {
+  useEffect(() => {
+    document.title = "Nayrakuen - Dashboard Admin";
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/login";
+    }
+  }, []);
+
   return (
     <div>
       <Sidebar />
       <div className="dashboard-content">
-        <h1>Dashboard Admin</h1>
-        <p>Selamat datang di panel admin Nayrakuen. Gunakan menu di samping untuk mengelola konten.</p>
-
+        <h1>Welcome Admin</h1>
+        <p>
+          Selamat datang di panel admin Nayrakuen. Gunakan menu di samping untuk
+          mengelola konten.
+        </p>
         <div className="dashboard-cards">
           <div className="dashboard-card">
             <h3>Jumlah Jadwal VC</h3>
@@ -27,6 +37,6 @@ const Dashboard = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Dashboard;
